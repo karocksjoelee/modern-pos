@@ -7,7 +7,7 @@ var debug = require('debug')('myc-ena:server');
 var http = require('http');
 const cm = require('../utility/common-module');
 const mongoose = require('mongoose');
-const mongodbURI = 'localhost:27017/myc-ena';
+const mongodbURI = 'localhost:27017/modern-pos';
 const chalk = require('chalk');
 const figlet = require('figlet');
 
