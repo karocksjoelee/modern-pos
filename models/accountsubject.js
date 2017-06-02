@@ -2,10 +2,10 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let AccountSubject = new Schema({
-  subjectname : {type:String, unique : true},
-  subjecteng : {type:String, unique : true},
-  subjecttype: {type:String, unique : true},
-  bar_code : {type:String, unique : true},
+  subjectName : { type:String, unique : true },
+  subjectEng : { type:String, unique : true },
+  subjectType: String,
+  barcode : { type:String, unique : true },
   unit : String,
   main : Boolean,
   description : String

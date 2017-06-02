@@ -2,13 +2,13 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let Sales = new Schema({
-  order_date : {type : Date, unique : true},
-  buyer : {type : String, unique : true},
+  orderDate : Date,
+  buyer : { type: mongoose.Schema.Types.ObjectId , ref: 'Member' },
   phone : String,
-  serve_way : String,
-  deliver_date_time : Date,
-  deliver_building_address : String,
-  item : Array,
+  serveWay : String,
+  deliverDateTime : Date,
+  deliverBuildingAddress : String,
+  items : Array,
   tags : Array,
   Total : Number,
   Note : String,

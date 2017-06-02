@@ -3,14 +3,14 @@ let Schema = mongoose.Schema;
 
 
 let Item = new Schema({
-  name : {type:String, unique : true},
-  category : {type:String, unique : true},
-  bar_code : {type:String, unique : true},
+  name : { type:String, unique : true },
+  category : String,
+  barcode : { type:String, unique : true },
   price : Number,
   unit : String,
   image : String,
-  Calorie : String,
-  ingredient : String,
+  calorie : String,
+  ingredient : { type: mongoose.Schema.Types.ObjectId , ref: 'accountSubject' },
   description : String,
   active : Boolean
 });

@@ -3,9 +3,9 @@ let Schema = mongoose.Schema;
 
 let Accounting = new Schema({
   date : Date,
-  subject : String,
+  accountSubject : {type: mongoose.Schema.Types.ObjectId , ref: 'AccountSubject'},
   unit : String,
-  account : String
+  amount : Number
 });
 
 mongoose.model('Accounting', Accounting);
