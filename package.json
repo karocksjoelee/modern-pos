@@ -42,7 +42,6 @@
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
-    "angular/cli": "^1.0.3",
     "codelyzer": "~2.0.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.4",
