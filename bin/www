@@ -1,0 +1,117 @@
+#!/usr/bin/env node
+
+// Module Dependencies .
+// ==========================================================================================
+var app = require('../middleware');
+var debug = require('debug')('myc-ena:server');
+var http = require('http');
+const cm = require('../utility/common-module');
+const mongoose = require('mongoose');
+const mongodbURI = 'localhost:27017/myc-ena';
+const chalk = require('chalk');
+const figlet = require('figlet');
+
+
+// HTTP Server Setup .
+// ==========================================================================================
+const port = normalizePort(process.env.PORT || '7500');
+app.set('port', port);
+
+const server = http.createServer(app).listen(port, (req, res) => {
+  console.log(chalk.green(figlet.textSync('MYC-ENA', { horizontalLayout:'full' })));
+  cm.logSuc(`[SERVER] Running at ${port}`);
+});
+
+server.on('error', (error) => {
+
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+
+});
+
+server.on('listening', () => {
+
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+
+});
+
+// MongoDB Connection
+// ==========================================================================================
+mongoose.connect(mongodbURI);
+
+// When successfully connected
+mongoose.connection.on('connected', () => {
+  cm.logSuc(`[MONGO-DB] Mongoose Connection : ${mongodbURI}`);
+});
+
+// If the connection throws an error
+mongoose.connection.on('error', (err) => {
+  
+  if(err == 'MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]'){
+    cm.logErr(`[MONGO-DB] Not Connected`);
+  }else{
+    cm.logErr(`[MONGO-DB] MongoDB Connection Error : ${err}`);
+  }
+  
+});
+
+// Socket.io Connection
+// ==========================================================================================
+const socketio = require('socket.io')(server);
+
+socketio.on('connection' , (socket) => {
+
+  cm.logSuc('[SOCKET.IO] User Connected !');
+
+  socket.on('disconnect' , () => {
+    cm.logWarn('[SOCKET.IO] User Disconnected !');
+  });
+
+  socket.on('add-message', (message) => {
+    socketio.emit('message', { type: 'new-message', text: message });
+  });
+
+
+}); // end of socket connection 
+
+
+// Normalize a port into a number, string, or false.
+function normalizePort(val) {
+  
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+
+}
+
+
+
