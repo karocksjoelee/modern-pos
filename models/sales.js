@@ -10,10 +10,10 @@ let Sales = new Schema({
   deliverBuildingAddress : String,
   items : Array,
   tags : Array,
-  Total : Number,
-  Note : String,
-  Weather : String,
-  Tempture : String
+  total : Number,
+  note : String,
+  weather : String,
+  tempture : String
 });
 
 mongoose.model('Sales', Sales);
