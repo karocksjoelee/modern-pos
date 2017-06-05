@@ -10,7 +10,7 @@ html{
 	position: relative;
 	margin: auto;
 	height: 375px;
-  top: 40px;
+    top: 40px;
 	left: 0;
 	z-index: 200;
 	right: 0;
@@ -18,18 +18,19 @@ html{
 	color:#666;
 	border-radius: 3px;
 	background: #FFF;
-  margin-bottom: 100px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  overflow: hidden;
+    margin-bottom: 100px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    overflow: hidden;
 }
 
 
 .box h1{
-  margin-left: 40px;
-  padding-bottom: 30px;
+    margin-left: 40px;
+    padding-bottom: 30px;
+    padding-top: 20px;
 	font-size:25px;
-  font-weight: 300;
-  color: #455A64;
+    font-weight: 300;
+    color: #455A64;
 }
 
 .box button{
