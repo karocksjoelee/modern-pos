@@ -1,9 +1,9 @@
 <!-- Nav Header -->
-<header class="navheader">
+<!--<header class="navheader">-->
   <!--Menu Button -->
-  <span (click)="openNav()">&#9776;</span>
+  <!--<span (click)="openNav()">&#9776;</span>-->
   <!-- Sidebar -->
-  <div id="mySidenav" class="sidenav">
+  <!--<div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
     <a [routerLink]="['']">營運資訊</a>
     <a [routerLink]="['items']">餐點管理</a>
@@ -14,8 +14,60 @@
     <a [routerLink]="['sales']">銷售分析</a>
     <a [routerLink]="['finance']">財務分析</a>
   </div>
-</header>
+</header>-->
 
-<div id="main">
+<!--<div id="main">
   <router-outlet></router-outlet>
-</div>
+</div>-->
+ <div id="wrapper" [ngClass]="{'toggled': toggle }">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">Modern POS</a>
+                </li>
+                <li>
+                    <a [routerLink]="['op-info']">營運資訊</a>
+                </li>
+                <li>
+                    <a [routerLink]="['items']">餐點管理</a>
+                </li>
+                <li>
+                    <a [routerLink]="['members']">會員管理</a>
+                </li>
+                <li>
+                    <a [routerLink]="['preorder']">預訂訂單</a>
+                </li>
+                <li>
+                    <a [routerLink]="['onsite']">現場點單</a>
+                </li>
+                <li>
+                    <a [routerLink]="['accounting']">帳務紀錄</a>
+                </li>
+                <li>
+                   <a [routerLink]="['sales']">銷售分析</a>
+                </li>
+                <li>
+                   <a [routerLink]="['finance']">財務分析</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <span class="toggler" (click)="sidebarToggle()">&#9776;</span>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+

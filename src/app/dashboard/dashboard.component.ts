@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,19 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  private nativeElement: Node;
+  private toggle: Boolean = true;
+
   constructor() { }
 
-  openNav() {
-    document.getElementById('mySidenav').style.width = '180px';
-    document.getElementById('main').style.marginLeft = '180px';
-  }
-
-  closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('main').style.marginLeft = '0';
-  }
-
   ngOnInit() {
+
   }
+
+  sidebarToggle() {
+    this.toggle = !this.toggle;
+  }
+
+
+
 
 }

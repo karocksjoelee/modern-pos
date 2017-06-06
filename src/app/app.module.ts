@@ -12,7 +12,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, children: [
-    { path: '', loadChildren: './operation-info/operation-info.module#OperationInfoModule' },
+    { path: '' , redirectTo: 'op-info' , pathMatch: 'full'},
+    { path: 'op-info', loadChildren: './operation-info/operation-info.module#OperationInfoModule' },
     { path: 'items', loadChildren: './item-mgt/item-mgt.module#ItemMgtModule' },
     { path: 'members', loadChildren: './member-mgt/member-mgt.module#MemberMgtModule' },
     { path: 'preorder', loadChildren: './pre-order/pre-order.module#PreOrderModule' },
