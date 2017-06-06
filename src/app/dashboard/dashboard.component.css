@@ -1,65 +1,3 @@
-/*#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #455A64;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 10px 10px 10px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #f1f1f1;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover, .offcanvas a:focus {
-    color: #00B0FF;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-.navheader {
-  position: relative;
-  flex-direction: row;
-  height: 45px;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #cfd8dc;
-}
-
-.navheader span {
-    font-size: 30px;
-    cursor:pointer;
-    margin-left: 25px;
-    color: #B0BEC5;
-}*/
-
-
 /*!
  * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -196,6 +134,6 @@
 .toggler {
     font-size: 30px;
     cursor:pointer;
-    margin-left: 25px;
+    margin-left: 33px;
     color: #B0BEC5;
 }
