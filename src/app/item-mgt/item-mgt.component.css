@@ -7,3 +7,14 @@
 .font-fix {
   margin: 5px;
 }
+
+.container {
+  display: inline-flex;
+}
+
+.card {
+  margin: 15px;
+}
+
+
+

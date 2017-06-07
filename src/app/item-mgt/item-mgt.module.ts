@@ -7,6 +7,7 @@ import { ItemCreateComponent } from './item-create/item-create.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { MealsetCreateComponent } from './mealset-create/mealset-create.component';
 import { MealsetDetailComponent } from './mealset-detail/mealset-detail.component';
+import { ItemMgtService } from './item-mgt.service';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TabsModule.forRoot()
   ],
-  declarations: [ItemMgtComponent, ItemCreateComponent, ItemDetailComponent, MealsetCreateComponent, MealsetDetailComponent]
+  declarations: [ItemMgtComponent, ItemCreateComponent, ItemDetailComponent, MealsetCreateComponent, MealsetDetailComponent],
+  providers: [ItemMgtService]
 })
 export class ItemMgtModule { }
 
