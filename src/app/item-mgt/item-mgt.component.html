@@ -1,8 +1,8 @@
 <div class="tab-wrapper">
   <tabset type="pills" [justified]="true">
-    <tab class="font-fix" heading="餐　　　　點">
-      <div class="d-flex justify-content-start">
-        <div class="card" style="width: 35rem;" *ngFor="let item of items">
+    <tab heading="餐　　　　點">
+      <div class="row">
+        <div class="card col-md-5 col-centered" *ngFor="let item of items">
           <img class="card-img-top" src="..." alt="item-image">
           <div class="card-block">
             <h4 class="card-title" style="font-weight:bold"> {{ item.name }} </h4>
@@ -13,8 +13,8 @@
       </div>
     </tab>
     <tab heading="套　　　　餐">
-      <div class="d-flex justify-content-start">
-        <div class="card" style="width: 35rem;" *ngFor="let mealset of mealsets">
+      <div class="row">
+        <div class="card col-md-5 col-centered" *ngFor="let mealset of mealsets">
           <img class="card-img-top" src="..." alt="mealset-image">
           <div class="card-block">
             <h4 class="card-title" style="font-weight:bold"> {{ mealset.setName }} </h4>
