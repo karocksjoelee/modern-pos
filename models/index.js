@@ -12,6 +12,7 @@ require('./marketingprogram');
 require('./mealset');
 require('./member');
 require('./sales');
+require('./manager');
 
 exports.Accounting = mongoose.model('Accounting');
 exports.AccountSubject = mongoose.model('AccountSubject');
@@ -21,3 +22,4 @@ exports.MarketingProgram = mongoose.model('MarketingProgram');
 exports.MealSet = mongoose.model('MealSet');
 exports.Member = mongoose.model('Member');
 exports.Sales = mongoose.model('Sales');
+exports.Manager = mongoose.model('Manager');
