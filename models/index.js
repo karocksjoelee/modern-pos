@@ -1,23 +1,23 @@
 let mongoose = require('mongoose');
-let cm = require(../utility/common-module);
-mongoose.connect('localhost:27017/modern-pos', function(err) {
+let cm = require('../utility/common-module');
+mongoose.connect('localhost:27017/modern-pos', function (err) {
   cm.logErr(err);
 });
 
-require(./accounting);
-require(./accountsubject);
-require(./buildings);
-require(./item);
-require(./marketingprogram);
-require(./mealset);
-require(./member);
-require(./sales);
+require('./accounting');
+require('./accountsubject');
+require('./buildings');
+require('./item');
+require('./marketingprogram');
+require('./mealset');
+require('./member');
+require('./sales');
 
-export.Accounting = mongoose.model('Accounting');
-export.AccountSubject = mongoose.model('AccountSubject');
-export.Buildings = mongoose.model('Buildings');
-export.Item = mongoose.model('Item');
-export.MarketingProgram = mongoose.model('MarketingProgram');
-export.MealSet = mongoose.model('MealSet');
-export.Member = mongoose.model('Member');
-export.Sales = mongoose.model('Sales');
+exports.Accounting = mongoose.model('Accounting');
+exports.AccountSubject = mongoose.model('AccountSubject');
+exports.Buildings = mongoose.model('Buildings');
+exports.Item = mongoose.model('Item');
+exports.MarketingProgram = mongoose.model('MarketingProgram');
+exports.MealSet = mongoose.model('MealSet');
+exports.Member = mongoose.model('Member');
+exports.Sales = mongoose.model('Sales');
