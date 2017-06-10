@@ -30,6 +30,7 @@
     "figlet": "^1.2.0",
     "jade": "~1.11.0",
     "jshint": "^2.9.4",
+    "material-components-web": "^0.12.1",
     "mongoose": "^4.10.2",
     "morgan": "~1.8.1",
     "ngx-bootstrap": "^1.7.1",

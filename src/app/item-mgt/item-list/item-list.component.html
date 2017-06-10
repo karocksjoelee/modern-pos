@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let item of items" class="card col-3" style="width: 20rem;">
+      <img class="card-img-top" src="..." alt="item-card-image">
+      <div class="card-block">
+        <h4 class="card-title">{{item.name}}</h4>
+        <p class="card-text">類別 : {{item.category}}</p>
+        <p class="card-text">售價 NT$ {{item.price}}</p>
+        <p class="card-text">{{ item.active? "上架中" : "已下架" }}</p>
+      </div>
+      <div class="card-block">
+        <a [routerLink]="[item.barCode]" class="btn btn-primary">更多...</a>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="mdc-fab app-fab--absolute" aria-label="Edit" (click)="createItem()">
+  <span class="mdc-fab__icon">
+    <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</svg>
+  </span>
+</button>

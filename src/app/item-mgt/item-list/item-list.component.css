@@ -1,3 +1,12 @@
+.card {
+    margin: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    margin-top: 10px;
+}
+
 .app-fab--absolute.app-fab--absolute {
   position: absolute;
   bottom: 1rem;
@@ -9,10 +18,4 @@
     bottom: 3rem;
     right: 5rem;
   }
-}
-
-.nav-link{
-  font-size: 20px;
-  font-weight: bold;
-  cursor:pointer;
 }

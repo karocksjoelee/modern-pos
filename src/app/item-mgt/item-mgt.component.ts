@@ -8,19 +8,15 @@ import { ItemMgtService } from './item-mgt.service';
 })
 export class ItemMgtComponent implements OnInit {
 
-  items;
-  mealsets;
+  actived;
 
-  constructor( private _itemMgtService: ItemMgtService ) { }
+  constructor( ) { }
 
   ngOnInit() {
 
-    this.items = this._itemMgtService.getItems();
-    this.mealsets = this._itemMgtService.getMealsets();
-
-    console.log(this.items);
-    console.log(this.mealsets);
+    this.actived = 'itemActived';
 
   } // end of ngOnInit()
+
 
 }
