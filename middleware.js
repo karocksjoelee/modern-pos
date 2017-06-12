@@ -11,7 +11,15 @@ const cm = require('./utility/common-module');
 const app = express();
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+const accountSubjectRoute = require('./routes/accountSubject');
+const accountingRoute = require('./routes/accounting');
+const buildingRoute = require('./routes/building');
+const itemRoute = require('./routes/item');
+const marketingProgramRoute = require('./routes/marketingProgram');
+const mealSetRoute = require('./routes/mealSet');
+const memberRoute = require('./routes/member');
+const saleRoute = require('./routes/sale')
+
 
 // Middleware Setup .
 // ==========================================================================================
@@ -28,11 +36,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// API Routing . ( * Careful With The Order )
+// API Routing . ( * Be Careful With The Order )
 // ==========================================================================================
-
 app.use('/', index);
-app.use('/users', users);
+app.use('/api/accoutSubject(s)?', accountSubjectRoute);
+app.use('/api/accounting(s)?', accountingRoute);
+app.use('/api/building(s)?', buildingRoute);
+app.use('/api/item(s)?', itemRoute);
+app.use('/api/marketingProgram(s)?', marketingProgramRoute);
+app.use('/api/mealSet(s)?', mealSetRoute);
+app.use('/api/member(s)?', memberRoute);
+app.use('/api/sale(s)?', saleRoute);
 
 // Catch 404 and forward to Error Handler
 app.use(function(req, res, next) {

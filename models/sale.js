@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let Sales = new Schema({
+let Sale = new Schema({
   orderDate : Date,
   buyer : { type: mongoose.Schema.Types.ObjectId , ref: 'Member' },
   phone : String,
@@ -16,4 +16,4 @@ let Sales = new Schema({
   tempture : String
 });
 
-mongoose.model('Sales', Sales);
+mongoose.model('Sale', Sale);

@@ -7,22 +7,7 @@ export class ItemMgtService {
 
   private itemUrl = '/api/items';
   private mealsetUrl = '/api/mealsets';
-
-  constructor(private http: Http) { }
-
-  // getItems() {
-
-  //   return this.http.get(this.itemUrl)
-  //       .map((response: Response) => {
-  //         return response.json();
-  //       })
-  //       .catch( (error: Response) => Observable.throw(error.json()));
-
-  // }
-
-  getItems() {
-
-    return ([
+  private items = [
       {
         name: '匈牙利烤雞腿飯盒',
         category: '肉料理',
@@ -70,7 +55,7 @@ export class ItemMgtService {
       {
         name: '養生紅醩肉飯盒',
         category: '主廚發揮',
-        barCode: 'a0001',
+        barCode: 'a0004',
         price: 100,
         unit: '盒',
         image: 'path/to/img',
@@ -97,7 +82,23 @@ export class ItemMgtService {
         description: '',
         active: true
       }
-    ]);
+    ];
+
+  constructor(private http: Http) { }
+
+  // getItems() {
+
+  //   return this.http.get(this.itemUrl)
+  //       .map((response: Response) => {
+  //         return response.json();
+  //       })
+  //       .catch( (error: Response) => Observable.throw(error.json()));
+
+  // }
+
+  getItems() {
+
+    return this.items;
 
   } // end of getItems()
 
@@ -183,6 +184,14 @@ export class ItemMgtService {
         ]
       }
     ]);
+
+  }
+
+  getItemById(id: any) {
+
+    return this.items.filter((item) => {
+      return item.barCode === id;
+    });
 
   }
 

@@ -17,9 +17,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.connection = this.realTimeService.getMessages().subscribe((message) => {
-      this.messages.push(message);
-    });
+    // this.connection = this.realTimeService.getMessages().subscribe((message) => {
+    //   this.messages.push(message);
+    // });
 
   }
 

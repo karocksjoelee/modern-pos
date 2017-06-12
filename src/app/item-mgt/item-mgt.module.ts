@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemMgtComponent } from './item-mgt.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
+
 import { ItemCreateComponent } from './item-create/item-create.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { MealsetCreateComponent } from './mealset-create/mealset-create.component';
@@ -10,6 +14,7 @@ import { MealsetDetailComponent } from './mealset-detail/mealset-detail.componen
 import { ItemMgtService } from './item-mgt.service';
 import { ItemListComponent } from './item-list/item-list.component';
 import { MealsetListComponent } from './mealset-list/mealset-list.component';
+
 
 
 const routes: Routes = [
@@ -28,8 +33,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    TabsModule.forRoot()
+    ReactiveFormsModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    RouterModule.forChild(routes)
   ],
   declarations: [
     ItemMgtComponent,
