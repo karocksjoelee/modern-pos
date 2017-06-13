@@ -5,13 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemMgtComponent } from './item-mgt.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ItemCreateComponent } from './item-create/item-create.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { MealsetCreateComponent } from './mealset-create/mealset-create.component';
 import { MealsetDetailComponent } from './mealset-detail/mealset-detail.component';
 import { ItemMgtService } from './item-mgt.service';
+import { AccountingService } from '../accounting/accounting.service';
 import { ItemListComponent } from './item-list/item-list.component';
 import { MealsetListComponent } from './mealset-list/mealset-list.component';
 
@@ -36,6 +37,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [
@@ -47,7 +49,7 @@ const routes: Routes = [
     ItemListComponent,
     MealsetListComponent
     ],
-  providers: [ItemMgtService]
+  providers: [ItemMgtService, AccountingService]
 })
 export class ItemMgtModule { }
 
