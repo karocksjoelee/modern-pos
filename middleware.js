@@ -54,7 +54,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   cm.logErr(`[ROUTES ${err.status}] URL : ${req.originalUrl} Not Found , Try Check Your Sever Routes`);
   res.status(err.status).send(`[ROUTES ${err.status}] URL : ${req.originalUrl} Not Found`);
-  next(err);
 });
 
 // Error Handler
