@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-
+const mongooseUniqureValidator = require('mongoose-unique-validator');
 
 let Manager = new Schema({
   userName: {
@@ -11,4 +11,6 @@ let Manager = new Schema({
   role: String
 });
 
-mongoose.model('Manager', Manager);
+Manager.plugin(mongooseUniqureValidator);
+
+module.exports = mongoose.model('Manager', Manager);
