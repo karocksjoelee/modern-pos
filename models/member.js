@@ -1,10 +1,17 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+const mongooseUniqureValidator = require('mongoose-unique-validator');
 
 let Member = new Schema({
-  name: { type: String, unique: true },
+  name: {
+    type: String,
+    unique: true
+  },
   birthday: String,
-  phone: { type: String, unique: true },
+  phone: {
+    type: String,
+    unique: true
+  },
   since: Date,
   contact: {
     line: String,
@@ -36,4 +43,6 @@ let Member = new Schema({
   }
 });
 
-mongoose.model('Member', Member);
+Member.plugin(mongooseUniqureValidator);
+
+module.exports = mongoose.model('Member', Member);
