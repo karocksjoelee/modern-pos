@@ -4,8 +4,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 // Mongo Schema 
-const Accouting = require('../models/accounting');
-const AccountSubject = require('../models/accountsubject.js');
+const Accounting = require('../models/accounting');
 //utility
 const cm = require('../utility/common-module.js');
 
@@ -29,6 +28,7 @@ router.post('/', (req, res) => {
     }
     res.status(201).send(accounting);
   });
+
 });
 
 
@@ -36,12 +36,16 @@ router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
-    let data = Accounting.find({})
-      .populate('AccountSubject');
+        Accounting.find({})
+        .populate('accountSubject')
+        .exec((err,data) => {
+            if(err) {
+                console.log(err);
+                res.status(500).send(err);
+            }
+            res.status(200).send(data);
+        });
 
-    console.log(data);
-
-    res.status(200).send('All Accoutings');
   } else {
     // Or get item by id 
     res.status(200).send('Accoutings By Id');

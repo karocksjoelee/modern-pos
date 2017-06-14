@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // API Routing . ( * Be Careful With The Order )
 // ==========================================================================================
 app.use('/', index);
-app.use('/api/accoutSubject(s)?', accountSubjectRoute);
+app.use('/api/accountSubject(s)?', accountSubjectRoute);
 app.use('/api/accounting(s)?', accountingRoute);
 app.use('/api/building(s)?', buildingRoute);
 app.use('/api/item(s)?', itemRoute);
