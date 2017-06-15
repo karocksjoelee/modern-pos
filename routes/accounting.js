@@ -36,7 +36,7 @@ router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
-        Accounting.find({})
+      Accounting.find({})
         .populate('accountSubject')
         .exec((err,data) => {
             if(err) {

@@ -16,8 +16,9 @@ export class ItemCreateComponent implements OnInit {
   public mainIngredients ;
   createForm: FormGroup;
   public selectedIngredient;
-  @ViewChild('staticModal') staticModal;
+  modal;
 
+  @ViewChild('staticModal') staticModal;
 
   constructor(private _itemMgtService: ItemMgtService, private _accountingService: AccountingService ) { }
 
@@ -29,7 +30,7 @@ export class ItemCreateComponent implements OnInit {
     this.createForm = new FormGroup({
       'category': new FormControl(''),
       'name': new FormControl(''),
-      'barCode': new FormControl(''),
+      'barcode': new FormControl(''),
       'price': new FormControl(0),
       'unit': new FormControl('盒'),
       'image': new FormControl(''),
