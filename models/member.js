@@ -13,33 +13,30 @@ let Member = new Schema({
     unique: true
   },
   since: Date,
-  contact: {
-    line: String,
-    facebook: String,
-    email: String
+  line: String,
+  facebook: String,
+  email: String,
+  homeBuilding: {
+    type: mongoose.Types.ObjectId,
+    ref: "Buildings"
   },
-  locationInfo: {
-    homeAddr: {
-      building: String,
-      address: String
-    },
-    officeAddr: {
-      building: String,
-      address: String
-    }
+  homeAddress: String,
+  officeBuilding: {
+    type: mongoose.Types.ObjectId,
+    ref: "Buildings"
   },
-  personalInfo: {
-    gender: String,
-    weight: String,
-    height: String,
-    tags: Array
-  },
-  attachments: {
-    membershipTerm: Array,
-    memberStatus: Boolean,
-    unExchanged: Number,
-    exchanged: Number,
-    orderHistories: Array
+  officeAddress: String,
+  gender: String,
+  weight: String,
+  height: String,
+  tags: Array,
+  membershipTerm: Array,
+  memberStatus: Boolean,
+  unExchanged: Number,
+  exchanged: Number,
+  orderHistories: {
+    type: mongoose.Types.ObjectId,
+    ref: "Sale"
   }
 });
 

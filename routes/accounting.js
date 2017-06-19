@@ -36,18 +36,29 @@ router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
-      Accounting.find({})
-        .populate('accountSubject')
-        .exec((err,data) => {
-            if(err) {
-                console.log(err);
-                res.status(500).send(err);
-            }
-            res.status(200).send(data);
-        });
+    Accounting.find({})
+      .populate('accountSubject')
+      .exec((err, data) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        }
+        res.status(200).send(data);
+      });
 
   } else {
     // Or get item by id 
+    Accounting.find({
+        _id: req.params.id
+      })
+      .populate('accountSubject')
+      .exec((err, data) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        }
+        res.status(200).send(data);
+      });
     res.status(200).send('Accoutings By Id');
   }
 
