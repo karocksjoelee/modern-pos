@@ -115,7 +115,7 @@ router.put('/:id', (req, res) => {
         console.log(err);
       } else {
         console.log(item);
-        res.status(200).send(item);
+        res.status(201).send(item);
       }
     });
 

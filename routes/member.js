@@ -49,27 +49,33 @@ router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
-    Member.find({}, (err, member) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(err);
-      } else {
-        res.status(200).send(member);
-      }
-    });
-    res.status(200).send('All Members');
+    Member.find({})
+      .populate('Buildings')
+      .populate("Sale")
+      .exec((err, member) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(member);
+        }
+      });
+
   } else {
     // Or get item by id 
     Member.findOne({
-      _id: req.params.id
-    }, (err, member) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(err);
-      } else {
-        res.status(200).send(member);
-      }
-    });
+        _id: req.params.id
+      })
+      .populate('Buildings')
+      .populate("Sale")
+      .exec((err, member) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(member);
+        }
+      });
   }
 
 });
@@ -110,7 +116,7 @@ router.put('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(200).send(member);
+        res.status(201).send(member);
       }
     });
   });

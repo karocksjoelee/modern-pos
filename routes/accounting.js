@@ -56,32 +56,80 @@ router.get('/(:id)?', (req, res) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
         }
-        res.status(200).send(data);
       });
-    res.status(200).send('Accoutings By Id');
+
   }
 
 });
 
 
 router.get('/byDate/:date', (req, res) => {
-  res.status(200)
-    .send('Return Accouting.date.year' +
-      '=== req.params.date.year &&  Accouting.date.month' +
-      '=== req.params.date.month ');
+
+  Accounting.find({
+    date: req.params.date
+  }, (err, account) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(account);
+    }
+  });
+
 });
 
 
 router.put('/:id', (req, res) => {
   // Find specific item of id and update it .
   // Object will be in req.body 
-  res.status(201).send('Updated Accouting');
+  Accounting.findOne({
+    _id: req.params.id
+  }, (err, account) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+
+    account.ate = req.body.date || account.ate;
+    account.accountSubject = req.body.accountSubject || account.accountSubject;
+    account.unit = req.body.unit || account.unit;
+    account.amount = req.body.amount || account.amount;
+
+    account.save((err, account) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.status(201).send(account);
+      }
+    });
+  })
+
 });
 
 
 router.delete('/:id', (req, res) => {
-  res.status(200).send('Accouting.name Deleted');
+  Accounting.findOne({
+    _id: req.params.id
+  }, (err, account) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+
+    account.remove((err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.status(200).send("Accounting Deleted!!");
+      }
+    });
+  });
+
 });
 
 
