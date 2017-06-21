@@ -44,7 +44,7 @@ router.get('/(:id)?', (req, res) => {
       } else {
         res.status(200).send(mealSet);
       }
-    })
+    });
 
   } else {
     // Or get item by id 
@@ -57,7 +57,7 @@ router.get('/(:id)?', (req, res) => {
       } else {
         res.status(200).send(mealSet);
       }
-    })
+    });
     res.status(200).send('MealSet By Id');
   }
 
@@ -75,7 +75,7 @@ router.get('/activedMealSet', (req, res) => {
     } else {
       res.status(200).send(mealSet);
     }
-  })
+  });
 
 });
 
@@ -105,7 +105,7 @@ router.put('/:id', (req, res) => {
       } else {
         res.status(200).send(mealSet);
       }
-    })
+    });
   });
 
 });
@@ -126,7 +126,7 @@ router.delete('/:id', (req, res) => {
         res.status(200).send('mealSet Deleted!!');
       }
     });
-  })
+  });
 
 });
 

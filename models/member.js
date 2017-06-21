@@ -17,12 +17,12 @@ let Member = new Schema({
   facebook: String,
   email: String,
   homeBuilding: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Buildings"
   },
   homeAddress: String,
   officeBuilding: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Buildings"
   },
   officeAddress: String,
@@ -35,7 +35,7 @@ let Member = new Schema({
   unExchanged: Number,
   exchanged: Number,
   orderHistories: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Sale"
   }
 });
