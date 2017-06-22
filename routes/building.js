@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(200).send(building);
+        res.status(201).send(building);
       }
     });
   });

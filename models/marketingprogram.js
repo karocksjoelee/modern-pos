@@ -8,8 +8,8 @@ let MarketingProgram = new Schema({
     unique: true
   },
   category: String,
-  beginDate: Date,
-  endDate: Date,
+  beginDate: String,
+  endDate: String,
   description: String
 });
 

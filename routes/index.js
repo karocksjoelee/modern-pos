@@ -4,7 +4,7 @@ let mondels = require('../models');
 let Manager = module.Manager;
 let cm = require('../utility/common-module.js');
 
-router.post('/', (req, res) => {
+router.post('/login', (req, res) => {
   Manager.findOne({
     userName: req.body.userName,
     password: req.body.password

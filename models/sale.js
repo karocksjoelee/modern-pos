@@ -3,14 +3,14 @@ let Schema = mongoose.Schema;
 const mongooseUniqureValidator = require('mongoose-unique-validator');
 
 let Sale = new Schema({
-  orderDate: Date,
+  orderDate: String,
   buyer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Member'
   },
   phone: String,
   serveWay: String,
-  deliverDateTime: Date,
+  deliverDateTime: String,
   deliverBuildingAddress: String,
   items: Array,
   tags: Array,

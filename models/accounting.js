@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 const mongooseUniqureValidator = require('mongoose-unique-validator');
 
 let Accounting = new Schema({
-  date: Date,
+  date: String,
   accountSubject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'AccountSubject'
