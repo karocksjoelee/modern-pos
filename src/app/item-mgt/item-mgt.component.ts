@@ -9,6 +9,7 @@ import { ItemMgtService } from './item-mgt.service';
 export class ItemMgtComponent implements OnInit {
 
   actived;
+  model;
 
   constructor( ) { }
 
