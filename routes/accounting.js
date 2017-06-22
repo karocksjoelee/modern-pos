@@ -67,9 +67,14 @@ router.get('/(:id)?', (req, res) => {
 
 
 router.get('/byDate/:date', (req, res) => {
+  let year = req.params.date.slice(0, 4);
+  let month = req.params.date.slice(4, 6);
+  let date = year + "-" + month;
 
   Accounting.find({
-    date: req.params.date
+    date: {
+      $regex: date
+    }
   }, (err, account) => {
     if (err) {
       console.log(err);

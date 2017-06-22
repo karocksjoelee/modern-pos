@@ -12,7 +12,7 @@ let Member = new Schema({
     type: String,
     unique: true
   },
-  since: Date,
+  since: String,
   line: String,
   facebook: String,
   email: String,
