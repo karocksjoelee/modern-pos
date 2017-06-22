@@ -56,12 +56,14 @@ export class MemberCreateComponent implements OnInit {
   onSelectHomeBuilding(homeBuildingObject) {
 
     this.createForm.value.homeAddress = homeBuildingObject.address;
+    this.createForm.value.homeBuilding = homeBuildingObject._id;
 
   }
 
   onSelectOfficeBuilding(officeBuildingObject) {
 
     this.createForm.value.officeAddress = officeBuildingObject.address;
+    this.createForm.value.officeBuilding = officeBuildingObject._id;
 
   }
 

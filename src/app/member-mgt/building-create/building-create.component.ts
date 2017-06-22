@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { MemberMgtService } from '../member-mgt.service';
 
 @Component({
   selector: 'app-building-create',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuildingCreateComponent implements OnInit {
 
-  constructor() { }
+  createForm: FormGroup;
+
+  constructor(private _memberMgtService: MemberMgtService) { }
 
   ngOnInit() {
+
+    this.createForm = new FormGroup({
+      'name': new FormControl(''),
+      'category': new FormControl(''),
+      'address': new FormControl(''),
+      'lat': new FormControl(''),
+      'lng': new FormControl(''),
+      'description': new FormControl(''),
+    });
+
+  } // end of ngOnInit()
+
+
+  createBuilding() {
+    console.log(this.createForm.value);
   }
 
 }

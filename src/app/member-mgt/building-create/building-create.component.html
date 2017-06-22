@@ -1,3 +1,56 @@
-<p>
-  building-create works!
-</p>
+<form class="container" [formGroup]="createForm">
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">大樓名稱</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="name">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-text-input" class="col-2 col-form-label">種　　類</label>
+    <div class="col-4">
+      <select class="form-control" style="font-weight:bold" formControlName="category">
+        <option style="font-weight:bolder" value="officeBuilding">辦公大樓</option>
+        <option style="font-weight:bolder" value="hospital">醫院</option>
+        <option style="font-weight:bolder" value="apartmentBuilding">住宅華廈</option>
+        <option style="font-weight:bolder" value="store">一般商家</option>
+        <option style="font-weight:bolder" value="otherBuilding">辦公大樓</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">地　　址</label>
+    <div class="col-8">
+      <input class="form-control" type="text" formControlName="address">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">經度</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="lat">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">緯度</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="lng">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">大樓敘述</label>
+    <div class="col-8">
+      <input class="form-control" type="text" formControlName="description">
+    </div>
+  </div>
+
+  <div class="col-9">
+      <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
+      <button type="button" class="btn btn-primary btn-lg float-right" (click)="createBuilding()">新增</button>
+  </div>
+
+</form>
