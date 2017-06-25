@@ -1,4 +1,122 @@
-<form class="container" [formGroup]="editForm">
+<form class="ui form fontfixer" [formGroup]="editForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="barcode icon"></i>編輯餐點 #{{item[0].name}}</h2>
+  <p></p>
+
+  <div class="field" style="margin-top:30px;">
+    <label>餐點名稱</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Meal Name" formControlName="name">
+      </div>
+    </div>
+  </div>
+
+  <div class="two fields">
+    <div class="field" style="margin-top:15px;">
+      <label>餐點類別</label>
+      <select class="ui fluid dropdown" formControlName="category">
+        <option value="">{{item[0].category}}</option>
+        <option value="肉料理">肉料理</option>
+        <option value="魚料理">魚料理</option>
+        <option value="主廚料理">主廚料理</option>
+        <option value="蔬菜料理">蔬菜料理</option>
+        <option value="單點">單點</option>
+        <option value="飲品">飲品</option>
+      </select>
+    </div>
+    
+  </div>
+
+  <div class="fields" style="margin-top:30px;">
+    <div class="three wide field">
+      <label>零售價格</label>
+      <input type="text" maxlength="3" placeholder="Price" formControlName="price">
+    </div>
+    <div class="six wide field">
+      <label>單位</label>
+      <div class="two fields">
+        <div class="field">
+          <select class="ui fluid search dropdown">
+            <option value="">{{item[0].unit}}</option>
+            <option value="盒">盒</option>
+            <option value="個">個</option>
+            <option value="杯">杯</option>
+            <option value="份">份</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>條碼代號</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Barcode" formControlName="barcode">
+      </div>
+    </div>
+  </div>
+
+  <div class="inline field" style="margin-top:30px;">
+    <label>上傳照片</label>
+      <button class="ui blue button" style="padding-bottom:5px; padding-top:10px;">
+        <input type="file" name="file" id="file" class="inputfile" />
+        <i class="upload icon"></i><label for="file">選擇圖片</label>
+      </button>
+  </div>
+
+  <div class="inline field" style="margin-top:30px;">
+    <label>主要食材</label>
+        <button class="ui blue button" (click)="selectingIngredient()">
+          <i class="hand pointer icon"></i>選擇食材
+        </button>
+        <a *ngIf="selectedIngredient" class="big ui label">{{selectedIngredient}}</a>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>架上狀態</label>
+    <div class="two fields">
+      <div class="field">
+        <div class="ui toggle checkbox checked">
+          <input type="checkbox" name="gift" formControlName="active">
+          <label>上架中 / 已下架</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui form" style="margin-top:30px;">
+    <div class="field">
+      <label style="font-size:16px;">餐點介紹</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+  </div>
+
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="updateItem()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
+    </div>
+  </div>
+
+</form>
+
+<div class="ui modal" [ngClass]="{'active': ngModal}">
+  <i class="close icon"></i>
+  <div class="header">
+    主要食材
+  </div>
+  <div class="image content">
+    <button  *ngFor="let ingredient of mainIngredients" class="large ui olive basic button" (click)="ingredientSelected(ingredient)">
+      {{ingredient.subjectName}}
+    </button>
+  </div>
+</div>
+
+<!--<form class="container" [formGroup]="editForm">
   <div class="form-group row">
     <label for="example-search-input" class="col-2 col-form-label">餐點類別</label>
     <div class="col-4">
@@ -70,4 +188,4 @@
       <button type="button" class="btn btn-primary btn-lg float-right"(click)="updateItem()">更新</button>
     </div> 
   </div>
-</form>
+</form>-->

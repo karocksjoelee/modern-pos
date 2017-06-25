@@ -69,7 +69,7 @@ export class ItemMgtService {
       },
       {
         name: '健康蔬果汁',
-        category: '果汁',
+        category: '飲品',
         barCode: 'j0001',
         price: 65,
         unit: '杯',

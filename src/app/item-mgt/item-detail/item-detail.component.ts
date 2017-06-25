@@ -25,7 +25,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
       this.editForm = new FormGroup({
         'category': new FormControl({value : this.item[0].category, disabled: true }),
         'name': new FormControl({value : this.item[0].name, disabled: true }),
-        'barCode': new FormControl({value : this.item[0].barCode, disabled: true }),
+        'barcode': new FormControl({value : this.item[0].barCode, disabled: true }),
         'price': new FormControl(this.item[0].price),
         'unit': new FormControl({value : this.item[0].unit, disabled: true }),
         'image': new FormControl(''),
@@ -40,6 +40,10 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
 
   updateItem() {
     console.log(this.editForm.value);
+  }
+
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {

@@ -1,22 +1,6 @@
-<!--<div class="container-fluid">
-  <div class="row">
-    <div *ngFor="let item of items" class="card col-3" style="width: 20rem;">
-      <img class="card-img-top" src="..." alt="item-card-image">
-      <div class="card-block">
-        <h4 class="card-title">{{item.name}}</h4>
-        <p class="card-text">類別 : {{item.category}}</p>
-        <p class="card-text">售價 NT$ {{item.price}}</p>
-        <p class="card-text">{{ item.active? "上架中" : "已下架" }}</p>
-      </div>
-      <div class="card-block">
-        <a [routerLink]="[item.barCode]" class="btn btn-primary">更多...</a>
-      </div>
-    </div>
-  </div>
-</div>-->
 <div class="ui link cards">
 
-  <div class="card" *ngFor="let item of items">
+  <div class="card" *ngFor="let item of items" [routerLink]="[item.barCode]">
     <div class="image">
       <img src="assets/img/wireframe-imageholder.png">
     </div>
