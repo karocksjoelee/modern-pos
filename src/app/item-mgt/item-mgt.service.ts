@@ -65,7 +65,7 @@ export class ItemMgtService {
           subjectName: '進貨-五花肉'
         },
         description: '',
-        active: true
+        active: false
       },
       {
         name: '健康蔬果汁',
@@ -125,7 +125,7 @@ export class ItemMgtService {
               subjectName: '進貨-雞腿肉'
             },
             description: '',
-            active: true
+            active: false
           },
           {
             name: '健康蔬果汁',
