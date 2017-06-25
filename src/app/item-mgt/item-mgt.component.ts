@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { ItemMgtService } from './item-mgt.service';
 
 @Component({
@@ -8,16 +8,46 @@ import { ItemMgtService } from './item-mgt.service';
 })
 export class ItemMgtComponent implements OnInit {
 
-  actived;
-  model;
+  ngTabActive;
+  ngDropdown;
 
-  constructor( ) { }
+  constructor(private _eref: ElementRef) { }
+
+  @HostListener('document:click', ['$event']) onClick(event) {
+    if (event.clientX > 270 || event.clientX < 210 || event.clientY > 205) {
+      this.hideNgDropdown();
+    }
+  }
+
 
   ngOnInit() {
 
-    this.actived = 'itemActived';
+    this.ngDropdown = false;
+    this.ngTabActive = 'itemActived';
 
   } // end of ngOnInit()
+
+  showNgDropdown(event: any) {
+    this.ngDropdown = true;
+    // console.log(event);
+  }
+
+  hideNgDropdown() {
+    this.ngDropdown = false;
+  }
+
+  onCreateItem() {
+    console.log('Item OK');
+    this.hideNgDropdown();
+  }
+
+  onCreateMealSet() {
+    console.log('MealSet OK');
+    this.hideNgDropdown();
+  }
+
+
+
 
 
 }
