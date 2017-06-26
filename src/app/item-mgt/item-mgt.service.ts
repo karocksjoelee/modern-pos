@@ -84,6 +84,8 @@ export class ItemMgtService {
       }
     ];
 
+    private mealsets;
+
   constructor(private http: Http) { }
 
   // getItems() {
@@ -193,6 +195,14 @@ export class ItemMgtService {
 
     return this.items.filter((item) => {
       return item.barCode === id;
+    });
+
+  }
+
+  getMealsetById(id: any) {
+
+    return this.mealsets.filter((mealset) => {
+      return mealset.barcode === id;
     });
 
   }

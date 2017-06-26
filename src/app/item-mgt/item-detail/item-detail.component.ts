@@ -21,7 +21,6 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
 
     this.sub = this.route.params.subscribe((params) => {
       this.item = this._itemMgtService.getItemById(params['id']);
-      console.log(this.item);
       this.editForm = new FormGroup({
         'category': new FormControl({value : this.item[0].category, disabled: true }),
         'name': new FormControl({value : this.item[0].name, disabled: true }),
