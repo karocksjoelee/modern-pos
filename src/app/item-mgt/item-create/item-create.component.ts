@@ -72,6 +72,10 @@ export class ItemCreateComponent implements OnInit {
     this.ngModal = true;
   }
 
+  closeModal() {
+    this.ngModal = false;
+  }
+
 
 
 }

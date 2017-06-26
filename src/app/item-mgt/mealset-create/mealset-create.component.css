@@ -3,7 +3,7 @@
 }
 
 .row {
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 .col-form-label {
@@ -15,7 +15,6 @@
     position: relative;
     overflow: hidden;
 }
-
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -36,8 +35,43 @@
     margin: 10px;
 }
 
-.btn.pill{
-  -webkit-border-radius: 16px;
-  -moz-border-radius: 16px;
-  border-radius: 16px;
+.fontfixer {
+    font-size: 16px;
+}
+
+.field {
+    margin-top: 15px;
+}
+
+.breathe {
+    margin: 30px;
+}
+
+.fixbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formodal {
+    display: block !important ; 
+}
+
+.inputfile {
+	width: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: white;
+    display: inline-block;
+}
+
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
 }

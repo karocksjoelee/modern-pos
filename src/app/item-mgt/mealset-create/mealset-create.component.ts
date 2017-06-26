@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ItemMgtService } from '../item-mgt.service';
@@ -15,11 +16,14 @@ export class MealsetCreateComponent implements OnInit {
   createForm: FormGroup;
   selectedItems = [];
   items;
+  ngModal;
 
-  constructor(private _itemMgtService: ItemMgtService) { }
+  constructor(private _itemMgtService: ItemMgtService, private router: Router, private route: ActivatedRoute) { }
 
 
   ngOnInit() {
+
+    this.ngModal = false;
 
     this.items = this._itemMgtService.getItems();
 
@@ -36,19 +40,31 @@ export class MealsetCreateComponent implements OnInit {
 
   }
 
+  selectingItem() {
+    this.ngModal = true;
+  }
 
-  itemSelected(item, bsModal) {
 
+  itemSelected(item) {
+
+    console.log(item);
     this.createForm.value.items.push(item);
-    this.selectedItems.push(item);
+    this.selectedItems.push(item.name);
 
   }
 
+  closeModal() {
+    this.ngModal = false;
+  }
 
   createItem() {
 
     console.log(this.createForm.value);
 
+  }
+
+  goBack() {
+    this.router.navigate(['../mealsets'], { relativeTo: this.route });
   }
 
 }
