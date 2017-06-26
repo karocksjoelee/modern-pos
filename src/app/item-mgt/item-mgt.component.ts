@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ItemMgtService } from './item-mgt.service';
 
 @Component({
@@ -8,10 +9,13 @@ import { ItemMgtService } from './item-mgt.service';
 })
 export class ItemMgtComponent implements OnInit {
 
-  ngTabActive;
-  ngDropdown;
+  ngTabActive = 'itemActived';
+  ngDropdown ;
+  ngItemTab = true;
+  ngMealSetTab = false;
+  ngDropdownTab = false;
 
-  constructor(private _eref: ElementRef) { }
+  constructor(private _eref: ElementRef, private route: ActivatedRoute) { }
 
   @HostListener('document:click', ['$event']) onClick(event) {
     if (event.clientX > 270 || event.clientX < 210 || event.clientY > 205) {
@@ -23,13 +27,23 @@ export class ItemMgtComponent implements OnInit {
   ngOnInit() {
 
     this.ngDropdown = false;
-    this.ngTabActive = 'itemActived';
 
   } // end of ngOnInit()
 
+  itemTabToggle() {
+    this.ngItemTab = !this.ngItemTab;
+  }
+
+  mealSetTabToggle() {
+    this.ngMealSetTab = !this.ngMealSetTab;
+
+  }
+
   showNgDropdown(event: any) {
+    this.ngDropdownTab = true;
     this.ngDropdown = true;
-    // console.log(event);
+    this.ngItemTab = false;
+    this.ngMealSetTab = false;
   }
 
   hideNgDropdown() {
@@ -37,12 +51,10 @@ export class ItemMgtComponent implements OnInit {
   }
 
   onCreateItem() {
-    console.log('Item OK');
     this.hideNgDropdown();
   }
 
   onCreateMealSet() {
-    console.log('MealSet OK');
     this.hideNgDropdown();
   }
 

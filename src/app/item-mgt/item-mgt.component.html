@@ -2,11 +2,11 @@
 
 <div class="ui pointing menu">
 
-  <a class="item" [ngClass]="{'active': ngTabActived == 'itemActived'}" (click)="ngTabActived = 'itemActived' " [routerLink]="['items']">餐點列表</a>
+  <a class="item" [ngClass]="{'active': ngItemTab }"  (click)="itemTabToggle()" [routerLink]="['items']">餐點列表</a>
 
-  <a class="item" [ngClass]="{'active': ngTabActived == 'mealActived'}" (click)="ngTabActived = 'mealActived' " [routerLink]="['mealsets']">套餐列表</a>
+  <a class="item" [ngClass]="{'active': ngMealSetTab }" (click)="mealSetTabToggle()" [routerLink]="['mealsets']">套餐列表</a>
 
-  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdown}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
+  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
     <span class="text">新增</span>
     <i class="dropdown icon"></i>
     <div class="menu" [ngClass]="{'transition visible': ngDropdown}">

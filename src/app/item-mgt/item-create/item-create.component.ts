@@ -19,7 +19,7 @@ export class ItemCreateComponent implements OnInit {
 
   constructor( private _itemMgtService: ItemMgtService,
                private _accountingService: AccountingService,
-               private router: Router, 
+               private router: Router,
                private route: ActivatedRoute ) { }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class ItemCreateComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['../items'], { relativeTo: this.route });
   }
 
   ingredientSelected(input: any) {
