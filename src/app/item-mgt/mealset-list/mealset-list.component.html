@@ -1,3 +1,28 @@
-<p>
-  mealset-list works!
-</p>
+<div class="ui link cards">
+
+  <div class="card" *ngFor="let mealset of mealsets" [routerLink]="[mealset.barCode]">
+    <div class="image">
+      <img src="assets/img/wireframe-imageholder.png">
+    </div>
+    <div class="content">
+      <div class="header">{{mealset.setName}}</div>
+      <div class="meta">
+        <span style="font-weight: bold;">熱量 :</span> <a>{{mealset.calorie}}</a>
+      </div>
+      <div class="description">
+        <a *ngFor="let item of mealset.items" class="ui teal basic label">{{item.name}}</a> 
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="right floated">
+        <a *ngIf="mealset.active" class="ui green label">上架中</a>
+        <a *ngIf="!mealset.active" class="ui grey label">已下架</a>
+      </span>
+      <span>
+        <i class="dollar icon"></i>
+        {{mealset.price}}
+      </span>
+    </div>
+  </div>
+
+</div>

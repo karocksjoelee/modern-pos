@@ -107,10 +107,11 @@ export class ItemMgtService {
     return ([
       {
         setName: '肉料理套餐',
-        barCode: '00B1',
+        barcode: '00B1',
         price: '150',
         image: 'path/to/image',
         active: true,
+        calorie: '500',
         items: [
           {
             name: '匈牙利烤雞腿',
@@ -146,15 +147,16 @@ export class ItemMgtService {
       },
       {
         setName: '魚料理套餐',
-        barCode: '00B2',
+        barcode: '00B2',
         price: '150',
         image: 'path/to/image',
         active: true,
+        calorie: '700',
         items: [
           {
             name: '薄鹽烤鯖魚',
             category: '魚料理',
-            barCode: 'a0002',
+            barcode: 'a0002',
             price: 100,
             unit: '盒',
             image: 'path/to/img',
@@ -169,7 +171,7 @@ export class ItemMgtService {
           {
             name: '健康蔬果汁',
             category: '果汁',
-            barCode: 'j0001',
+            barcode: 'j0001',
             price: 65,
             unit: '杯',
             image: 'path/to/img',

@@ -21,7 +21,7 @@ export class ItemListComponent implements OnInit {
   }
 
   createItem() {
-    this.router.navigate(['/dashboard/items/new-item'], { relativeTo: this.route} );
+    this.router.navigate(['/dashboard/items/new-item'], { relativeTo: this.route } );
   }
 
 }
