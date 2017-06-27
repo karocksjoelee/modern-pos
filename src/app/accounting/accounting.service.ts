@@ -12,67 +12,50 @@ export class AccountingService {
     private accountingUrl = 'api/accounting';
     private accoutingByDate = 'api/accounting/byDate/';
 
-    private accountSubjects = [];
-    private accountings = [];
+    private serverErrorHandler(error: Response) {
 
-    private mainIngredients = [
-        {
-            subjectName: '進貨-雞腿肉',
-            subjectEng: 'Purchase-ChickenLegs',
-            subjectType: 'Expense',
-            barCode: 'pc0001',
-            unit: 'g',
-            main: true,
-            description: ''
-        },
-        {
-            subjectName: '進貨-豬肉',
-            subjectEng: 'Purchase-Porks',
-            subjectType: 'Expense',
-            barCode: 'pc0002',
-            unit: 'g',
-            main: true,
-            description: ''
-        },
-        {
-            subjectName: '進貨-鯖魚',
-            subjectEng: 'Purchase-Mackerel',
-            subjectType: 'Expense',
-            barCode: 'pc0003',
-            unit: 'g',
-            main: true,
-            description: ''
-        },
-        {
-            subjectName: '進貨-蔬菜',
-            subjectEng: 'Purchase-Vegetables',
-            subjectType: 'Expense',
-            barCode: 'pc0004',
-            unit: 'g',
-            main: true,
-            description: ''
-        },
-    ];
+    console.log(`[Accounting Error] ${error}`);
+    return Observable.throw({
+      status: 'Error',
+      message: error || 'Accounting Service Error'
+    });
+
+  }
 
     constructor(private http: Http) { }
 
+    // ACCOUNT SUBJECT ========================================
+
     getAccountSubjects() {
 
-        return this.accountSubjects;
+        return this.http.get(this.accountSubjectUrl)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.serverErrorHandler);
 
     }
 
 
     getMainIngredients() {
 
-        return this.mainIngredients;
+        return this.http.get(this.mainIngredientUrl)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.serverErrorHandler);
 
     }
 
+    // ACCOUNting ========================================
 
-    getAccoutings() {
+    getAccountings() {
 
-        return this.accountings;
+        return this.http.get(this.accountingUrl)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.serverErrorHandler);
 
     }
 

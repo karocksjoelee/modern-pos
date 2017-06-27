@@ -1,4 +1,4 @@
-<div class="ui link cards">
+<div class="ui link cards" *ngIf="items">
 
   <div class="card" *ngFor="let item of items" [routerLink]="[item.barCode]">
     <div class="image">

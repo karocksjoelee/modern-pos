@@ -115,13 +115,16 @@
 
 <!--Modal Code Here-->
 <div class="ui modal" [ngClass]="{'active': ngModal}">
-  <i class="close icon"></i>
   <div class="header">
+    <i (click)="closeModal()" class="close icon"></i>
     主要食材
   </div>
   <div class="image content">
-    <button  *ngFor="let ingredient of mainIngredients" class="large ui olive basic button" (click)="ingredientSelected(ingredient)">
+    <button *ngFor="let ingredient of mainIngredients" class="large ui olive basic button" (click)="ingredientSelected(ingredient)">
       {{ingredient.subjectName}}
     </button>
   </div>
 </div>
+
+
+

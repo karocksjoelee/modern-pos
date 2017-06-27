@@ -4,9 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemMgtComponent } from './item-mgt.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ItemCreateComponent } from './item-create/item-create.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
@@ -37,9 +34,6 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [

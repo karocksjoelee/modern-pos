@@ -7,204 +7,104 @@ export class ItemMgtService {
 
   private itemUrl = '/api/items';
   private mealsetUrl = '/api/mealsets';
-  private items = [
-      {
-        name: '匈牙利烤雞腿飯盒',
-        category: '肉料理',
-        barCode: 'a0001',
-        price: 100,
-        unit: '盒',
-        image: 'path/to/img',
-        calorie: '300',
-        ingredient: {
-          id: '00A1',
-          subjectName: '進貨-雞腿肉'
-        },
-        description: '',
-        active: true
-      },
-      {
-        name: '薄鹽烤鯖魚飯盒',
-        category: '魚料理',
-        barCode: 'a0002',
-        price: 100,
-        unit: '盒',
-        image: 'path/to/img',
-        calorie: '320',
-        ingredient: {
-          id: '00A2',
-          subjectName: '進貨-鯖魚'
-        },
-        description: '',
-        active: true
-      }, {
-        name: '野菜蔬果飯盒',
-        category: '蔬料理',
-        barCode: 'a0003',
-        price: 100,
-        unit: '盒',
-        image: 'path/to/img',
-        calorie: '300',
-        ingredient: {
-          id: '00A3',
-          subjectName: '進貨-花椰菜'
-        },
-        description: '',
-        active: true
-      },
-      {
-        name: '養生紅醩肉飯盒',
-        category: '主廚發揮',
-        barCode: 'a0004',
-        price: 100,
-        unit: '盒',
-        image: 'path/to/img',
-        calorie: '290',
-        ingredient: {
-          id: '00A4',
-          subjectName: '進貨-五花肉'
-        },
-        description: '',
-        active: false
-      },
-      {
-        name: '健康蔬果汁',
-        category: '飲品',
-        barCode: 'j0001',
-        price: 65,
-        unit: '杯',
-        image: 'path/to/img',
-        calorie: '150',
-        ingredient: {
-          id: '00B1',
-          subjectName: '進貨-奇異果'
-        },
-        description: '',
-        active: true
-      }
-    ];
 
-    private mealsets;
+  private serverErrorHandler(error: Response) {
+
+    console.log(`[ItemMgt Error] ${error}`);
+    return Observable.throw({
+      status: 'Error',
+      message: error || 'Item Service Error'
+    });
+
+  }
 
   constructor(private http: Http) { }
 
-  // getItems() {
-
-  //   return this.http.get(this.itemUrl)
-  //       .map((response: Response) => {
-  //         return response.json();
-  //       })
-  //       .catch( (error: Response) => Observable.throw(error.json()));
-
-  // }
+  // ITEM ========================================
 
   getItems() {
 
-    return this.items;
-
-  } // end of getItems()
-
-  getMealsets() {
-
-    return ([
-      {
-        setName: '肉料理套餐',
-        barcode: '00B1',
-        price: '150',
-        image: 'path/to/image',
-        active: true,
-        calorie: '500',
-        items: [
-          {
-            name: '匈牙利烤雞腿',
-            category: '肉料理',
-            barCode: 'a0001',
-            price: 100,
-            unit: '盒',
-            image: 'path/to/img',
-            calorie: '300',
-            ingredient: {
-              id: '00A1',
-              subjectName: '進貨-雞腿肉'
-            },
-            description: '',
-            active: false
-          },
-          {
-            name: '健康蔬果汁',
-            category: '果汁',
-            barCode: 'j0001',
-            price: 65,
-            unit: '杯',
-            image: 'path/to/img',
-            calorie: '150',
-            ingredient: {
-              id: '00B1',
-              subjectName: '進貨-奇異果'
-            },
-            description: '',
-            active: true
-          }
-        ]
-      },
-      {
-        setName: '魚料理套餐',
-        barcode: '00B2',
-        price: '150',
-        image: 'path/to/image',
-        active: true,
-        calorie: '700',
-        items: [
-          {
-            name: '薄鹽烤鯖魚',
-            category: '魚料理',
-            barcode: 'a0002',
-            price: 100,
-            unit: '盒',
-            image: 'path/to/img',
-            calorie: '300',
-            ingredient: {
-              id: '00A1',
-              subjectName: '進貨-鯖魚'
-            },
-            description: '',
-            active: true
-          },
-          {
-            name: '健康蔬果汁',
-            category: '果汁',
-            barcode: 'j0001',
-            price: 65,
-            unit: '杯',
-            image: 'path/to/img',
-            calorie: '150',
-            ingredient: {
-              id: '00B1',
-              subjectName: '進貨-奇異果'
-            },
-            description: '',
-            active: true
-          }
-        ]
-      }
-    ]);
+    return this.http.get(this.itemUrl)
+        .map((response: Response) => {
+          return response.json();
+        })
+        .catch(this.serverErrorHandler);
 
   }
 
   getItemById(id: any) {
 
-    return this.items.filter((item) => {
-      return item.barCode === id;
-    });
+    return this.http.get(this.itemUrl + `/${id}`)
+        .map((response: Response) => {
+          return response.json();
+        })
+        .catch(this.serverErrorHandler);
 
   }
+
+  createItem(itemObject: any) {
+
+    return this.http.post(this.itemUrl, JSON.stringify(itemObject), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    })
+      .map((response: Response) => {
+        const jsonRes = response.json();
+
+        return ({
+          status: 'OK',
+          message: `已新增餐點: ${jsonRes.name}`
+        });
+
+      }).catch(this.serverErrorHandler);
+
+  }
+
+  updateItem(itemObject: any) {
+
+    return this.http.put(this.itemUrl + `/${itemObject._id}`, JSON.stringify(itemObject), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    })
+      .map((response: Response) => {
+        const jsonRes = response.json();
+
+        return ({
+          status: 'OK',
+          message: `已更新餐點: ${jsonRes.name}`
+        });
+
+      }).catch(this.serverErrorHandler);
+
+  }
+
+
+  // MEALSETS ========================================
+
+  getMealsets() {
+
+    return this.http.get(this.mealsetUrl)
+        .map((response: Response) => {
+          return response.json();
+        })
+        .catch(this.serverErrorHandler);
+
+  }
+
 
   getMealsetById(id: any) {
 
-    return this.mealsets.filter((mealset) => {
-      return mealset.barcode === id;
-    });
+    return this.http.get(this.mealsetUrl)
+        .map((response: Response) => {
+          return response.json();
+        })
+        .catch(this.serverErrorHandler);
 
   }
+
 
 } // end of ItemMgtService()

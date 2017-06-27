@@ -12,10 +12,12 @@ import { AccountingService } from '../../accounting/accounting.service';
 })
 export class ItemCreateComponent implements OnInit {
 
-  public mainIngredients ;
   public selectedIngredient;
+  public mainIngredients;
+  public tests = ['one' , 'two' , 'three'];
   createForm: FormGroup;
   ngModal;
+
 
   constructor( private _itemMgtService: ItemMgtService,
                private _accountingService: AccountingService,
@@ -26,8 +28,9 @@ export class ItemCreateComponent implements OnInit {
 
     this.ngModal = false;
 
-    this.mainIngredients = this._accountingService.getMainIngredients();
-    console.log(this.mainIngredients);
+    this._accountingService.getAccountSubjects().subscribe((mainIngredients) => {
+      this.mainIngredients = mainIngredients;
+    });
 
     this.createForm = new FormGroup({
       'category': new FormControl(''),
@@ -37,7 +40,7 @@ export class ItemCreateComponent implements OnInit {
       'unit': new FormControl(''),
       'image': new FormControl(''),
       'calorie': new FormControl(0),
-      'ingredient': new FormControl(''),
+      'ingredient': new FormControl(),
       'description': new FormControl(''),
       'active': new FormControl(),
     });
@@ -46,11 +49,19 @@ export class ItemCreateComponent implements OnInit {
 
   createItem() {
 
-    if (this.createForm.value.active === null) {
-      this.createForm.value.active = false;
-    }
-
     console.log(this.createForm.value);
+    this._itemMgtService.createItem(this.createForm.value).subscribe(
+      (data) => {
+        console.log('NEXT: ', data);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        alert('Completed');
+        this.router.navigate(['../items'], { relativeTo: this.route });
+      }
+    );
 
   }
 
@@ -60,11 +71,10 @@ export class ItemCreateComponent implements OnInit {
 
   ingredientSelected(input: any) {
 
-    console.log(input);
-    this.createForm.value.ingredient = input.subjectName;
+    console.log(input._id);
+    this.createForm.value.ingredient = input._id;
     this.selectedIngredient = input.subjectName;
     this.ngModal = false;
-    // this.staticModal.hide();
 
   }
 
@@ -75,7 +85,5 @@ export class ItemCreateComponent implements OnInit {
   closeModal() {
     this.ngModal = false;
   }
-
-
 
 }
