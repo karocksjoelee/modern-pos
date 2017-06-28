@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
 export class ItemMgtService {
 
   private itemUrl = '/api/items';
-  private mealsetUrl = '/api/mealsets';
+  private mealsetUrl = '/api/mealSets';
 
   private serverErrorHandler(error: Response) {
 
@@ -62,9 +62,9 @@ export class ItemMgtService {
 
   }
 
-  updateItem(itemObject: any) {
+  updateItem(id, itemObject: any) {
 
-    return this.http.put(this.itemUrl + `/${itemObject._id}`, JSON.stringify(itemObject), {
+    return this.http.put(this.itemUrl + `/${id}`, JSON.stringify(itemObject), {
       headers: new Headers({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -98,11 +98,51 @@ export class ItemMgtService {
 
   getMealsetById(id: any) {
 
-    return this.http.get(this.mealsetUrl)
+    return this.http.get(this.mealsetUrl + `/${id}`)
         .map((response: Response) => {
           return response.json();
         })
         .catch(this.serverErrorHandler);
+
+  }
+
+  createMealset(mealSetObject: any) {
+
+    return this.http.post(this.mealsetUrl, JSON.stringify(mealSetObject), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    })
+      .map((response: Response) => {
+        const jsonRes = response.json();
+
+        return ({
+          status: 'OK',
+          message: `已新增餐點: ${jsonRes.name}`
+        });
+
+      }).catch(this.serverErrorHandler);
+
+  }
+
+  updateMealSet(id, mealSetObject: any) {
+
+    return this.http.put(this.mealsetUrl + `/${id}`, JSON.stringify(mealSetObject), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      })
+    })
+      .map((response: Response) => {
+        const jsonRes = response.json();
+
+        return ({
+          status: 'OK',
+          message: `已更新套餐: ${jsonRes.name}`
+        });
+
+      }).catch(this.serverErrorHandler);
 
   }
 

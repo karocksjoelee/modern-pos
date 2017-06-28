@@ -31,19 +31,43 @@ export class ItemMgtComponent implements OnInit {
   } // end of ngOnInit()
 
   itemTabToggle() {
+
+    if ( this.ngMealSetTab === true ) {
+      this.ngMealSetTab = false;
+    }
+    if ( this.ngDropdownTab === true ) {
+      this.ngDropdownTab = false;
+    }
+
     this.ngItemTab = !this.ngItemTab;
+
   }
 
   mealSetTabToggle() {
+
+    if ( this.ngItemTab === true) {
+      this.ngItemTab = false;
+    }
+    if ( this.ngDropdownTab === true ) {
+      this.ngDropdownTab = false;
+    }
+
     this.ngMealSetTab = !this.ngMealSetTab;
 
   }
 
   showNgDropdown(event: any) {
+
+    if ( this.ngItemTab === true) {
+      this.ngItemTab = false;
+    }
+    if ( this.ngMealSetTab === true ) {
+      this.ngMealSetTab = false;
+    }
+
     this.ngDropdownTab = true;
     this.ngDropdown = true;
-    this.ngItemTab = false;
-    this.ngMealSetTab = false;
+
   }
 
   hideNgDropdown() {

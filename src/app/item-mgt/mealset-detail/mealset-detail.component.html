@@ -1,5 +1,5 @@
-<form class="ui form fontfixer" [formGroup]="editForm">
-  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="barcode icon"></i>編輯套餐#{{mealset[0].setName}}</h2>
+<form class="ui form fontfixer" [formGroup]="updateForm" *ngIf="mealSet">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="barcode icon"></i>編輯套餐#{{mealSet.setName}}</h2>
   <p></p>
 
   <div class="field" style="margin-top:30px;">
@@ -16,7 +16,7 @@
       <button class="ui blue button" (click)="selectingItem()">
         <i class="hand pointer icon"></i>選擇餐點
       </button>
-        <a  *ngFor="let selectedItem of selectedItems" class="big ui label">{{selectedItem}}</a>
+        <a  *ngFor="let selectedItem of mealSet.items" class="big ui label">{{selectedItem.name}}</a>
 
   </div>
 
@@ -74,7 +74,7 @@
 
   <div class="fixbutton">
     <div class="ui large buttons">
-      <button class="ui primary button" (click)="createItem()">Save</button>
+      <button class="ui primary button" (click)="updateMealSet()">Save</button>
       <div class="or"></div>
       <button class="ui button" (click)="goBack()">Cancel</button>
     </div>

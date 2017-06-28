@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemMgtService } from '../item-mgt.service';
 
@@ -12,33 +12,52 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
 
   private sub: any;
   public item: any;
-  editForm: FormGroup;
-
+  id;
+  updateForm = new FormGroup({});
 
   constructor(private _itemMgtService: ItemMgtService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.sub = this.route.params.subscribe((params) => {
-      this.item = this._itemMgtService.getItemById(params['id']);
-      this.editForm = new FormGroup({
-        'category': new FormControl({value : this.item[0].category, disabled: true }),
-        'name': new FormControl({value : this.item[0].name, disabled: true }),
-        'barcode': new FormControl({value : this.item[0].barCode, disabled: true }),
-        'price': new FormControl(this.item[0].price),
-        'unit': new FormControl({value : this.item[0].unit, disabled: true }),
-        'image': new FormControl(''),
-        'calorie': new FormControl(this.item[0].calorie),
-        'ingredient': new FormControl(this.item[0].ingredient),
-        'description': new FormControl(this.item[0].description),
-        'active': new FormControl(this.item[0].active)
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.id);
+
+    this._itemMgtService.getItemById(this.id).subscribe((item) => {
+
+        this.item = item[0];
+        console.log(item[0]);
+
+        this.updateForm = new FormGroup({
+          'category': new FormControl(item[0].category),
+          'name': new FormControl(item[0].name),
+          'barcode': new FormControl(item[0].barcode),
+          'price': new FormControl(item[0].price),
+          'unit': new FormControl(item[0].unit),
+          'image': new FormControl(item[0].image),
+          'calorie': new FormControl(item[0].calorie),
+          'ingredient': new FormControl(item[0].ingredient || ''),
+          'description': new FormControl(item[0].description),
+          'active': new FormControl(item[0].active)
+        });
+
       });
-    });
 
   }
 
   updateItem() {
-    console.log(this.editForm.value);
+
+    console.log(this.updateForm.value);
+    this._itemMgtService.updateItem(this.item._id, this.updateForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        console.log('Completed');
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
   }
 
   goBack() {

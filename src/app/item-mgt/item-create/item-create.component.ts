@@ -40,7 +40,7 @@ export class ItemCreateComponent implements OnInit {
       'unit': new FormControl(''),
       'image': new FormControl(''),
       'calorie': new FormControl(0),
-      'ingredient': new FormControl(),
+      'ingredient': new FormControl(''),
       'description': new FormControl(''),
       'active': new FormControl(),
     });

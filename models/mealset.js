@@ -12,9 +12,11 @@ let MealSet = new Schema({
     unique: true
   },
   price: Number,
-  items: Array,
+  calorie: Number,
+  items: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Item'} ],
   image: String,
-  active: Boolean
+  active: Boolean,
+  description: String
 });
 
 MealSet.plugin(mongooseUniqureValidator);

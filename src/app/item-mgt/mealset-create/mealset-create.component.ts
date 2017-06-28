@@ -25,7 +25,9 @@ export class MealsetCreateComponent implements OnInit {
 
     this.ngModal = false;
 
-    this.items = this._itemMgtService.getItems();
+    this._itemMgtService.getItems().subscribe((items) => {
+      this.items = items;
+    });
 
     this.createForm = new FormGroup({
       'setName': new FormControl(''),
@@ -48,7 +50,7 @@ export class MealsetCreateComponent implements OnInit {
   itemSelected(item) {
 
     console.log(item);
-    this.createForm.value.items.push(item);
+    this.createForm.value.items.push(item._id);
     this.selectedItems.push(item.name);
 
   }
@@ -60,6 +62,17 @@ export class MealsetCreateComponent implements OnInit {
   createItem() {
 
     console.log(this.createForm.value);
+    this._itemMgtService.createMealset(this.createForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        console.log('Completed');
+        this.router.navigate(['../mealsets'], { relativeTo: this.route });
+      });
 
   }
 
