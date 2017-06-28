@@ -143,7 +143,7 @@ router.delete('/:id', (req, res) => {
         res.status(200).send("Member Deleted!!");
       }
     });
-  })
+  });
   res.status(200).send('Member.name Deleted');
 });
 

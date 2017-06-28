@@ -56,7 +56,7 @@ router.get('/(:id)?', (req, res) => {
           console.log(mealSets);
           res.status(200).send(mealSets);
         }
-      })
+      });
 
   } else {
 
@@ -72,7 +72,7 @@ router.get('/(:id)?', (req, res) => {
           console.log(mealSets);
           res.status(200).send(mealSets);
         }
-      })
+      });
 
   }
 

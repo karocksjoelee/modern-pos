@@ -111,7 +111,7 @@ router.put('/:id', (req, res) => {
         res.status(201).send(account);
       }
     });
-  })
+  });
 
 });
 
