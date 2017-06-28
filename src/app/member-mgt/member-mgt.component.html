@@ -1,3 +1,9 @@
-<p>
-  Member-Mgt Works !
-</p>
+<ul class="nav nav-pills nav-fill">
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active': actived == 'memberActived'}" (click)="actived = 'memberActived' " [routerLink]="['members']">會　　員</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active': actived == 'buildingActived'}" (click)="actived = 'buildingActived' "[routerLink]="['buildings']">大　　樓</a>
+  </li>
+</ul>
+<router-outlet></router-outlet>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-accounting',
   templateUrl: './accounting.component.html',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountingComponent implements OnInit {
 
+  actived;
+
   constructor() { }
 
   ngOnInit() {
+
+    this.actived = 'accountingActived';
+
   }
 
 }

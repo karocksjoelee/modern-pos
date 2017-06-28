@@ -1,90 +1,97 @@
-<form class="container" [formGroup]="createForm">
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">套餐名稱</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="setName">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="example-number-input" class="col-2 col-form-label">內含餐點</label>
-    <div *ngIf="selectedItems">
-      <button *ngFor="let selectedItem of selectedItems" type="button" class="btn btn-success pill">{{selectedItem.name}}</button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="staticModal.show()"><i class="fa fa-plus" style="color:white; font-size:15px"aria-hidden="true"></i></button>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="example-email-input" class="col-2 col-form-label">價　　格</label>
-    <div class="col-2">
-      <input class="form-control" type="email" formControlName="price">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="example-tel-input" class="col-2 col-form-label">條碼代號</label>
-    <div class="col-4">
-      <input class="form-control" type="tel" id="example-tel-input" formControlName="barcode">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="example-password-input" class="col-2 col-form-label">上傳圖片</label>
-    <div class="col-4">
-      <div class="form-group">
-        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" formControlName="image">
-        <small id="fileHelp" class="form-text text-muted">請選擇解析度: 100x100 的圖片</small>
+<form class="ui form fontfixer" [formGroup]="createForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="barcode icon"></i>新增套餐</h2>
+  <p></p>
+
+  <div class="field" style="margin-top:30px;">
+    <label>套餐名稱</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Mealset Name" formControlName="setName">
       </div>
     </div>
   </div>
-  <div class="form-group row">
-    <label for="example-number-input" class="col-2 col-form-label">熱　　量</label>
-    <div class="col-2">
-      <input class="form-control" type="number" formControlName="calorie">
+
+  <div class="inline field" style="margin-top:30px;">
+    <label>內含餐點</label>
+      <button class="ui blue button" (click)="selectingItem()">
+        <i class="hand pointer icon"></i>選擇餐點
+      </button>
+        <a  *ngFor="let selectedItem of selectedItems" class="big ui label">{{selectedItem}}</a>
+
+  </div>
+
+  <div class="fields" style="margin-top:30px;">
+    <div class="three wide field">
+      <label>零售價格</label>
+      <input type="text" maxlength="3" placeholder="Price" formControlName="price">
     </div>
   </div>
-  <div class="form-group row">
-    <label for="example-datetime-local-input" class="col-2 col-form-label">狀　　態</label>
-    <div class="col-2">
-      <div class="mdc-switch">
-        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" formControlName="active" />
-        <div class="mdc-switch__background">
-          <div class="mdc-switch__knob"></div>
+
+  <div class="fields" style="margin-top:30px;">
+    <div class="three wide field">
+      <label>熱量</label>
+      <input type="text" maxlength="3" placeholder="Calorie" formControlName="calorie">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>條碼代號</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Barcode" formControlName="barcode">
+      </div>
+    </div>
+  </div>
+
+  <div class="inline field" style="margin-top:30px;">
+    <label>上傳照片</label>
+      <button class="ui blue button" style="padding-bottom:5px; padding-top:10px;">
+        <input type="file" name="file" id="file" class="inputfile" />
+        <i class="upload icon"></i><label for="file">選擇圖片</label>
+      </button>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>架上狀態</label>
+    <div class="two fields">
+      <div class="field">
+        <div class="ui toggle checkbox checked">
+          <input type="checkbox" name="gift" formControlName="active">
+          <label>上架中 / 已下架</label>
         </div>
       </div>
-      <label for="basic-switch" class="mdc-switch-label">下架 / 上架</label>
     </div>
   </div>
-  <div class="form-group row">
-    <label for="example-date-input" class="col-2 col-form-label">套餐描述</label>
-    <div class="col-4">
-      <input class="form-control" formControlName="description">
-    </div>
-    <div class="col-9">
-      <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
-      <button type="button" class="btn btn-primary btn-lg float-right" (click)="createItem()">新增</button>
+
+  <div class="ui form" style="margin-top:30px;">
+    <div class="field">
+      <label style="font-size:16px;">套餐介紹</label>
+      <textarea formControlName="description"></textarea>
     </div>
   </div>
+
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="createItem()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
+    </div>
+  </div>
+
 </form>
 
-
-
-<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">餐點列表</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item justify-content-between" *ngFor="let item of items" (click)="itemSelected(item,bsModal)">
-            {{item.name}}
-            <span class="badge badge-default badge-pill">{{item.category}}</span>
-          </li>
-        </ul> 
-      </div>
-    </div>
+<!--Modal Code Here-->
+<div class="ui modal" [ngClass]="{'active': ngModal}">
+  <div class="header">
+    <i (click)="closeModal()" class="close icon"></i>
+    餐點列表
+  </div>
+  <div class="image content">
+    <button  *ngFor="let item of items" class="large ui purple basic button" (click)="itemSelected(item)">
+      {{item.name}}
+    </button>
   </div>
 </div>
+

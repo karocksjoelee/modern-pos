@@ -13,6 +13,7 @@ let Member = new Schema({
     unique: true
   },
   since: String,
+  type: String,
   line: String,
   facebook: String,
   email: String,

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ItemMgtService } from '../item-mgt.service';
@@ -11,28 +12,32 @@ import { AccountingService } from '../../accounting/accounting.service';
 })
 export class ItemCreateComponent implements OnInit {
 
-  public categories = ['肉料理', '魚料理', '主廚發揮', '蔬食料理' , '果汁' , '咖啡' ];
-  public units = ['盒' , '杯', '份'];
-  public mainIngredients ;
-  createForm: FormGroup;
   public selectedIngredient;
-  modal;
+  public mainIngredients;
+  public tests = ['one' , 'two' , 'three'];
+  createForm: FormGroup;
+  ngModal;
 
-  @ViewChild('staticModal') staticModal;
 
-  constructor(private _itemMgtService: ItemMgtService, private _accountingService: AccountingService ) { }
+  constructor( private _itemMgtService: ItemMgtService,
+               private _accountingService: AccountingService,
+               private router: Router,
+               private route: ActivatedRoute ) { }
 
   ngOnInit() {
 
-    this.mainIngredients = this._accountingService.getMainIngredients();
-    console.log(this.mainIngredients);
+    this.ngModal = false;
+
+    this._accountingService.getAccountSubjects().subscribe((mainIngredients) => {
+      this.mainIngredients = mainIngredients;
+    });
 
     this.createForm = new FormGroup({
       'category': new FormControl(''),
       'name': new FormControl(''),
       'barcode': new FormControl(''),
       'price': new FormControl(0),
-      'unit': new FormControl('盒'),
+      'unit': new FormControl(''),
       'image': new FormControl(''),
       'calorie': new FormControl(0),
       'ingredient': new FormControl(''),
@@ -44,22 +49,41 @@ export class ItemCreateComponent implements OnInit {
 
   createItem() {
 
-    if (this.createForm.value.active === null) {
-      this.createForm.value.active = false;
-    }
-
     console.log(this.createForm.value);
+    this._itemMgtService.createItem(this.createForm.value).subscribe(
+      (data) => {
+        console.log('NEXT: ', data);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        alert('Completed');
+        this.router.navigate(['../items'], { relativeTo: this.route });
+      }
+    );
 
+  }
+
+  goBack() {
+    this.router.navigate(['../items'], { relativeTo: this.route });
   }
 
   ingredientSelected(input: any) {
 
-    this.createForm.value.ingredient = input.subjectName;
+    console.log(input._id);
+    this.createForm.value.ingredient = input._id;
     this.selectedIngredient = input.subjectName;
-    this.staticModal.hide();
+    this.ngModal = false;
 
   }
 
+  selectingIngredient() {
+    this.ngModal = true;
+  }
 
+  closeModal() {
+    this.ngModal = false;
+  }
 
 }

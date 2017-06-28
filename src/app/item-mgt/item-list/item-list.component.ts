@@ -15,13 +15,14 @@ export class ItemListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.items = this._itemMgtService.getItems();
-    console.log(this.items);
+    this._itemMgtService.getItems().subscribe((items) => {
+      this.items = items;
+    });
 
   }
 
   createItem() {
-    this.router.navigate(['/dashboard/items/new-item'], { relativeTo: this.route} );
+    this.router.navigate(['/dashboard/items/new-item'], { relativeTo: this.route } );
   }
 
 }

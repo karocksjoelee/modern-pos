@@ -10,15 +10,18 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <!-- Latest compiled and minified CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+  <!--<link rel="stylesheet" type="text/css" href="./node_modules/semantic-ui-css/semantic.min.css">-->
+  
 </head>
 
 <body>
+  <!--<app-root>Loading ...</app-root>-->
   <app-root>
-    <div class="loader">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-      </svg>
+    <div class="ui segment fixloading">
+      <div class="ui active dimmer">
+        <div class="ui text loader">Loading</div>
+      </div>
+      <p></p>
     </div>
   </app-root>
 </body>

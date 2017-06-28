@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ItemMgtService } from '../item-mgt.service';
@@ -15,13 +16,18 @@ export class MealsetCreateComponent implements OnInit {
   createForm: FormGroup;
   selectedItems = [];
   items;
+  ngModal;
 
-  constructor(private _itemMgtService: ItemMgtService) { }
+  constructor(private _itemMgtService: ItemMgtService, private router: Router, private route: ActivatedRoute) { }
 
 
   ngOnInit() {
 
-    this.items = this._itemMgtService.getItems();
+    this.ngModal = false;
+
+    this._itemMgtService.getItems().subscribe((items) => {
+      this.items = items;
+    });
 
     this.createForm = new FormGroup({
       'setName': new FormControl(''),
@@ -36,19 +42,42 @@ export class MealsetCreateComponent implements OnInit {
 
   }
 
+  selectingItem() {
+    this.ngModal = true;
+  }
 
-  itemSelected(item, bsModal) {
 
-    this.createForm.value.items.push(item);
-    this.selectedItems.push(item);
+  itemSelected(item) {
+
+    console.log(item);
+    this.createForm.value.items.push(item._id);
+    this.selectedItems.push(item.name);
 
   }
 
+  closeModal() {
+    this.ngModal = false;
+  }
 
   createItem() {
 
     console.log(this.createForm.value);
+    this._itemMgtService.createMealset(this.createForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        console.log('Completed');
+        this.router.navigate(['../mealsets'], { relativeTo: this.route });
+      });
 
+  }
+
+  goBack() {
+    this.router.navigate(['../mealsets'], { relativeTo: this.route });
   }
 
 }

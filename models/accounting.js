@@ -9,7 +9,9 @@ let Accounting = new Schema({
     ref: 'AccountSubject'
   },
   unit: String,
-  amount: Number
+  amount: Number,
+  quantity: Number,
+  notes: String
 });
 
 Accounting.plugin(mongooseUniqureValidator);

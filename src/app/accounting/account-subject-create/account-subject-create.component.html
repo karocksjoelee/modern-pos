@@ -1,0 +1,73 @@
+<form class="container" [formGroup]="createForm">
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">科目名稱</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="subjectName">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">科目英文</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="subjectEng">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-email-input" class="col-2 col-form-label">類　　別</label>
+    <div class="col-4">
+      <select class="form-control" style="font-weight:bold" formControlName="subjectType">
+        <option style="font-weight:bold" value="assets">資產</option>
+        <option style="font-weight:bold" value="liabilities">負債</option>
+        <option style="font-weight:bold" value="capital">業主權益</option>
+        <option style="font-weight:bold" value="revenue">收入</option>
+        <option style="font-weight:bold" value="expense">費用</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-email-input" class="col-2 col-form-label">單　　位</label>
+    <div class="col-4">
+      <select class="form-control" style="font-weight:bold" formControlName="unit">
+        <option style="font-weight:bold" value="none">無</option>
+        <option style="font-weight:bold" value="gram">公克</option>
+        <option style="font-weight:bold" value="piece">個</option>
+        <option style="font-weight:bold" value="box">盒</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">掃描條碼</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="barcode">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-datetime-local-input" class="col-2 col-form-label">為主原料</label>
+    <div class="col-2">
+      <div class="mdc-switch">
+        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" formControlName="main" />
+        <div class="mdc-switch__background">
+          <div class="mdc-switch__knob"></div>
+        </div>
+      </div>
+      <label for="basic-switch" class="mdc-switch-label">否 / 是</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="example-search-input" class="col-2 col-form-label">備　　註</label>
+    <div class="col-4">
+      <input class="form-control" type="text" formControlName="description">
+    </div>
+    <div class="col-9">
+      <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
+      <button type="button" class="btn btn-primary btn-lg float-right" (click)="newSubject()">新增</button>
+    </div>
+  </div>
+
+</form>

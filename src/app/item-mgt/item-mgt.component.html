@@ -1,9 +1,32 @@
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'itemActived'}" (click)="actived = 'itemActived' " [routerLink]="['items']">餐　　點</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'mealActived'}" (click)="actived = 'mealActived' "[routerLink]="['mealsets']">套　　餐</a>
-  </li>
-</ul>
-<router-outlet></router-outlet>
+<div class="breath"></div>
+
+<div class="ui pointing menu">
+
+  <a class="item" [ngClass]="{'active': ngItemTab }"  (click)="itemTabToggle()" [routerLink]="['items']">餐點列表</a>
+
+  <a class="item" [ngClass]="{'active': ngMealSetTab }" (click)="mealSetTabToggle()" [routerLink]="['mealsets']">套餐列表</a>
+
+  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
+    <span class="text">新增</span>
+    <i class="dropdown icon"></i>
+    <div class="menu" [ngClass]="{'transition visible': ngDropdown}">
+      <div class="header" style="height:30px" (click)="onCreateItem()" [routerLink]="['new-item']">新增餐點</div>
+      <div class="header" style="height:30px" (click)="onCreateMealSet()" [routerLink]="['new-meal']">新增套餐</div>
+    </div>
+  </div>
+
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui segment">
+  <p></p>
+  <router-outlet></router-outlet>
+</div>

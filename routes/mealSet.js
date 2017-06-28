@@ -23,6 +23,7 @@ router.post('/', upload.single('image'), (err, req, res) => {
   let mealSet = new MealSet({
     setName: req.body.setName,
     barcode: req.body.barcode,
+    calorie: req.body.calorie,
     price: req.body.price,
     items: req.body.items,
     image: req.file.path,
@@ -45,28 +46,34 @@ router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
-    MealSet.find({}, (err, mealSet) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(err);
-      } else {
-        res.status(200).send(mealSet);
-      }
-    });
+    MealSet.find({})
+      .populate('items')
+      .exec((err, mealSets) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          console.log(mealSets);
+          res.status(200).send(mealSets);
+        }
+      })
 
   } else {
-    // Or get item by id 
+
     MealSet.find({
-      _id: req.params.id
-    }, (err, mealSet) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(err);
-      } else {
-        res.status(200).send(mealSet);
-      }
-    });
-    res.status(200).send('MealSet By Id');
+        _id: req.params.id
+      })
+      .populate('items')
+      .exec((err, mealSets) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          console.log(mealSets);
+          res.status(200).send(mealSets);
+        }
+      })
+
   }
 
 });
@@ -104,6 +111,8 @@ router.put('/:id', (req, res) => {
     mealSet.items = req.body.items || mealSet.items;
     mealSet.image = req.body.image || mealSet.image;
     mealSet.active = req.body.active || mealSet.active;
+    mealSet.calorie = req.body.calorie || mealSet.calorie;
+    mealSet.description = req.body.description || mealSet.description;
 
 
     mealSet.save((err, mealSet) => {

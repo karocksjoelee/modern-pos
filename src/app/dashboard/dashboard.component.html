@@ -1,52 +1,52 @@
- <div id="wrapper" [ngClass]="{'toggled': toggle }">
+<div class="ui bottom attached segment pushable">
+  <div class="ui inverted left vertical sidebar menu" [ngClass]="{'visible': toggle }">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">Modern POS</a>
-                </li>
-                <li>
-                    <a [routerLink]="['op-info']">營運資訊</a>
-                </li>
-                <li>
-                    <a [routerLink]="['items']">餐點管理</a>
-                </li>
-                <li>
-                    <a [routerLink]="['members']">會員管理</a>
-                </li>
-                <li>
-                    <a [routerLink]="['preorder']">預訂訂單</a>
-                </li>
-                <li>
-                    <a [routerLink]="['onsite']">現場點單</a>
-                </li>
-                <li>
-                    <a [routerLink]="['accounting']">帳務紀錄</a>
-                </li>
-                <li>
-                   <a [routerLink]="['sales']">銷售分析</a>
-                </li>
-                <li>
-                   <a [routerLink]="['finance']">財務分析</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+    <a [routerLink]="['op-info']" class="item">
+      <i class="large dashboard icon"></i>
+      營運資訊
+    </a>
 
-        <!-- Page Content -->
-        <span class="toggler" (click)="sidebarToggle()">&#9776;</span>
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <!--<div class="row">-->
-                    <div class="col-lg-12">
-                        <router-outlet></router-outlet>
-                    </div>
-                <!--</div>-->
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
+    <a [routerLink]="['items']" class="item">
+      <i class="large barcode icon" aria-hidden="true"></i>
+      餐點管理
+    </a>
 
+    <a [routerLink]="['members']" class="item">
+      <i class="large users icon"></i>
+      會員資料
+    </a>
+
+    <a [routerLink]="['preorder']" class="item">
+      <i class="large shopping basket icon"></i>
+      預訂訂單
+    </a>
+
+    <a [routerLink]="['onsite']" class="item">
+      <i class="large food icon"></i>
+      現場點單
+    </a>
+
+    <a [routerLink]="['accounting']" class="item">
+      <i class="large book icon"></i>
+      帳務紀錄
+    </a>
+
+    <a [routerLink]="['sales']" class="item">
+      <i class="large line chart icon"></i>
+      銷售分析
+    </a>
+
+    <a [routerLink]="['finance']" class="item">
+      <i class="large pie chart icon"></i>
+      財務分析
+    </a>
+
+  </div>
+
+  <div class="pusher">
+    <div class="ui basic segment">
+      <i (click)="sidebarToggle()" class="big sidebar icon"></i><span style="font-size:20px; vertical-align: middle;">Menu</span>
+      <router-outlet></router-outlet>
     </div>
-    <!-- /#wrapper -->
-
+  </div>
+</div>

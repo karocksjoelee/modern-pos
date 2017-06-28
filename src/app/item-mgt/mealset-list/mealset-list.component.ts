@@ -14,8 +14,10 @@ export class MealsetListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.mealsets = this._itemMgtService.getMealsets();
-    console.log(this.mealsets);
+    this._itemMgtService.getMealsets().subscribe((mealsets) => {
+      this.mealsets = mealsets;
+      console.log(this.mealsets);
+    });
 
   }
 

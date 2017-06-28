@@ -1,18 +1,7 @@
-.app-fab--absolute.app-fab--absolute {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+.menu {
+  font-size: 15px;
 }
 
-@media(min-width: 1024px) {
-   .app-fab--absolute.app-fab--absolute {
-    bottom: 3rem;
-    right: 5rem;
-  }
-}
-
-.nav-link{
-  font-size: 20px;
-  font-weight: bold;
-  cursor:pointer;
+.menu .header {
+  font-size: 15px;
 }

@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberMgtComponent implements OnInit {
 
+  actived;
+
   constructor() { }
 
   ngOnInit() {
+
+    this.actived = 'memberActived';
   }
 
 }
