@@ -37,7 +37,8 @@ let Member = new Schema({
   orderHistories: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Sale"
-  }
+  },
+  type: String
 });
 
 Member.plugin(mongooseUniqureValidator);

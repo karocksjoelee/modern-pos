@@ -4,6 +4,7 @@ let mondels = require('../models');
 let Manager = module.Manager;
 let cm = require('../utility/common-module.js');
 
+//登入
 router.post('/login', (req, res) => {
   Manager.findOne({
     userName: req.body.userName,
@@ -19,5 +20,7 @@ router.post('/login', (req, res) => {
   }
   res.status(200).send('success login!!');
 });
+
+
 
 module.exports = router;

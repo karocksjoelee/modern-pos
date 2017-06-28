@@ -31,7 +31,8 @@ router.post('/', (req, res) => {
     memberStatus: req.body.memberStatus,
     unExchanged: req.body.unExchanged,
     exchanged: req.body.exchanged,
-    orderHistories: req.body.orderHistories
+    orderHistories: req.body.orderHistories,
+    type: req.body.type
   });
 
   member.save((err, member) => {
@@ -63,7 +64,7 @@ router.get('/(:id)?', (req, res) => {
 
   } else {
     // Or get item by id 
-    Member.findOne({
+    Member.find({
         _id: req.params.id
       })
       .populate('Buildings')
@@ -110,6 +111,7 @@ router.put('/:id', (req, res) => {
     member.unExchanged = req.body.unExchanged || member.unExchanged;
     member.exchanged = req.body.exchanged || member.exchanged;
     member.orderHistories = req.body.orderHistories || member.orderHistories;
+    member.type = req.body.type || member.type;
 
     member.save((err, member) => {
       if (err) {

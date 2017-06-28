@@ -2,22 +2,30 @@
 // ==========================================================================================
 const express = require('express');
 const router = express.Router();
-
+const multer = require('multer');
+const upload = multer({
+  dest: 'images/'
+});
 // Mongo Schema 
 const MealSet = require('../models/mealset');
 
 
 // RESTful API 
 // ==========================================================================================
-router.post('/', (req, res) => {
+router.post('/', upload.single('image'), (err, req, res) => {
   // Accept an Object according to schema 
   // Object will be in req.body
+  if (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+
   let mealSet = new MealSet({
     setName: req.body.setName,
     barcode: req.body.barcode,
     price: req.body.price,
     items: req.body.items,
-    image: req.body.image,
+    image: req.file.path,
     active: req.body.active
   });
 
