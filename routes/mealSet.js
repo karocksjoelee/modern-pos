@@ -17,7 +17,7 @@ router.post('/', upload.single('image'), (err, req, res) => {
   // Object will be in req.body
   if (err) {
     console.log(err);
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
 
   let mealSet = new MealSet({
