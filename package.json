@@ -32,6 +32,7 @@
     "jade": "~1.11.0",
     "jshint": "^2.9.4",
     "material-components-web": "^0.12.1",
+    "moment": "^2.18.1",
     "mongoose": "^4.10.2",
     "mongoose-unique-validator": "^1.0.5",
     "morgan": "~1.8.1",

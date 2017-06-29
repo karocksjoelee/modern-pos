@@ -1,62 +1,74 @@
-<form class="container" [formGroup]="createForm">
+<form class="ui form fontfixer" [formGroup]="createForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="archive icon"></i>新增帳務</h2>
 
-  <div class="form-group row">
-    <label for="example-number-input" class="col-2 col-form-label">會計科目</label>
-    <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="staticModal.show()">{{selectedSubject || '選擇科目'}}</button>
+  <div class="inline field" style="margin-top:30px;">
+    <label>會計科目</label>
+        <button class="ui blue button" (click)="selectingSubject()">
+          <i class="hand pointer icon"></i>選擇科目
+        </button>
+        <a *ngIf="selectedSubject" class="big ui label">{{selectedSubject.subjectName}}</a>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>金額</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Amount" formControlName="amount">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">金　　額</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="amount">
+  <div class="field" style="margin-top:30px;">
+    <label>數量</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="Quantity" formControlName="quantity">
+      </div>
+      <div class="field" *ngIf="selectedSubject">
+        <h3 style="margin-top:7px;">{{selectedSubject.unit}}</h3>
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-email-input" class="col-2 col-form-label">數　　量</label>
-    <div class="col-2">
-      <input class="form-control" type="text" formControlName="quantity">
+  <div class="ui form" style="margin-top:30px;">
+    <div class="field">
+      <label style="font-size:16px;">該筆帳務備註</label>
+      <div class="two fields">
+      <div class="field">
+        <textarea formControlName="notes"></textarea>
+      </div>
     </div>
-    <label class="col-0.5 col-form-label">單　　位</label>
-    <div class="col-1">
-      <input class="form-control" type="text" formControlName="unit">
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-number-input" class="col-2 col-form-label">備　　註</label>
-    <div class="col-4">
-      <input class="form-control" type="text-area" formControlName="notes">
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="newAccounting()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
     </div>
-  </div>
-  <div class="col-9">
-    <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
-    <button type="button" class="btn btn-primary btn-lg float-right" (click)="newAccounting()">新增</button>
   </div>
 
 </form>
 
 
-<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">會計科目</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item justify-content-between" (click)="subjectSelected(subject)">
-            會計科目列表
-            <span class="badge badge-default badge-pill">科目類型</span>
-          </li>
-        </ul> 
+<!--Modal Code Here-->
+<div class="ui modal" [ngClass]="{'active': ngModal}">
+  <div class="header">
+    <i (click)="closeModal()" class="close icon"></i>
+    會計科目
+  </div>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
+        </div>
       </div>
     </div>
   </div>
+  
 </div>

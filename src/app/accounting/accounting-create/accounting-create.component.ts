@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AccountingService } from '../accounting.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-accounting-create',
@@ -10,15 +12,18 @@ import { AccountingService } from '../accounting.service';
 })
 export class AccountingCreateComponent implements OnInit {
 
-  modal;
+  ngModal;
+  accountSubjects;
   selectedSubject;
   createForm: FormGroup;
 
-  @ViewChild('staticModal') staticModal;
-
-  constructor(private _accountingService: AccountingService) { }
+  constructor(private _accountingService: AccountingService, private router: Router, private route: ActivatedRoute ) { }
 
   ngOnInit() {
+
+    this._accountingService.getAccountSubjects().subscribe((subjects) => {
+      this.accountSubjects = subjects;
+    });
 
     this.createForm = new FormGroup({
       'date': new FormControl(''),
@@ -33,17 +38,39 @@ export class AccountingCreateComponent implements OnInit {
 
   newAccounting() {
 
+    this.createForm.value.date = moment().format();
+    this.createForm.value.accountSubject = this.selectedSubject._id;
     console.log(this.createForm.value);
+    this._accountingService.newAccounting(this.createForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        alert('Completed');
+        this.router.navigate(['../accountings'], { relativeTo: this.route });
+      });
 
+  }
+
+  selectingSubject() {
+    this.ngModal = true;
   }
 
   subjectSelected(inputSubject) {
 
+    console.log('Selected ', inputSubject._id);
+
     this.createForm.value.accountSubject = inputSubject._id;
     this.createForm.value.unit = inputSubject.unit;
-    this.selectedSubject = inputSubject.subjectName;
-    this.staticModal.hide();
+    this.selectedSubject = inputSubject;
 
+  }
+
+  closeModal() {
+    this.ngModal = false;
   }
 
 }

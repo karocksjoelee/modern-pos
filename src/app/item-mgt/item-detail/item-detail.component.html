@@ -78,7 +78,7 @@
         <button class="ui blue button" (click)="selectingIngredient()">
           <i class="hand pointer icon"></i>選擇食材
         </button>
-        <a *ngIf="item.ingredient" class="big ui label">{{item.ingredient}}</a>
+        <a *ngIf="item.ingredient" class="big ui label">{{item.ingredient.subjectName}}</a>
   </div>
 
   <div class="field" style="margin-top:30px;">

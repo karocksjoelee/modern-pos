@@ -14,7 +14,6 @@ export class ItemCreateComponent implements OnInit {
 
   public selectedIngredient;
   public mainIngredients;
-  public tests = ['one' , 'two' , 'three'];
   createForm: FormGroup;
   ngModal;
 
@@ -49,7 +48,7 @@ export class ItemCreateComponent implements OnInit {
 
   createItem() {
 
-    console.log(this.createForm.value);
+    console.log('Creating....', this.createForm.value);
     this._itemMgtService.createItem(this.createForm.value).subscribe(
       (data) => {
         console.log('NEXT: ', data);
@@ -71,8 +70,8 @@ export class ItemCreateComponent implements OnInit {
 
   ingredientSelected(input: any) {
 
-    console.log(input._id);
     this.createForm.value.ingredient = input._id;
+    console.log('Selected ', this.createForm.value);
     this.selectedIngredient = input.subjectName;
     this.ngModal = false;
 

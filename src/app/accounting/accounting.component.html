@@ -1,9 +1,32 @@
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'accountingActived'}" (click)="actived = 'accountingActived' " [routerLink]="['accountings']">帳務紀錄</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'subjectActived'}" (click)="actived = 'subjectActived' "[routerLink]="['subjects']">科目設定</a>
-  </li>
-</ul>
-<router-outlet></router-outlet>
+<div class="breath"></div>
+
+<div class="ui pointing menu">
+
+  <a class="item" [ngClass]="{'active': ngAccountingTab }"  (click)="accountingTabToggle()" [routerLink]="['accountings']">帳戶紀錄</a>
+
+  <a class="item" [ngClass]="{'active': ngSubjectTab }" (click)="subjectTabToggle()" [routerLink]="['subjects']">科目設定</a>
+
+  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
+    <span class="text">新增</span>
+    <i class="dropdown icon"></i>
+    <div class="menu" [ngClass]="{'transition visible': ngDropdown}">
+      <div class="header" style="height:30px" (click)="onCreateAccounting()" [routerLink]="['new-accounting']">新增帳務</div>
+      <div class="header" style="height:30px" (click)="onCreateSubject()" [routerLink]="['new-subject']">新增科目</div>
+    </div>
+  </div>
+
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui segment">
+  <p></p>
+  <router-outlet></router-outlet>
+</div>

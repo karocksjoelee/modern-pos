@@ -1,3 +1,35 @@
-<p>
-  account-subject-list works!
-</p>
+<div class="ui right aligned category search">
+  <div class="large ui buttons">
+    <button class="ui button active">全部</button>
+    <button class="ui button">資產</button>
+    <button class="ui button ">負債</button>
+    <button class="ui button ">業主權益</button>
+    <button class="ui button ">收入</button>
+    <button class="ui button ">費用</button>
+  </div>
+  <div class="ui icon input searchfix">
+    <input class="prompt" type="text" placeholder="搜尋科目...">
+    <i class="search icon"></i>
+  </div>
+  <div class="results"></div>
+</div>
+
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>科目類別</th>
+      <th>科目名稱</th>
+      <th>科目英文</th>
+      <th>科目類型</th>
+      <th>單位</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let subject of accountSubjects">
+      <td>{{subject.subjectType}}</td>
+      <td>{{subject.subjectName}}</td>
+      <td>{{subject.subjectEng}}</td>
+      <td>{{subject.main}}</td>
+      <td>{{subject.unit}}</td>
+  </tbody>
+</table>

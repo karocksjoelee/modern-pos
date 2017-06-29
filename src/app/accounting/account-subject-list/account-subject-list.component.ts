@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AccountingService } from '../accounting.service';
 
 @Component({
   selector: 'app-account-subject-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountSubjectListComponent implements OnInit {
 
-  constructor() { }
+  accountSubjects;
+
+  constructor(private _accountingService: AccountingService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this._accountingService.getAccountSubjects().subscribe((accountSubjects) => {
+      this.accountSubjects = accountSubjects;
+      console.log(this.accountSubjects);
+    });
+
   }
 
 }

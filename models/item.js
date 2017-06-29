@@ -18,7 +18,7 @@ let Item = new Schema({
   calorie: String,
   ingredient: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'accountSubject'
+    ref: 'AccountSubject'
   },
   description: String,
   active: Boolean

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../accounting.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class AccountSubjectCreateComponent implements OnInit {
 
   createForm: FormGroup;
 
-  constructor(private _accountingService: AccountingService) { }
+  constructor(private _accountingService: AccountingService, private router: Router, private route: ActivatedRoute ) { }
 
   ngOnInit() {
 
@@ -24,11 +25,23 @@ export class AccountSubjectCreateComponent implements OnInit {
       'main': new FormControl(false),
       'description': new FormControl('')
     });
+
   }
 
   newSubject() {
 
     console.log(this.createForm.value);
+    this._accountingService.createSubject(this.createForm.value).subscribe(
+      (response) => {
+      console.log('Response :',response);
+      },
+      (error) => {
+      alert(error);
+      },
+      () => {
+      console.log('Completed');
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
 
   }
 

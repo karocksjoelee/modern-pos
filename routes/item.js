@@ -43,7 +43,7 @@ router.get('/(:id)?', (req, res) => {
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
     Item.find({})
-      .populate("accountSubject")
+      .populate("ingredient")
       .exec((err, items) => {
         if (err) {
           console.log(err);
@@ -58,7 +58,7 @@ router.get('/(:id)?', (req, res) => {
     Item.find({
         _id: req.params.id
       })
-      .populate("accountSubject")
+      .populate("ingredient")
       .exec((err, item) => {
         if (err) {
           console.log(err);
@@ -77,7 +77,7 @@ router.get('/activedItem', (req, res) => {
   Item.find({
       active: true
     })
-    .populate('accountSubject')
+    .populate('ingredient')
     .exec((err, items) => {
       if (err) {
         console.log(err);

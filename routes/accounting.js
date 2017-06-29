@@ -14,16 +14,19 @@ router.post('/', (req, res) => {
   // Accept an Object according to schema 
   // Object will be in req.body
 
-  let accounting = new Accouting({
+  let accounting = new Accounting({
     date: req.body.date,
     accountSubject: req.body.accountSubject,
     unit: req.body.unit,
-    amount: req.body.amount
+    amount: req.body.amount,
+    notes: req.body.notes,
+    quantity: req.body.quantity
   });
 
   accounting.save((err, accounting) => {
     if (err) {
       cm.logErr(err);
+      console.log(err);
       res.status(500).send(err);
     }
     res.status(201).send(accounting);
@@ -67,22 +70,21 @@ router.get('/(:id)?', (req, res) => {
 
 
 router.get('/byDate/:date', (req, res) => {
+
   let year = req.params.date.slice(0, 4);
   let month = req.params.date.slice(4, 6);
   let date = year + "-" + month;
 
-  Accounting.find({
-    date: {
-      $regex: date
-    }
-  }, (err, account) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(account);
-    }
-  });
+  Accounting.find({date: {$regex: date}})
+    .populate('accountSubject')
+    .exec((err, accountings) => {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+      }else {
+        res.status(200).send(accountings)
+      }
+    })
 
 });
 

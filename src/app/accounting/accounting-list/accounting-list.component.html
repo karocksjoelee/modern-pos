@@ -1,3 +1,55 @@
-<p>
-  accounting-list works!
-</p>
+<div class="ui six column grid">
+
+  <div class="column">
+    <select class="ui fluid search dropdown" [(ngModel)]="thisYear">
+      <option value="">2017</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+    </select>
+  </div>
+
+  <div class="column">
+    <select class="ui fluid search dropdown" [(ngModel)]="thisMonth">
+      <option value="">Month</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+  </div>
+
+  <div  class="column">
+    <button class="ui blue basic button" (click)="onChangeDate()">查詢</button>
+  </div>
+
+</div>
+
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>科目類別</th>
+      <th>會計科目</th>
+      <th>金額</th>
+      <th>數量 / 單位</th>
+      <th>備註</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let accounting of accountings">
+      <td>{{accounting.accountSubject.subjectType}}</td>
+      <td>{{accounting.accountSubject.subjectName}}</td>
+      <td>{{accounting.amount}}</td>
+      <td>{{accounting.quantity}} / {{accounting.accountSubject.unit}}</td>
+      <td>{{accounting.notes}}</td>
+    </tr>
+  </tbody>
+</table>
