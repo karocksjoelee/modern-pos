@@ -10,6 +10,8 @@ const Member = require('../models/member');
 // RESTful API 
 // ==========================================================================================
 router.post('/', (req, res) => {
+
+  console.log('TESTTTT', req.body.homeBuilding);
   // Accept an Object according to schema 
   // Object will be in req.body
   let member = new Member({
@@ -141,7 +143,7 @@ router.delete('/:id', (req, res) => {
         res.status(200).send("Member Deleted!!");
       }
     });
-  })
+  });
   res.status(200).send('Member.name Deleted');
 });
 

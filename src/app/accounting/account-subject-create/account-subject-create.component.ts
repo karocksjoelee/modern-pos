@@ -33,14 +33,14 @@ export class AccountSubjectCreateComponent implements OnInit {
     console.log(this.createForm.value);
     this._accountingService.createSubject(this.createForm.value).subscribe(
       (response) => {
-      console.log('Response :',response);
+        console.log('Response :', response);
       },
       (error) => {
-      alert(error);
+        alert(error);
       },
       () => {
-      console.log('Completed');
-      this.router.navigate(['../'], { relativeTo: this.route });
+        console.log('Completed');
+        this.router.navigate(['../'], { relativeTo: this.route });
     });
 
   }

@@ -35,7 +35,7 @@
       <label>單位</label>
       <div class="two fields">
         <div class="field">
-          <select class="ui fluid search dropdown">
+          <select class="ui fluid search dropdown" formControlName="unit">
             <option value="">選擇單位</option>
             <option value="盒">盒</option>
             <option value="個">個</option>
@@ -119,10 +119,15 @@
     <i (click)="closeModal()" class="close icon"></i>
     主要食材
   </div>
-  <div class="image content">
-    <button *ngFor="let ingredient of mainIngredients" class="large ui olive basic button" (click)="ingredientSelected(ingredient)">
-      {{ingredient.subjectName}}
-    </button>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <div *ngFor="let ingredient of mainIngredients" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="ingredientSelected(ingredient)">{{ingredient.subjectName}}</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

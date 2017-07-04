@@ -2,6 +2,7 @@
 // ==========================================================================================
 const express = require('express');
 const router = express.Router();
+const cm = require('../utility/common-module');
 
 // Mongo Schema 
 const Item = require('../models/item');
@@ -31,6 +32,7 @@ router.post('/', (req, res) => {
       console.log(err);
       res.status(500).send(err);
     } else {
+      cm.logSuc(`[MONGO] NEW Item - ${item.name}`);
       res.status(201).send(item);
     }
 
@@ -49,6 +51,7 @@ router.get('/(:id)?', (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT - ${items.length} Items`);
           res.status(200).send(items);
         }
       });
@@ -64,6 +67,7 @@ router.get('/(:id)?', (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT Item ${item[0].name} - matched : ${item.length}`);
           res.status(200).send(item);
         }
       });
@@ -108,13 +112,13 @@ router.put('/:id', (req, res) => {
     item.calorie = req.body.calorie || item.calorie;
     item.ingredient = req.body.ingredient || item.ingredient;
     item.description = req.body.description || item.description;
-    item.active = req.body.active || item.active;
+    item.active = req.body.active;
 
     item.save((err, item) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(item);
+        cm.logSuc(`[MONGO] UPDATED Item ${item.name}`);
         res.status(201).send(item);
       }
     });
@@ -128,12 +132,14 @@ router.delete('/:id', (req, res) => {
   Item.findOne({
     _id: req.params.id
   }, (err, item) => {
+    cm.logWarn(`[MONGO] Deleting ... ${item.name}`);
     if (err) return res.status(500).send(err);
 
     item.remove((err) => {
       if (err) {
         res.status(500).send(err);
       } else {
+        cm.logWarn(`[MONGO] DELETED Item - ${item.name}`);
         res.status(200).send('item Deleted');
       }
     });

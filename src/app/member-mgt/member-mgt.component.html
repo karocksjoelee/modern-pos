@@ -1,9 +1,23 @@
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'memberActived'}" (click)="actived = 'memberActived' " [routerLink]="['members']">會　　員</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active': actived == 'buildingActived'}" (click)="actived = 'buildingActived' "[routerLink]="['buildings']">大　　樓</a>
-  </li>
-</ul>
-<router-outlet></router-outlet>
+<div class="breathe"></div>
+
+<div class="ui pointing menu">
+
+  <a class="item" [ngClass]="{'active': ngMemberTab }"  (click)="memberTabToggle()" [routerLink]="['members']">會員資料</a>
+
+  <a class="item" [ngClass]="{'active': ngBuildingTab }" (click)="buildingTabToggle()" [routerLink]="['buildings']">大樓資料</a>
+
+  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
+    <span class="text">新增</span>
+    <i class="dropdown icon"></i>
+    <div class="menu" [ngClass]="{'transition visible': ngDropdown}">
+      <div class="header" style="height:30px" (click)="onCreateMember()" [routerLink]="['new-member']">新增會員</div>
+      <div class="header" style="height:30px" (click)="onCreateBuilding()" [routerLink]="['new-building']">新增大樓</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui segment">
+  <p></p>
+  <router-outlet></router-outlet>
+</div>

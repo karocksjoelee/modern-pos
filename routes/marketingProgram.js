@@ -43,7 +43,7 @@ router.get('/(:id)?', (req, res) => {
       } else {
         res.status(200).send(marketingProgram);
       }
-    })
+    });
 
   } else {
     // Or get item by id 

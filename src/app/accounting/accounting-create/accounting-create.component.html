@@ -3,10 +3,10 @@
 
   <div class="inline field" style="margin-top:30px;">
     <label>會計科目</label>
-        <button class="ui blue button" (click)="selectingSubject()">
+    <button class="ui blue button" (click)="selectingSubject()">
           <i class="hand pointer icon"></i>選擇科目
         </button>
-        <a *ngIf="selectedSubject" class="big ui label">{{selectedSubject.subjectName}}</a>
+    <a *ngIf="selectedSubject" class="big ui label">{{selectedSubject.subjectName}}</a>
   </div>
 
   <div class="field" style="margin-top:30px;">
@@ -34,10 +34,10 @@
     <div class="field">
       <label style="font-size:16px;">該筆帳務備註</label>
       <div class="two fields">
-      <div class="field">
-        <textarea formControlName="notes"></textarea>
+        <div class="field">
+          <textarea formControlName="notes"></textarea>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 
@@ -53,22 +53,18 @@
 
 </form>
 
-
 <!--Modal Code Here-->
-<div class="ui modal" [ngClass]="{'active': ngModal}">
+<div class="ui modal page" [ngClass]="{'active show': ngModal}">
   <div class="header">
-    <i (click)="closeModal()" class="close icon"></i>
-    會計科目
+    <i (click)="closeModal()" class="close icon"></i> 會計科目
   </div>
   <div class="description">
     <div class="ui grid">
       <div class="small-breathe"></div>
       <div class="three column row">
-        <div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+        <div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;">
           <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
         </div>
       </div>
     </div>
-  </div>
-  
 </div>

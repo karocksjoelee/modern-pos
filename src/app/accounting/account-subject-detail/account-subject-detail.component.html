@@ -1,3 +1,80 @@
-<p>
-  account-subject-detail works!
-</p>
+<form class="ui form fontfixer" [formGroup]="updateForm" *ngIf="accountSubject">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="archive icon"></i>編輯科目 #{{accountSubject.subjectName}}</h2>
+  <p></p>
+
+  <div class="field" style="margin-top:30px;">
+    <label>科目名稱</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Subject Name" formControlName="subjectName">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>科目英文</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Subject Name Eng" formControlName="subjectEng">
+      </div>
+    </div>
+  </div>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>科目類別</label>
+      <select class="ui fluid dropdown" formControlName="subjectType">
+        <option value="">選擇分類</option>
+        <option value="assets">資產</option>
+        <option value="liabilities">負債</option>
+        <option value="capital">業主權益</option>
+        <option value="revenue">收入</option>
+        <option value="expense">費用</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>單位</label>
+      <select class="ui fluid dropdown" formControlName="unit">
+        <option value="">選擇單位</option>
+        <option value="none">無</option>    
+        <option value="piece">個</option>
+        <option value="box">盒</option>
+        <option value="gram">公克</option>
+        <option value="cc">毫升</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>科目類型</label>
+    <div class="six fields">
+      <div class="field">
+        <div class="ui toggle checkbox checked">
+          <input type="checkbox" name="gift" formControlName="main">
+          <label>一般科目 / 原料科目</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>條碼代號</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Barcode" formControlName="barcode">
+      </div>
+    </div>
+  </div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="updateSubject()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
+    </div>
+  </div>
+
+</form>

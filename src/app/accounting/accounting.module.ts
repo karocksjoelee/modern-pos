@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AccountingComponent } from './accounting.component';
 import { AccountingListComponent } from './accounting-list/accounting-list.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [

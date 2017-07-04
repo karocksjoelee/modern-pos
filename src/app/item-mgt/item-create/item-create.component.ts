@@ -27,7 +27,7 @@ export class ItemCreateComponent implements OnInit {
 
     this.ngModal = false;
 
-    this._accountingService.getAccountSubjects().subscribe((mainIngredients) => {
+    this._accountingService.getMainIngredients().subscribe((mainIngredients) => {
       this.mainIngredients = mainIngredients;
     });
 

@@ -20,12 +20,10 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
 
     this._itemMgtService.getItemById(this.id).subscribe((item) => {
 
         this.item = item[0];
-        console.log(item[0]);
 
         this.updateForm = new FormGroup({
           'category': new FormControl(item[0].category),

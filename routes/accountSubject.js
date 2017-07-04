@@ -2,6 +2,7 @@
 // ==========================================================================================
 const express = require('express');
 const router = express.Router();
+const cm = require('../utility/common-module');
 
 // Mongo Schema 
 const AccountSubject = require('../models/accountsubject.js');
@@ -29,10 +30,28 @@ router.post('/', (req, res, next) => {
       console.log(err);
       res.status(500).send(err);
     } else {
+      cm.logSuc(`[MONGO] NEW AccountSubject - ${accountSubject.subjectName}`);
       res.status(201).send(accountSubject);
     }
   });
 
+});
+
+router.get('/mainIngredient', (req, res) => {
+
+  console.log('WTF?');
+
+  AccountSubject.find({
+    'main': true
+  }, (err, accountSubjects) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      cm.logSuc(`[MONGO] GOT ${accountSubjects.length} Main Ingredients`);
+      res.status(200).send(accountSubjects);
+    }
+  });
 });
 
 
@@ -46,6 +65,7 @@ router.get('/(:id)?', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logSuc(`[MONGO] GOT ${accountSubject.length} AccountSubjects`);
         res.status(200).send(accountSubject);
       }
     });
@@ -59,6 +79,7 @@ router.get('/(:id)?', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logSuc(`[MONGO] GOT AccountSubject - ${accountSubject[0].subjectName} - matched : ${accountSubject.length}`);
         res.status(200).send(accountSubject);
       }
     });
@@ -67,19 +88,20 @@ router.get('/(:id)?', (req, res) => {
 });
 
 
-router.get('/mainIngredient', (req, res) => {
 
-  AccountSubject.find({
-    main: true
-  }, (err, accountSubject) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(accountSubject);
-    }
-  });
-});
+
+// router.get('/mainIngredient', (req, res) => {
+
+//   AccountSubject.find({} , (err, accountSubjects) => {
+//     if(err) {
+//       console.log(err);
+//       res.status(500).send(err);
+//     } else {
+//       res.status(200).send(accountSubjects);
+//     }
+//   });
+
+// });
 
 
 router.put('/:id', (req, res) => {
@@ -98,7 +120,7 @@ router.put('/:id', (req, res) => {
     accountSubject.subjectType = req.body.subjectType || accountSubject.subjectType;
     accountSubject.barcode = req.body.barcode || accountSubject.barcode;
     accountSubject.unit = req.body.unit || accountSubject.unit;
-    accountSubject.main = req.body.main || accountSubject.main;
+    accountSubject.main = req.body.main;
     accountSubject.description = req.body.description || accountSubject.description;
 
     accountSubject.save((err, accountSubject) => {
@@ -106,6 +128,7 @@ router.put('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logSuc(`[MONGO] UPDATED AccountSubject ${accountSubject.subjectName}`);
         res.status(201).send(accountSubject);
       }
     });
@@ -117,6 +140,7 @@ router.delete('/:id', (req, res) => {
   AccountSubject.findOne({
     _id: req.params.id
   }, (err, accountSubject) => {
+    cm.logWarn(`[MONGO] Deleting ... ${accountSubject.subjectName}`);
     if (err) {
       console.log(err);
       return res.status(500).send(err);
@@ -127,6 +151,7 @@ router.delete('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logWarn(`[MONGO] DELETED AccountSubject - ${accountSubject.subjectName}`);
         res.status(200).send("accountSubject Deleted!!");
       }
     });

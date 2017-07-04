@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MemberMgtService } from '../member-mgt.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class BuildingCreateComponent implements OnInit {
 
   createForm: FormGroup;
 
-  constructor(private _memberMgtService: MemberMgtService) { }
+  constructor(private _memberMgtService: MemberMgtService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -28,8 +29,21 @@ export class BuildingCreateComponent implements OnInit {
   } // end of ngOnInit()
 
 
-  createBuilding() {
+  newBuilding() {
+
     console.log(this.createForm.value);
+    this._memberMgtService.createBuilding(this.createForm.value).subscribe(
+      (response) => {
+        console.log('Response :', response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        console.log('Completed');
+        this.router.navigate(['../buildings'], { relativeTo: this.route });
+    });
+
   }
 
 }

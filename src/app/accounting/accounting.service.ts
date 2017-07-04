@@ -37,6 +37,14 @@ export class AccountingService {
 
     }
 
+    getAccountSubject(id: any) {
+        return this.http.get(this.accountSubjectUrl + `/${id}`)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.serverErrorHandler);
+    }
+
 
     getMainIngredients() {
 
@@ -88,7 +96,7 @@ export class AccountingService {
 
     }
 
-    // ACCOUNting ========================================
+    // ACCOUNTING ========================================
 
     getAccountings() {
 

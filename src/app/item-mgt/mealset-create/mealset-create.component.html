@@ -88,10 +88,15 @@
     <i (click)="closeModal()" class="close icon"></i>
     餐點列表
   </div>
-  <div class="image content">
-    <button  *ngFor="let item of items" class="large ui purple basic button" (click)="itemSelected(item)">
-      {{item.name}}
-    </button>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <div *ngFor="let item of items" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="itemSelected(item)">{{item.name}}</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

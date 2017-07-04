@@ -1,56 +1,59 @@
-<form class="container" [formGroup]="createForm">
+<form class="ui form fontfixer" [formGroup]="createForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="building outline icon"></i>新增大樓</h2>
+  <p></p>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">大樓名稱</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="name">
+  <div class="field" style="margin-top:30px;">
+    <label>大樓名稱</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Building Name" formControlName="name">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-text-input" class="col-2 col-form-label">種　　類</label>
-    <div class="col-4">
-      <select class="form-control" style="font-weight:bold" formControlName="category">
-        <option style="font-weight:bolder" value="officeBuilding">辦公大樓</option>
-        <option style="font-weight:bolder" value="hospital">醫院</option>
-        <option style="font-weight:bolder" value="apartmentBuilding">住宅華廈</option>
-        <option style="font-weight:bolder" value="store">一般商家</option>
-        <option style="font-weight:bolder" value="otherBuilding">辦公大樓</option>
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>大樓類型</label>
+      <select class="ui fluid dropdown" formControlName="category">
+        <option value="">選擇類型</option>
+        <option value="office-building">辦公大樓</option>
+        <option value="hospital">醫院</option>
+        <option value="apartment-building">住宅華廈</option>
+        <option value="villa">透天住宅</option>
+        <option value="store">一般商家</option>
+        <option value="others">其他</option>
       </select>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">地　　址</label>
-    <div class="col-8">
-      <input class="form-control" type="text" formControlName="address">
+  <div class="field" style="margin-top:30px;">
+    <label>地址</label>
+    <div class="two fields">
+      <div class="field">
+        <input type="text" placeholder="Address" formControlName="address">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">經度</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="lat">
+  <div class="field" style="margin-top:30px;">
+    <label>大樓描述</label>
+    <div class="two fields">
+      <div class="field">
+        <textarea formControlName="description"></textarea>
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">緯度</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="lng">
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="newBuilding()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">大樓敘述</label>
-    <div class="col-8">
-      <input class="form-control" type="text" formControlName="description">
-    </div>
-  </div>
-
-  <div class="col-9">
-      <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
-      <button type="button" class="btn btn-primary btn-lg float-right" (click)="createBuilding()">新增</button>
-  </div>
+  
 
 </form>

@@ -1,16 +1,3 @@
-.container {
-    padding-top: 30px;
-}
-
-.row {
-    padding: 10px;
-}
-
-.col-form-label {
-    font-weight: bold;
-    font-size: 20px;
-}
-
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -29,10 +16,6 @@
     background: white;
     cursor: inherit;
     display: block;
-}
-
-.btn {
-    margin: 10px;
 }
 
 .fontfixer {

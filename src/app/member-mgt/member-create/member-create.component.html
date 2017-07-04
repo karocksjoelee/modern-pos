@@ -1,129 +1,192 @@
-<form class="container" [formGroup]="createForm">
+<form class="ui form fontfixer" [formGroup]="createForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="user icon"></i>新增會員</h2>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">會員姓名</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="name">
-    </div>
-  </div>
+  <h3 class="ui header">基本資料</h3>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">會員生日</label>
-    <div class="input-group col-4">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="birthday">
-      <div class="input-group-addon" (click)="d.toggle()" >
-        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">手機號碼</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="phone">
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="example-text-input" class="col-2 col-form-label">性別</label>
-    <div class="col-2">
-      <select class="form-control" style="font-weight:bold" formControlName="gender">
-        <option style="font-weight:bolder" *ngFor="let gender of genders">{{gender}}</option>
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>會員類別</label>
+      <select class="ui fluid dropdown" formControlName="type">
+        <option value="">選擇類型</option>
+        <option value="individual">一般會員</option>
+        <option value="business">商業會員</option>
       </select>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">FB</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="facebook">
+  <div class="field" style="margin-top:30px;">
+    <label>會員名稱</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Member Name" formControlName="name">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">E-Mail</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="email">
+  <div class="field" style="margin-top:30px;">
+    <label>會員生日</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Birthday" formControlName="birthday">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">住家地址</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="homeAddress">
-    </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="lgApartmentModal.show()">選擇住宅大樓</button>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">公司地址</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="officeAddress">
-    </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="lgOfficeModal.show()">選擇辦公大樓</button>
+  <div class="field" style="margin-top:30px;">
+    <label>手機號碼</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Phone Number" formControlName="phone">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">年齡</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="age">
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>性別</label>
+      <select class="ui fluid dropdown " formControlName="gender">
+        <option value="">選擇性別</option>
+        <option value="male">男</option>
+        <option value="female">女</option>
+        <option value="other-gender">其它</option>
+      </select>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">體重</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="weight">
+  <div class="field" style="margin-top:30px;">
+    <label>第一次消費金額</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Unexchanged" formControlName="unExchanged">
+      </div>
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label">身高</label>
-    <div class="col-4">
-      <input class="form-control" type="text" formControlName="height">
+  <div class="ui section divider"></div>
+  <h3 class="ui header">地　　址</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>住家地址</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Home Address" formControlName="homeAddress">
+      </div>
+      <button class="ui blue button" (click)="selectingOfficeBuilding()">
+        <i class="hand pointer icon"></i>選擇辦公大樓
+      </button>
     </div>
   </div>
 
-  <div class="col-9">
-      <button type="button" class="btn btn-danger btn-lg float-right">取消</button>
-      <button type="button" class="btn btn-primary btn-lg float-right" (click)="createMember()">新增</button>
+  <div class="field" style="margin-top:30px;">
+    <label>辦公地址</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Office Address" formControlName="officeAddress">
+      </div>
+      <button class="ui blue button" (click)="selectingHomeBuilding()">
+        <i class="hand pointer icon"></i>選擇住宅大樓
+      </button>
+    </div>
+  </div>
+
+  <div class="ui section divider"></div>
+  <h3 class="ui header">聯絡方式</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>LINE</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Line id" formControlName="line">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>Facebook</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="facebook link" formControlName="facebook">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>E-Mail</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Email Address" formControlName="email">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui section divider"></div>
+  <h3 class="ui header">健康狀況</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>體重</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="weight" formControlName="weight">
+      </div>
+      <div class="field">
+        kg
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>身高</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="height" formControlName="height">
+      </div>
+      <div class="field">
+        cm
+      </div>
+    </div>
+  </div>
+
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="newMember()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
+    </div>
   </div>
 
 </form>
 
-
-<div bsModal #lgApartmentModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">住宅大樓</h4>
-        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{apartmentBuildings}}
+<!--Home Building Modal Here-->
+<div class="ui modal" [ngClass]="{'active': ngHomeModal}">
+  <div class="header">
+    <i (click)="closeHomeModal()" class="close icon"></i> 公寓華廈 / 透天住宅 / 其他
+  </div>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <!--<div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
+        </div>-->
       </div>
     </div>
   </div>
 </div>
 
-<div bsModal #lgOfficeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">辦公大樓</h4>
-        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{officeBuildings}}
+<!--Office Modal Here-->
+<div class="ui modal" [ngClass]="{'active': ngOfficeModal}">
+  <div class="header">
+    <i (click)="closeOfficeModal()" class="close icon"></i> 辦公大樓 / 一般商家 / 醫院 / 其他
+  </div>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <!--<div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
+        </div>-->
       </div>
     </div>
   </div>

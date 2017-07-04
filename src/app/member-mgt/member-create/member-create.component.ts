@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MemberMgtService } from '../member-mgt.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-member-create',
@@ -10,13 +13,16 @@ import { MemberMgtService } from '../member-mgt.service';
 })
 export class MemberCreateComponent implements OnInit {
 
-  public genders = ['男性', '女性', '其他'];
-  modal;
+  ngHomeModal;
+  ngOfficeModal;
+  dateModel;
   createForm: FormGroup;
   apartmentBuildings;
   officeBuildings;
+  selectedHomeBuilding;
+  selectedOfficeBuilding;
 
-  constructor(private _memberMgtService: MemberMgtService) { }
+  constructor(private _memberMgtService: MemberMgtService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -24,6 +30,7 @@ export class MemberCreateComponent implements OnInit {
     this.officeBuildings = 'building.category === 辦公大樓 / 醫院 / 一般商家 / 其他';
 
     this.createForm = new FormGroup({
+      'type': new FormControl(''),
       'name': new FormControl(''),
       'birthday': new FormControl(''),
       'phone': new FormControl(''),
@@ -31,9 +38,9 @@ export class MemberCreateComponent implements OnInit {
       'line': new FormControl(''),
       'facebook': new FormControl(''),
       'email': new FormControl(''),
-      'homeBuilding': new FormControl(''),
+      'homeBuilding': new FormControl(),
       'homeAddress': new FormControl(''),
-      'officeBuilding': new FormControl(''),
+      'officeBuilding': new FormControl(),
       'officeAddress': new FormControl(''),
       'gender': new FormControl(''),
       'age': new FormControl(''),
@@ -44,13 +51,43 @@ export class MemberCreateComponent implements OnInit {
       'memberStatus': new FormControl(''),
       'unExchanged': new FormControl(''),
       'exchanged': new FormControl(''),
-      'orderHistories': new FormControl(''),
+      'orderHistories': new FormControl(),
     });
 
   } // end of ngOnint
 
-  createMember() {
+  selectingHomeBuilding() {
+    console.log('Home');
+    this.ngHomeModal = true;
+  }
+
+  selectingOfficeBuilding() {
+    console.log('Office');
+    this.ngOfficeModal = true;
+  }
+
+  closeHomeModal() {
+    this.ngHomeModal = false;
+  }
+
+  closeOfficeModal() {
+    this.ngOfficeModal = false;
+  }
+
+  newMember() {
     console.log(this.createForm.value);
+    this._memberMgtService.createMember(this.createForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        alert('Completed');
+        this.router.navigate(['../members'], { relativeTo: this.route });
+      });
+
   }
 
   onSelectHomeBuilding(homeBuildingObject) {

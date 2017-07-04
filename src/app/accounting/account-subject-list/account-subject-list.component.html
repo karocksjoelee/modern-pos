@@ -25,11 +25,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let subject of accountSubjects">
+    <tr *ngFor="let subject of accountSubjects" [routerLink]="[subject._id]">
       <td>{{subject.subjectType}}</td>
-      <td>{{subject.subjectName}}</td>
+      <td><a [routerLink]="[subject._id]">{{subject.subjectName}}</a></td>
       <td>{{subject.subjectEng}}</td>
-      <td>{{subject.main}}</td>
+      <td>{{subject.main?'原料科目':'一般科目'}}</td>
       <td>{{subject.unit}}</td>
   </tbody>
 </table>
