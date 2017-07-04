@@ -11,7 +11,6 @@ const Member = require('../models/member');
 // ==========================================================================================
 router.post('/', (req, res) => {
 
-  console.log('TESTTTT', req.body.homeBuilding);
   // Accept an Object according to schema 
   // Object will be in req.body
   let member = new Member({
@@ -33,7 +32,8 @@ router.post('/', (req, res) => {
     memberStatus: req.body.memberStatus,
     unExchanged: req.body.unExchanged,
     exchanged: req.body.exchanged,
-    orderHistories: req.body.orderHistories
+    orderHistories: req.body.orderHistories,
+    phone: req.body.phone
   });
 
   member.save((err, member) => {

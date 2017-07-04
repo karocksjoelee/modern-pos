@@ -1,3 +1,13 @@
-<p>
-  building-list works!
-</p>
+<div class="ui cards">
+
+  <div class="card" *ngFor="let building of buildings">
+    <div class="content">
+      <div class="header">{{building.name}}</div>
+      <div class="meta">{{building.category}}</div>
+      <div class="description">
+        {{building.address}}
+      </div>
+    </div>
+  </div>
+
+</div>

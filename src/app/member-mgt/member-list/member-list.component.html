@@ -1,3 +1,24 @@
-<p>
-  member-list works!
-</p>
+<div class="ui cards">
+  <div class="card" *ngFor="let member of members">
+    <div class="content">
+      <img class="right floated mini ui image"  *ngIf="member.gender == 'male'" src="assets/img/male_avatar.jpg">
+      <img class="right floated mini ui image"  *ngIf="member.gender =='female'" src="assets/img/female_avatar.jpg">
+      <div class="header">
+        {{member.name}}
+      </div>
+      <div class="meta">
+        {{member.phone}}
+      </div>
+      <div class="description">
+        <p>住家地址: {{member.homeAddress}}</p>
+        <p>辦公地址: {{member.officeAddress}}</p>
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui two buttons">
+        <div class="ui basic green button">{{member.unExchanged}}</div>
+        <div class="ui basic red button">{{member.exchanged}}</div>
+      </div>
+    </div>
+  </div>
+</div>
