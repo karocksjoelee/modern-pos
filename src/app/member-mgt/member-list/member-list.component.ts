@@ -16,7 +16,7 @@ export class MemberListComponent implements OnInit {
   selectedMember;
   inputForm: FormGroup;
   @ViewChild('addUnExchangedModal') addUnExchangedModal: any;
-   @ViewChild('exChangingModal') exChangingModal: any;
+  @ViewChild('exChangingModal') exChangingModal: any;
 
   constructor(private _memberMgtService: MemberMgtService, private router: Router, private route: ActivatedRoute) { }
 
@@ -56,9 +56,7 @@ export class MemberListComponent implements OnInit {
         console.log('UPDATED');
         this._memberMgtService.getMembers().subscribe((members) => {
           this.members = members;
-          this.inputForm = new FormGroup({
-            'unExchanged': new FormControl()
-          });
+          this.inputForm.reset();
           this.addUnExchangedModal.hide();
         });
       }
@@ -68,28 +66,32 @@ export class MemberListComponent implements OnInit {
 
   exchanging() {
 
-    const increased = this.selectedMember.exchanged + this.inputForm.value.unExchanged;
-    const decreased = this.selectedMember.unExchanged - this.inputForm.value.unExchanged;
+    if (this.inputForm.value.unExchanged % 100 === 0) {
 
-    this._memberMgtService.updateMember(this.selectedMember._id, { unExchanged: decreased , exchanged: increased }).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        alert(error);
-      },
-      () => {
-        console.log('EXCHANGED');
-        this._memberMgtService.getMembers().subscribe((members) => {
-          this.members = members;
-          this.inputForm = new FormGroup({
-            'unExchanged': new FormControl()
+      const increased = this.selectedMember.exchanged + this.inputForm.value.unExchanged;
+      const decreased = this.selectedMember.unExchanged - this.inputForm.value.unExchanged;
+
+      this._memberMgtService.updateMember(this.selectedMember._id, { unExchanged: decreased, exchanged: increased }).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          console.log('EXCHANGED');
+          this._memberMgtService.getMembers().subscribe((members) => {
+            this.members = members;
+            this.inputForm.reset();
+            this.exChangingModal.hide();
           });
-          this.exChangingModal.hide();
-        });
-      }
-    );
+        }
+      );
+    } else {
+      alert('必須是100的倍數');
+      this.inputForm.reset();
+    }
 
-  }
+  } // end of exchanging()
 
 } // end of class
