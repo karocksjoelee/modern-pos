@@ -1,6 +1,6 @@
 <div class="ui cards">
 
-  <div class="card" *ngFor="let building of buildings">
+  <div class="card" *ngFor="let building of buildings" [routerLink]="[building._id]">
     <div class="content">
       <div class="header">{{building.name}}</div>
       <div class="meta">{{building.category}}</div>

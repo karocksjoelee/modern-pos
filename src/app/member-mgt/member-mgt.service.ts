@@ -10,7 +10,7 @@ export class MemberMgtService {
 
   private serverErrorHandler(error: Response) {
 
-    console.log(`[Accounting Error] ${error}`);
+    console.log(`[Member Mgt Error] ${error}`);
     return Observable.throw({
       status: 'Error',
       message: error || 'Member Service Error'

@@ -62,7 +62,7 @@ router.get('/(:id)?', (req, res) => {
             console.log(err);
             res.status(500).send(err);
           }else {
-            cm.logSuc(`[MONGO] GOT ${mealSet[0].setName} - matched : ${mealSet.length}`)
+            cm.logSuc(`[MONGO] GOT ${mealSet[0].setName} - matched : ${mealSet.length}`);
             res.status(200).send(mealSet);
           }
         });
@@ -135,7 +135,7 @@ router.delete('/:id', (req, res) => {
         console.log(500);
         res.status(500).send(err);
       } else {
-        cm.logWarn(`[MONGO] DELETED MealSet - ${mealSet.setName}`)
+        cm.logWarn(`[MONGO] DELETED MealSet - ${mealSet.setName}`);
         res.status(200).send('mealSet Deleted!!');
       }
     });

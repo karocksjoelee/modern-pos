@@ -1,5 +1,5 @@
 <div class="ui cards">
-  <div class="card" *ngFor="let member of members">
+  <div class="card" *ngFor="let member of members" [routerLink]="[member._id]">
     <div class="content">
       <img class="right floated mini ui image"  *ngIf="member.gender == 'male'" src="assets/img/male_avatar.jpg">
       <img class="right floated mini ui image"  *ngIf="member.gender =='female'" src="assets/img/female_avatar.jpg">
@@ -7,17 +7,18 @@
         {{member.name}}
       </div>
       <div class="meta">
-        {{member.phone}}
+        {{member.type}}
       </div>
       <div class="description">
+        <p>手機號碼: {{member.phone}}</p>
         <p>住家地址: {{member.homeAddress}}</p>
         <p>辦公地址: {{member.officeAddress}}</p>
       </div>
     </div>
     <div class="extra content">
       <div class="ui two buttons">
-        <div class="ui basic green button">{{member.unExchanged}}</div>
-        <div class="ui basic red button">{{member.exchanged}}</div>
+        <div class="ui basic green button">未兌換{{member.unExchanged}}</div>
+        <div class="ui basic red button">已兌換{{member.exchanged}}</div>
       </div>
     </div>
   </div>

@@ -1,3 +1,202 @@
-<p>
-  member-detail works!
-</p>
+<form class="ui form fontfixer" [formGroup]="updateForm" *ngIf="member">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px;"><i class="user icon"></i>編輯會員</h2>
+
+  <h3 class="ui header">基本資料</h3>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>會員類別</label>
+      <select class="ui fluid dropdown" formControlName="type">
+        <option value="">選擇類型</option>
+        <option value="individual">一般會員</option>
+        <option value="business">商業會員</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>會員名稱</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Member Name" formControlName="name">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>會員生日</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Birthday" formControlName="birthday">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>手機號碼</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Phone Number" formControlName="phone">
+      </div>
+    </div>
+  </div>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>性別</label>
+      <select class="ui fluid dropdown " formControlName="gender">
+        <option value="">選擇性別</option>
+        <option value="male">男</option>
+        <option value="female">女</option>
+        <option value="other-gender">其它</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>未兌換累積消費額</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Unexchanged" formControlName="unExchanged">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>已兌換累積消費額</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Unexchanged" formControlName="exchanged">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui section divider"></div>
+  <h3 class="ui header">地　　址</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>住家地址</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Home Address" formControlName="homeAddress">
+      </div>
+      <button class="ui blue button" (click)="selectingOfficeBuilding()">
+        <i class="hand pointer icon"></i>選擇辦公大樓
+      </button>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>辦公地址</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Office Address" formControlName="officeAddress">
+      </div>
+      <button class="ui blue button" (click)="selectingHomeBuilding()">
+        <i class="hand pointer icon"></i>選擇住宅大樓
+      </button>
+    </div>
+  </div>
+
+  <div class="ui section divider"></div>
+  <h3 class="ui header">聯絡方式</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>LINE</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Line id" formControlName="line">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>Facebook</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="facebook link" formControlName="facebook">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>E-Mail</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Email Address" formControlName="email">
+      </div>
+    </div>
+  </div>
+
+  <div class="ui section divider"></div>
+  <h3 class="ui header">健康狀況</h3>
+
+  <div class="field" style="margin-top:30px;">
+    <label>體重</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="weight" formControlName="weight">
+      </div>
+      <div class="field">
+        kg
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>身高</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="height" formControlName="height">
+      </div>
+      <div class="field">
+        cm
+      </div>
+    </div>
+  </div>
+
+  <div class="breathe"></div>
+
+  <div class="fixbutton">
+    <div class="ui large buttons">
+      <button class="ui primary button" (click)="updateMember()">Save</button>
+      <div class="or"></div>
+      <button class="ui button" (click)="goBack()">Cancel</button>
+    </div>
+  </div>
+
+</form>
+
+<!--Home Building Modal Here-->
+<div class="ui modal" [ngClass]="{'active': ngHomeModal}">
+  <div class="header">
+    <i (click)="closeHomeModal()" class="close icon"></i> 公寓華廈 / 透天住宅 / 其他
+  </div>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <!--<div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Office Modal Here-->
+<div class="ui modal" [ngClass]="{'active': ngOfficeModal}">
+  <div class="header">
+    <i (click)="closeOfficeModal()" class="close icon"></i> 辦公大樓 / 一般商家 / 醫院 / 其他
+  </div>
+  <div class="description">
+    <div class="ui grid">
+      <div class="small-breathe"></div>
+      <div class="three column row">
+        <!--<div *ngFor="let subject of accountSubjects" class="column" style="text-align:center; padding:3px;" >
+          <button class=" ui blue basic button column" (click)="subjectSelected(subject)">{{subject.subjectName}}</button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,8 @@ router.post('/', (req, res) => {
     unExchanged: req.body.unExchanged,
     exchanged: req.body.exchanged,
     orderHistories: req.body.orderHistories,
-    phone: req.body.phone
+    phone: req.body.phone,
+    type: req.body.type
   });
 
   member.save((err, member) => {
@@ -94,6 +95,7 @@ router.put('/:id', (req, res) => {
       return res.status(500).send(err);
     }
     member.name = req.body.name || member.name;
+    member.phone = req.body.phone || member.phone;
     member.birthday = req.body.birthday || member.birthday;
     member.since = req.body.since || member.since;
     member.line = req.body.line || member.line;

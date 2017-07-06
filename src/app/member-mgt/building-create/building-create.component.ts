@@ -23,7 +23,7 @@ export class BuildingCreateComponent implements OnInit {
       'address': new FormControl(''),
       'lat': new FormControl(''),
       'lng': new FormControl(''),
-      'description': new FormControl(''),
+      'description': new FormControl('')
     });
 
   } // end of ngOnInit()
