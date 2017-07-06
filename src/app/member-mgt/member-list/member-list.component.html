@@ -1,6 +1,7 @@
+
 <div class="ui cards">
-  <div class="card" *ngFor="let member of members" [routerLink]="[member._id]">
-    <div class="content">
+  <div class="card" *ngFor="let member of members">
+    <div class="content" [routerLink]="[member._id]">
       <img class="right floated mini ui image"  *ngIf="member.gender == 'male'" src="assets/img/male_avatar.jpg">
       <img class="right floated mini ui image"  *ngIf="member.gender =='female'" src="assets/img/female_avatar.jpg">
       <div class="header">
@@ -17,8 +18,54 @@
     </div>
     <div class="extra content">
       <div class="ui two buttons">
-        <div class="ui basic green button">未兌換{{member.unExchanged}}</div>
-        <div class="ui basic red button">已兌換{{member.exchanged}}</div>
+        <div class="ui basic green button" (click)="addUnExchangedModal.show(); onSelectMember(member);">未兌換{{member.unExchanged}}</div>
+        <div class="ui basic red button" (click)="exChangingModal.show(); onSelectMember(member);">已兌換{{member.exchanged}}</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+<div bsModal #addUnExchangedModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" [config]="options">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left"><i class="quote left icon"></i><span *ngIf="selectedMember">{{selectedMember.name}}</span><i class="quote right icon"></i></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="addUnExchangedModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="ui right labeled left icon input" [formGroup]="inputForm">
+          <i class="tags icon"></i>
+          <input type="number" placeholder="該次消費金額" formControlName="unExchanged">
+          <a class="ui tag label mygreenlabel" style="color:white;" (click)="increaseMemberUnExchanged()">
+            增加累積額
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #exChangingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" [config]="options">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">兌換累積金額</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="exChangingModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="ui right labeled left icon input" [formGroup]="inputForm">
+          <i class="tags icon"></i>
+          <input type="number" placeholder="100的倍數" formControlName="unExchanged">
+          <a class="ui tag label myredlabel" style="color:white;" (click)="exchanging()">
+            兌換金額
+          </a>
+        </form>
       </div>
     </div>
   </div>
