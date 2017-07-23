@@ -1,0 +1,43 @@
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.meal-display {
+    border: 2px solid blue;
+    width: 65%;
+    height: 500px;
+}
+
+.checkout-area {
+    border: 2px solid orange; 
+    width: 32%;
+    height: 500px;
+} 
+
+.onsite-note {
+    margin-top:20px;
+    border: 2px solid red;
+    width: 25%;
+    height: 200px;
+}
+
+.customer-tag {
+    margin-top:20px;
+    border: 2px solid purple;
+    width: 35%;
+    height: 200px;
+    margin-right: -29px;
+}
+
+.checkout-button {
+    margin-top:20px;
+    border: 2px solid greenyellow;
+    width: 30%;
+    height: 200px;
+    margin-right: 29px;
+}
