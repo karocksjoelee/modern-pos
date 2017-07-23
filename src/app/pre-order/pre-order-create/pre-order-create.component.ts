@@ -50,7 +50,8 @@ export class PreOrderCreateComponent implements OnInit {
 
 
     this.createForm = new FormGroup({
-      'type': new FormControl('pre-order'),
+      // 'type': new FormControl('pre-order'),
+      'type': new FormControl(''),
       'createDate': new FormControl(''),
       'buyer': new FormControl(),
       'buyerName': new FormControl(''),
@@ -71,7 +72,8 @@ export class PreOrderCreateComponent implements OnInit {
       'lastUpdateDate': new FormControl(''),
       'marketingProgram': new FormControl(''),
       'buyerDiscount': new FormControl(0),
-      'businessMemberPoint': new FormControl(0)
+      'businessMemberPoint': new FormControl(0),
+      'orderCode': new FormControl('')
     });
 
   }
@@ -124,6 +126,11 @@ export class PreOrderCreateComponent implements OnInit {
     if (this.createForm.value.deliverDateTime.formatted) {
       this.createForm.patchValue({deliverDateTime: this.createForm.value.deliverDateTime.formatted});
     }
+
+    const dateId = this.createForm.value.deliverDateTime.replace('/', '').replace('/', '');
+    const randomId = Math.floor(Math.random() * 9999) + 1;
+    const humanIdentifyCode = `${dateId}:${randomId}`;
+    this.createForm.patchValue({orderCode: humanIdentifyCode });
 
     console.log(this.createForm.value);
 

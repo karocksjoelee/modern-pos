@@ -36,7 +36,8 @@ let Sale = new Schema({
   beenDelivered: Boolean,
   maketingProgram: [{type: mongoose.Schema.Types.ObjectId, ref: 'MarketingProgram'}],
   buyerDiscount: Number,
-  businessMemberPoint: Number
+  businessMemberPoint: Number,
+  orderCode: String
 });
 
 Sale.plugin(mongooseUniqureValidator);

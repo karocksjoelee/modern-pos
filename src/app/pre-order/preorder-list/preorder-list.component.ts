@@ -46,7 +46,7 @@ export class PreorderListComponent implements OnInit {
 
           const mealSetQuantity = preorder.orderedMealSets.reduce((sum, orderMealSet) => {
             return sum + orderMealSet.quantity;
-          }, 0)
+          }, 0);
           return preorder.quantityCount = itemQuantity + mealSetQuantity;
         });
       },

@@ -1,3 +1,38 @@
-<p>
-  onsite-list works!
-</p>
+<div class="ui left icon input">
+  <input type="text" style="float:none; width:140px; text-align:center; height:50px;" placeholder="選擇日期" ngx-mydatepicker name="myDate"
+       [options]="datePickerOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()" (ngModelChange)="onChangeDate($event)" [(ngModel)]="dateModel" >
+  <i class="large calendar icon"></i>
+</div>
+
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>餐別</th>
+      <th>取餐方式</th>
+      <th>購買人</th>
+      <th>聯絡電話</th>
+      <th>外送地址</th>
+      <th>點餐內容</th>
+      <th>總金額</th>
+      <th>訂單備註</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let onsiteOrder of onsiteOrders" [routerLink]="[onsiteOrder._id]">
+      <td>{{onsiteOrder.orderCode}}</td>
+      <td>{{onsiteOrder.deliverPeriod}}</td>
+      <td>{{onsiteOrder.serveWay}}</td>
+      <td>{{onsiteOrder.buyerName}}</td>
+      <td>{{onsiteOrder.phone}}</td>
+      <td>{{onsiteOrder.deliverAddress}}</td>
+      <td *ngIf="onsiteOrder.orderedItems || onsiteOrder.orderedMealSets">
+        <p *ngFor="let orderedItem of onsiteOrder.orderedItems">{{orderedItem.itemId.name}} X {{orderedItem.quantity}}</p>
+        <p *ngFor="let orderedMealSet of onsiteOrder.orderedMealSets">{{orderedMealSet.mealSetId.setName}} X {{orderedMealSet.quantity}}</p>
+        <p>{{onsiteOrder.orderedItems.length + onsiteOrder.orderedMealSets.length}} 樣 , 共{{onsiteOrder.quantityCount}}個</p>
+      </td>
+      <td>{{onsiteOrder.total}}</td>
+      <td>{{onsiteOrder.note}}</td>
+    </tr>
+  </tbody>
+</table>

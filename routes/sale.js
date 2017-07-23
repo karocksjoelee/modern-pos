@@ -35,7 +35,8 @@ router.post('/', (req, res) => {
     beenDelivered: req.body.beenDelivered,
     maketingProgram: req.body.maketingProgram,
     buyerDiscount: req.body.buyerDiscount,
-    businessMemberPoint: req.body.businessMemberPoint
+    businessMemberPoint: req.body.businessMemberPoint,
+    orderCode: req.body.orderCode
   });
 
   sale.save((err, sale) => {
@@ -137,10 +138,11 @@ router.get('/onsiteByDate/:date', (req, res) => {
       console.log(err);
       res.status(500).send(err);
     } else {
-      cm.logSuc(`[MONGO] ${date} On-site - ${sales.length} Sales`);
-      res.status(200).send(sales.filter((sale) => {
-        return sale.type === 'onsite';
-      }));
+      const onsiteOrder = sales.filter((sale) => {
+        return sale.type === 'on-site';
+      });
+      cm.logSuc(`[MONGO] ${date} On-site - ${onsiteOrder.length} Sales`);
+      res.status(200).send(onsiteOrder);
     }
   });
 
@@ -178,6 +180,7 @@ router.put('/:id', (req, res) => {
     sale.maketingProgram = req.body.maketingProgram || sale.maketingProgram;
     sale.buyerDiscount = req.body.buyerDiscount || sale.buyerDiscount;
     sale.businessMemberPoint = req.body.businessMemberPoint || sale.businessMemberPoint;
+    sale.orderCode = req.body.orderCode || sale.orderCode;
 
     sale.save((err, sale) => {
       if (err) {

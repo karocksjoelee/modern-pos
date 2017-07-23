@@ -70,7 +70,7 @@ export class ItemCreateComponent implements OnInit {
 
   ingredientSelected(input: any) {
 
-    this.createForm.value.ingredient = input._id;
+    this.createForm.patchValue({ingredient: input._id});
     console.log('Selected ', this.createForm.value);
     this.selectedIngredient = input.subjectName;
     this.ngModal = false;
