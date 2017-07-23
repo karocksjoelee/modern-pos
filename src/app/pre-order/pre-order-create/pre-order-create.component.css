@@ -1,0 +1,64 @@
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.btn {
+    margin: 10px;
+}
+
+.fontfixer {
+    font-size: 16px;
+}
+
+.field {
+    margin-top: 15px;
+}
+
+.breathe {
+    margin: 30px;
+}
+
+.fixbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formodal {
+    display: block !important ; 
+}
+
+.inputfile {
+	width: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: white;
+    display: inline-block;
+}
+
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}

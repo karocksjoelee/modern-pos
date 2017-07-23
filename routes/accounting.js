@@ -3,10 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const cm = require('../utility/common-module.js');
+
 // Mongo Schema 
 const Accounting = require('../models/accounting');
-//utility
-const cm = require('../utility/common-module.js');
+
 
 // RESTful API 
 // ==========================================================================================
@@ -25,10 +26,10 @@ router.post('/', (req, res) => {
 
   accounting.save((err, accounting) => {
     if (err) {
-      cm.logErr(err);
       console.log(err);
       res.status(500).send(err);
     }
+    cm.logSuc(`[MONGO] NEW Accouting - ${accouting.accountSubject} : ${accouting.amount}`);
     res.status(201).send(accounting);
   });
 
@@ -41,11 +42,12 @@ router.get('/(:id)?', (req, res) => {
     // if doesn't provide id in url params , return all 
     Accounting.find({})
       .populate('accountSubject')
-      .exec((err, data) => {
+      .exec((err, accounting) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
         }
+        cm.logSuc(`[MONGO] GOT - ${accounting.length} Accountings`);
         res.status(200).send(data);
       });
 
@@ -60,6 +62,7 @@ router.get('/(:id)?', (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT Accounting ${accounting[0]._id} - matched : ${accounting.length}`);
           res.status(200).send(data);
         }
       });
@@ -82,6 +85,7 @@ router.get('/byDate/:date', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       }else {
+        cm.logSuc(`[MONGO] GOT - ${accountings.length} Accountings from ${date}` );
         res.status(200).send(accountings);
       }
     });
@@ -94,23 +98,24 @@ router.put('/:id', (req, res) => {
   // Object will be in req.body 
   Accounting.findOne({
     _id: req.params.id
-  }, (err, account) => {
+  }, (err, accounting) => {
     if (err) {
       console.log(err);
       return res.status(500).send(err);
     }
 
-    account.ate = req.body.date || account.ate;
-    account.accountSubject = req.body.accountSubject || account.accountSubject;
-    account.unit = req.body.unit || account.unit;
-    account.amount = req.body.amount || account.amount;
+    accounting.date = req.body.date || accounting.date;
+    accounting.accountSubject = req.body.accountSubject || accounting.accountSubject;
+    accounting.unit = req.body.unit || accounting.unit;
+    accounting.amount = req.body.amount || accounting.amount;
 
-    account.save((err, account) => {
+    accounting.save((err, accounting) => {
       if (err) {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(201).send(account);
+        cm.logSuc(`[MONGO] UPDATED - Accounting ID : ${accouning._id}`);
+        res.status(201).send(accounting);
       }
     });
   });
@@ -132,6 +137,7 @@ router.delete('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logWarn(`[MONGO] DELETED - ACCOUNTING`);
         res.status(200).send("Accounting Deleted!!");
       }
     });

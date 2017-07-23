@@ -2,6 +2,7 @@
 // ==========================================================================================
 const express = require('express');
 const router = express.Router();
+const cm = require('../utility/common-module.js');
 
 // Mongo Schema 
 const Sale = require('../models/sale');
@@ -13,18 +14,28 @@ router.post('/', (req, res) => {
   // Accept an Object according to schema 
   // Object will be in req.body
   let sale = new Sale({
-    orderDate: req.body.orderDate,
+    type: req.body.type,
+    createDate: req.body.createDate,
+    lastUpdateDate: req.body.lastUpdateDate,
     buyer: req.body.buyer,
+    buyerName: req.body.buyerName,
     phone: req.body.phone,
     serveWay: req.body.serveWay,
     deliverDateTime: req.body.deliverDateTime,
-    deliverBuildingAddress: req.body.deliverBuildingAddress,
-    items: req.body.items,
+    deliverPeriod: req.body.deliverPeriod,
+    deliverAddress: req.body.deliverAddress,
+    deliverBuilding: req.body.deliverBuilding,
+    orderedItems: req.body.orderedItems,
+    orderedMealSets: req.body.orderedMealSets,
     tags: req.body.tags,
     total: req.body.total,
     note: req.body.note,
     weather: req.body.weather,
-    tempture: req.body.tempture
+    tempture: req.body.tempture,
+    beenDelivered: req.body.beenDelivered,
+    maketingProgram: req.body.maketingProgram,
+    buyerDiscount: req.body.buyerDiscount,
+    businessMemberPoint: req.body.businessMemberPoint
   });
 
   sale.save((err, sale) => {
@@ -44,12 +55,13 @@ router.get('/(:id)?', (req, res) => {
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
     Sale.find({})
-      .populate("Member")
+      .populate("buyer")
       .exec((err, sale) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT ALL SALES - ${sale.length}`);
           res.status(200).send(sale);
         }
       });
@@ -59,12 +71,15 @@ router.get('/(:id)?', (req, res) => {
     Sale.find({
         _id: req.params.id
       })
-      .populate("Memeber")
+      .populate('orderedItems.itemId')
+      .populate('orderedMealSets.mealSetId')
+      .populate("buyer")
       .exec((err, sale) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT SALE - ${sale[0]._id} , Matched : ${sale.length}`);
           res.status(200).send(sale);
         }
       });
@@ -73,22 +88,62 @@ router.get('/(:id)?', (req, res) => {
 });
 
 
-router.get('/byDate/:date', (req, res) => {
+router.get('/preorderByDate/:date', (req, res) => {
   let year = req.params.date.slice(0, 4);
   let month = req.params.date.slice(4, 6);
-  let date = year + "-" + month;
+  let day = req.params.date.slice(6,8);
+  let date = year + '/' + month + '/' + day;
+
   Sale.find({
-    orderDate: {
+    deliverDateTime: {
       $regex: date
     }
-  }, (err, sale) => {
-    if (err) {
+  })
+  .populate('orderedItems.itemId')
+  .populate('orderedMealSets.mealSetId')
+  .populate('buyer')
+  .exec((err, sales) => {
+    if(err) {
       console.log(err);
       res.status(500).send(err);
     } else {
-      res.status(200).send(sale);
+      const preOrdered = sales.filter((sale) => {
+        return sale.type === 'pre-order';
+      });
+      cm.logSuc(`[MONGO] ${date} Pre-Order - ${preOrdered.length} Sales`);
+      res.status(200).send(preOrdered);
     }
   });
+
+});
+
+
+router.get('/onsiteByDate/:date', (req, res) => {
+  let year = req.params.date.slice(0, 4);
+  let month = req.params.date.slice(4, 6);
+  let day = req.params.date.slice(6,8);
+  let date = year + '/' + month + '/' + day;
+
+  Sale.find({
+    deliverDateTime: {
+      $regex: date
+    }
+  })
+  .populate('orderedItems.itemId')
+  .populate('orderMealSets.mealSetId')
+  .populate('buyer')
+  .exec((err, sales) => {
+    if(err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      cm.logSuc(`[MONGO] ${date} On-site - ${sales.length} Sales`);
+      res.status(200).send(sales.filter((sale) => {
+        return sale.type === 'onsite';
+      }));
+    }
+  });
+
 
 });
 
@@ -104,8 +159,10 @@ router.put('/:id', (req, res) => {
       return res.status(500).send(err);
     }
 
-    sale.orderDate = req.body.orderDate || sale.orderDate;
+    sale.createDate = req.body.orderDate || sale.orderDate;
+    sale.lastUpdateDate = req.body.lastUpdateDate || sale.lastUpdateDate;
     sale.buyer = req.body.buyer || sale.buyer;
+    sale.buyerName = req.body.buyerName || sale.buyerName;
     sale.phone = req.body.phone || sale.phone;
     sale.serveWay = req.body.serveWay || sale.serveWay;
     sale.deliverDateTime = req.body.deliverDateTime || sale.deliverDateTime;
@@ -116,6 +173,11 @@ router.put('/:id', (req, res) => {
     sale.note = req.body.note || sale.note;
     sale.weather = req.body.weather || sale.weather;
     sale.tempture = req.body.tempture || sale.tempture;
+    sale.beenDelivered = req.body.beenDelivered;
+    sale.type = req.body.type || req.body.type;
+    sale.maketingProgram = req.body.maketingProgram || sale.maketingProgram;
+    sale.buyerDiscount = req.body.buyerDiscount || sale.buyerDiscount;
+    sale.businessMemberPoint = req.body.businessMemberPoint || sale.businessMemberPoint;
 
     sale.save((err, sale) => {
       if (err) {
@@ -144,11 +206,11 @@ router.delete('/:id', (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(200).send("Sale Deleted!!");
+        cm.logWarn(`[MONGO] DELETED - ${sale.phone} : $${sale.total}`);
+        res.status(200).send(sale);
       }
     });
   });
-  res.status(200).send('Sale.orderDate , Sale.buyer Deleted');
 });
 
 

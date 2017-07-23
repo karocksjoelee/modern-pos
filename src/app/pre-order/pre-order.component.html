@@ -1,3 +1,25 @@
-<p>
-  Pre-Order Works !
-</p>
+<div class="breath"></div>
+
+<div class="ui pointing menu">
+
+  <a class="item" [ngClass]="{'active': ngPreorderTab }"  (click)="preorderTabToggle()" [routerLink]="['preorders']">預訂訂單紀錄</a>
+
+  <a class="item" [ngClass]="{'active': ngOnsiteTab }"  (click)="onsiteTabToggle()" [routerLink]="['onsites']">現場點餐紀錄</a>
+
+  <a class="item" [ngClass]="{'active': ngPreorderingTab }" (click)="prorderingTabToggle()" [routerLink]="['preordering']">新增預訂訂單</a>
+
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui segment">
+  <p></p>
+  <router-outlet></router-outlet>
+</div>

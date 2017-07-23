@@ -35,10 +35,10 @@ let Member = new Schema({
   memberStatus: Boolean,
   unExchanged: Number,
   exchanged: Number,
-  orderHistories: {
+  orderHistories: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Sale"
-  }
+  }]
 });
 
 Member.plugin(mongooseUniqureValidator);

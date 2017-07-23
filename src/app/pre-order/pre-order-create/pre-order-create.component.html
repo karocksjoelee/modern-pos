@@ -1,0 +1,240 @@
+<form class="ui form fontfixer" [formGroup]="createForm">
+  <h2 class="ui header" style="font-weight:bold; margin-bottom:15px; margin-top:30px;"><i class="shopping basket icon"></i>新預訂訂單</h2>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>取餐時段</label>
+      <div class="ui action input">
+        <select class="ui compact selection dropdown" style="height:50px" formControlName="deliverPeriod">
+          <option value="">選擇時段</option>
+          <option value="lunch">商業午餐</option>
+          <option value="dinner">闔家晚餐</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:40px;">
+      <input type="text" style="float:none; width:140px; text-align:center; height:50px;" placeholder="選擇日期" ngx-mydatepicker name="myDate"
+        formControlName="deliverDateTime" [options]="datePickerOptions" #dp="ngx-mydatepicker" (click)="dp.toggleCalendar()">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>客戶名稱</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="Buyer" formControlName="buyerName" (click)="clearMember()">
+      </div>
+      <div class="field">
+        <button class="ui blue button" *ngIf="members" (click)="selectingMember()">
+            <i class="hand pointer icon"></i><span *ngIf="!selectedMember">選擇會員</span><span *ngIf="selectedMember">{{selectedMember.type}}</span>
+          </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
+      <label>取餐方式</label>
+      <select class="ui fluid dropdown" formControlName="serveWay">
+          <option value="">選擇方式</option>
+          <option value="deliver">外送</option>
+          <option value="take-out">外帶</option>
+          <option value="eat-here">內用</option>
+        </select>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>聯絡電話</label>
+    <div class="six fields">
+      <div class="field">
+        <input type="text" placeholder="Phone Number" formControlName="phone">
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>送餐地址</label>
+    <div class="three fields">
+      <div class="field">
+        <input type="text" placeholder="Address" formControlName="deliverAddress">
+      </div>
+      <div class="field">
+        <button class="ui blue button" *ngIf="buildings" (click)="selectingBuilding()">
+            <i class="hand pointer icon"></i>選擇大樓
+          </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:30px;">
+    <label>訂餐內容</label>
+    <div class="six fields">
+      <div>
+      </div>
+      <div class="field">
+        <button class="ui blue button" *ngIf="items" (click)="selectingItems()">
+            <i class="hand pointer icon"></i>選擇餐點
+          </button>
+      </div>
+      <div class="field">
+        <button class="ui blue button" *ngIf="mealSets" (click)="selectingMealSets()">
+            <i class="hand pointer icon"></i>選擇套餐
+          </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui divider"></div>
+  <div class="field" style="margin-top:30px;" *ngIf="selectedMeals">
+    <div class="six fields" *ngFor="let selectedMeal of selectedMeals">
+      <div class="field">
+        {{selectedMeal.meal.name || selectedMeal.meal.setName }}
+      </div>
+      <div class="field">
+        <i class="large minus square outline icon" (click)="decreaseQuantity(selectedMeal)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{selectedMeal.quantity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i
+          (click)="increaseQuantity(selectedMeal)" class="large plus square outline icon"></i>
+      </div>
+      <div class="field">
+        <i class="large remove icon" (click)="removeMeal(selectedMeal)"></i>
+      </div>
+
+    </div>
+    <div class="ui horizontal divider">
+      優惠前總額 <i class="dollar icon"></i> {{beforeDiscount}}
+    </div>
+  </div>
+
+
+
+  <div class="ui form" style="margin-top:30px;">
+    <div class="field">
+      <label style="font-size:16px;">該訂單備註</label>
+      <div class="two fields">
+        <div class="field">
+          <textarea formControlName="note"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="ui huge red label" *ngIf="rewardPoint" style="margin:30px;">獲得紅利: {{rewardPoint}}</a>
+
+  <div *ngIf="selectedMember" style="margin:10px;">
+    <a *ngFor="let discount of discountArray" class="ui huge violet label" style="margin:30px;" (click)="onExchanging()">可用折價券: {{discount}}</a>
+  </div>
+
+
+  <div class="fixbutton">
+    <div class="ui left action input">
+      <button class="ui teal labeled icon button" (click)="newOrder()">
+        <i class="cart icon"></i>
+        結帳
+      </button>
+      <input type="text" formControlName="total">
+      <button class="ui grey button">取消</button>
+    </div>
+  </div>
+
+</form>
+
+<!--Members Modal Here-->
+<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMembersModal}">
+  <div class="header">
+    <i (click)="closeMembersModal()" class="close icon"></i>已註冊會員
+  </div>
+  <div class="description" style="padding-left:30px; margin-bottom:10px; overflow:auto; height:350px;">
+    <div class="small-breathe"></div>
+    <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="輸入會員手機號碼...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="ui cards">
+      <div class="card" *ngFor="let member of members" (click)="onSelectedMember(member)">
+        <div class="content">
+          <div class="header">{{member.name}}</div>
+          <div class="meta">{{member.phone}}</div>
+          <div class="meta">累積金額 : {{member.unExchanged}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Buildings Modal Here-->
+<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngBuildingsModal}">
+  <div class="header">
+    <i (click)="closeBuildingsModal()" class="close icon"></i>大樓列表
+  </div>
+  <div class="description" style="padding-left:30px; margin-bottom:10px; overflow:auto; height:350px;">
+    <div class="small-breathe"></div>
+    <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="輸入大樓名稱...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="ui cards">
+      <div class="card" *ngFor="let building of buildings" (click)="onSelectedBuilding(building)">
+        <div class="content">
+          <div class="header">{{building.name}}</div>
+          <div class="meta">{{building.category}}</div>
+          <div class="meta">{{building.address}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Item Modal Here-->
+<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngItemsModal}">
+  <div class="header">
+    <i (click)="closeItemsModal()" class="close icon"></i>餐點選單
+  </div>
+  <div class="description" style="padding-left:30px; margin-bottom:10px; overflow:auto; height:350px;">
+    <div class="small-breathe"></div>
+    <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="輸入餐點名稱...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="ui cards">
+      <div class="card" *ngFor="let item of items" (click)="onSelectedItem(item)">
+        <div class="content">
+          <div class="header">{{item.name}}</div>
+          <div class="meta">{{item.price}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MealSet Modal Here-->
+<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMealSetsModal}">
+  <div class="header">
+    <i (click)="closeMealSetsModal()" class="close icon"></i>套餐選單
+  </div>
+  <div class="description" style="padding-left:30px; margin-bottom:10px; overflow:auto; height:350px;">
+    <div class="small-breathe"></div>
+    <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="輸入套餐名稱...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="ui cards">
+      <div class="card" *ngFor="let mealSet of mealSets" (click)="onSelectedMealSet(mealSet)">
+        <div class="content">
+          <div class="header">{{mealSet.setName}}</div>
+          <div class="meta">{{mealSet.price}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

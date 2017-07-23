@@ -28,7 +28,7 @@ export class MemberListComponent implements OnInit {
 
     this._memberMgtService.getMembers().subscribe((members) => {
       this.members = members;
-      console.log(this.members);
+      console.log(`[DB] GOT ${members.length} members`);
     });
 
     this.inputForm = new FormGroup({
