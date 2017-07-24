@@ -111,8 +111,8 @@ router.put('/:id', (req, res) => {
     member.tags = req.body.tags || member.tags;
     member.membershipTerm = req.body.membershipTerm || member.membershipTerm;
     member.memberStatus = req.body.memberStatus || member.memberStatus;
-    member.unExchanged = req.body.unExchanged || member.unExchanged;
-    member.exchanged = req.body.exchanged || member.exchanged;
+    member.unExchanged = req.body.unExchanged;
+    member.exchanged = req.body.exchanged ;
     member.orderHistories = req.body.orderHistories || member.orderHistories;
 
     member.save((err, member) => {

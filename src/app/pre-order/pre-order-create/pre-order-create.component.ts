@@ -438,9 +438,10 @@ export class PreOrderCreateComponent implements OnInit {
         this.selectedMember.unExchanged += 100;
 
       // Case 2. Business / Individual Member Normal
-      } else if (this.selectedMember && this.selectedMember.type === 'individual') {
+      } else if (this.selectedMember.type && this.selectedMember.type === 'individual' || this.selectedMember.type === 'business') {
 
         this.createForm.patchValue({ total: this.beforeDiscount });
+        console.log('HEE TEST');
         this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
 
         if (this.rewardPoint) {

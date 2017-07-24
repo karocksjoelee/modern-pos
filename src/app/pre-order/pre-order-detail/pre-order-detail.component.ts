@@ -74,7 +74,8 @@ export class PreOrderDetailComponent implements OnInit {
 
       this.storedDeliverDate = this.sale.deliverDateTime;
       this.discountClick = this.sale.buyerDiscount;
-      console.log(this.sale.businessMemberPoint);
+      console.log('Used Discount Ticked: ', this.sale.buyerDiscount);
+      console.log('Business Member Point: ', this.sale.businessMemberPoint);
 
       this.updateForm = new FormGroup({
         'type': new FormControl(this.sale.type),
@@ -118,11 +119,12 @@ export class PreOrderDetailComponent implements OnInit {
             return member._id === this.updateForm.value.buyer._id;
           });
           this.selectedMember = this.selectedMember[0];
-          this.fixedUnExchanged = this.selectedMember.unExchanged - this.updateForm.value.total;
-          this.fixedExchanged = this.selectedMember.exchanged - this.sale.buyerDiscount * 1000;
-          console.log('UN:', this.fixedUnExchanged);
-          console.log('EX:', this.fixedExchanged);
-          this.discount = Math.floor(this.selectedMember.unExchanged / 1000);
+          // this.fixedUnExchanged = this.selectedMember.unExchanged - this.updateForm.value.total;
+          this.fixedUnExchanged = this.selectedMember.unExchanged - 1000 * this.updateForm.value.buyerDiscount;
+          this.fixedExchanged = this.selectedMember.exchanged + 1000 * this.updateForm.value.buyerDiscount;
+          console.log('Pre-UN:', this.fixedUnExchanged);
+          console.log('Pre-EX:', this.fixedExchanged);
+          this.discount = Math.floor(this.fixedUnExchanged / 1000);
           for (let i = 0; i < this.discount; i++) {
             this.discountArray.push(100);
           }
@@ -137,7 +139,9 @@ export class PreOrderDetailComponent implements OnInit {
         this.selectedBuilding = this.selectedBuilding[0];
       });
 
-      if (this.updateForm.value.buyerDiscount > 0) {
+      console.log('CheckDisconutClicL' , this.discountClick);
+
+      if (this.discountClick > 0) {
         this.calculateTotal(true);
       } else {
         this.calculateTotal(false);
@@ -210,36 +214,36 @@ export class PreOrderDetailComponent implements OnInit {
 
   deleteOrder() {
 
-    this.selectedMember.unExchanged -= this.updateForm.value.total;
-    this.selectedMember.unExchanged -= this.updateForm.value.businessMemberPoint;
-    this.selectedMember.unExchanged = this.selectedMember.unExchanged + this.updateForm.value.buyerDiscount * 1000;
-    this.selectedMember.exchanged -= this.updateForm.value.buyerDiscount * 1000;
-
     const res = confirm('你正在刪除這筆訂單,你確定嗎?');
 
     if (res === true) {
+      console.log(this.fixedUnExchanged);
+      this.selectedMember.unExchanged = this.fixedUnExchanged - this.updateForm.value.businessMemberPoint - this.updateForm.value.total;
+      this.selectedMember.exchanged = this.fixedExchanged - (1000 * this.discountClick);
+      console.log('BUG:', this.selectedMember);
       this._preorderService.deletePreorder(this.id).subscribe(
         (response) => {
           console.log(response);
+          this._memberMgtService.updateMember(this.selectedMember._id, this.selectedMember).subscribe(
+            (response02) => {
+              console.log(response02);
+            },
+            (err) => {
+              alert(err);
+            },
+            () => {
+              alert('Completed2');
+              console.log('[DATA] UPDATED MEMBER');
+              this.router.navigate(['../'], { relativeTo: this.route });
+            }
+          );
         },
         (err) => {
           alert(err);
         },
         () => {
-          console.log('DELETED ORDER');
+          console.log('[DATA] DELETED ORDER');
           alert('Completed1');
-          this.router.navigate(['../'], { relativeTo: this.route });
-        }
-      );
-      this._memberMgtService.updateMember(this.selectedMember._id, this.selectedMember).subscribe(
-        (response) => {
-          console.log(response);
-        },
-        (err) => {
-          alert(err);
-        },
-        () => {
-          alert('Completed2');
         }
       );
     } else {
@@ -294,7 +298,7 @@ export class PreOrderDetailComponent implements OnInit {
 
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -316,7 +320,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedItems[existedIncreasingItemIndex].quantity++;
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -338,7 +342,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedItems[existedIncreasingItemIndex].quantity--;
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -383,7 +387,7 @@ export class PreOrderDetailComponent implements OnInit {
 
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -405,7 +409,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedMealSets[existedIncreasingMealSetIndex].quantity++;
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -427,7 +431,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedMealSets[existedIncreasingMealSetIndex].quantity--;
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -449,7 +453,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedItems.splice(removeRealItemIndex, 1);
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -471,7 +475,7 @@ export class PreOrderDetailComponent implements OnInit {
       this.updateForm.value.orderedMealSets.splice(removeRealMealSetIndex, 1);
     }
 
-    if (this.updateForm.value.buyerDiscount > 0) {
+    if (this.discountClick > 0) {
       this.calculateTotal(true);
     } else {
       this.calculateTotal(false);
@@ -485,54 +489,53 @@ export class PreOrderDetailComponent implements OnInit {
     if (discount) {
 
       // Calculate Total After Disount
-      this.itemBeforeDiscount = this.updateForm.value.orderedItems.reduce((total, orderedItem) => {
+      const beforeDiscountItems = this.updateForm.value.orderedItems.reduce((total, orderedItem) => {
         return total + orderedItem.itemId.price * orderedItem.quantity;
       }, 0);
 
-      this.mealSetBeforeDiscount = this.updateForm.value.orderedMealSets.reduce((total, orderedMealSet) => {
+      const beforeDiscountMealSets = this.updateForm.value.orderedMealSets.reduce((total, orderedMealSet) => {
         return total + orderedMealSet.mealSetId.price * orderedMealSet.quantity;
       }, 0);
 
-      this.beforeDiscount = this.itemBeforeDiscount + this.mealSetBeforeDiscount;
-      const afterDiscount = this.beforeDiscount - 100 * this.updateForm.value.buyerDiscount;
+      this.beforeDiscount = beforeDiscountItems + beforeDiscountMealSets;
+      const afterDiscount = this.beforeDiscount - 100 * this.discountClick;
       console.log(afterDiscount);
 
       // Case 1. Business Member Purchase More Than 1,000
       if (this.selectedMember &&
-        afterDiscount >= 1000 &&
-        this.selectedMember.type === 'business' &&
-        this.updateForm.value.total >= 0) {
+          afterDiscount >= 1000 &&
+          this.selectedMember.type === 'business' &&
+          this.updateForm.value.total >= 0) {
+
+        console.log('Super Customer');
 
         // Processing Total (After Discount)
-        this.updateForm.patchValue({ total: afterDiscount });
-        // Processing Reward Point (Exchanged & UnExchanged)
-        this.selectedMember.unExchanged -= 1000 * this.updateForm.value.buyerDiscount;
-        this.selectedMember.unExchanged += afterDiscount;
-        this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.updateForm.value.buyerDiscount;
-        // Business Member Extra Bounus
-        this.rewardPoint = 100;
-        this.selectedMember.unExchanged += 100;
-
-        // Case 2. Business / Individual Member Normal
-      } else if (this.selectedMember &&
-        this.selectedMember.type === 'business' ||
-        this.selectedMember.type === 'individual' &&
-        this.updateForm.value.total >= 0) {
-
-        console.log('Right Case');
-
-        // Processing Total (After Discount)
-        this.updateForm.patchValue({ total: afterDiscount });
+        this.updateForm.patchValue({total: afterDiscount});
         // Processing Reward Point (Exchanged & UnExchanged)
         this.selectedMember.unExchanged = this.fixedUnExchanged + afterDiscount;
-        this.selectedMember.unExchanged -= 1000 * this.updateForm.value.buyerDiscount;
-        this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.updateForm.value.buyerDiscount;
+        this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.discountClick;
+        // Business Member Extra Bounus
+        this.rewardPoint = 100;
+        this.updateForm.patchValue({businessMemberPoint : this.rewardPoint });
+        this.selectedMember.unExchanged += 100;
+
+      // Case 2. Business / Individual Member Normal
+      } else if (this.selectedMember &&
+                 this.selectedMember.type === 'business' ||
+                 this.selectedMember.type === 'individual' &&
+                 this.updateForm.value.total >= 0) {
+
+        // Processing Total (After Discount)
+        this.updateForm.patchValue({total: afterDiscount});
+        // Processing Reward Point (Exchanged & UnExchanged)
+        this.selectedMember.unExchanged = this.fixedUnExchanged + afterDiscount;
+        this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.discountClick;
 
         if (this.rewardPoint) {
           this.rewardPoint = null;
         }
 
-        // Case Exception . Total is already under 0
+      // Case Exception . Total is already under 0
       } else {
         alert('無法繼續使用折價卷');
       }
@@ -541,26 +544,29 @@ export class PreOrderDetailComponent implements OnInit {
 
       // Calculate Total Before Discount
 
-      this.itemBeforeDiscount = this.updateForm.value.orderedItems.reduce((total, orderedItem) => {
+      const beforeDiscountItems = this.updateForm.value.orderedItems.reduce((total, orderedItem) => {
         return total + orderedItem.itemId.price * orderedItem.quantity;
       }, 0);
 
-      this.mealSetBeforeDiscount = this.updateForm.value.orderedMealSets.reduce((total, orderedMealSet) => {
+      const beforeDiscountMealSets = this.updateForm.value.orderedMealSets.reduce((total, orderedMealSet) => {
         return total + orderedMealSet.mealSetId.price * orderedMealSet.quantity;
       }, 0);
 
-      this.beforeDiscount = this.itemBeforeDiscount + this.mealSetBeforeDiscount;
+      this.beforeDiscount = beforeDiscountItems + beforeDiscountMealSets;
 
       // Case 1. Business Member Purchase More Than 1,000
       if (this.selectedMember && this.beforeDiscount >= 1000 && this.selectedMember.type === 'business') {
 
+        console.log('SUPER CUSTOMER');
+
         this.updateForm.patchValue({ total: this.beforeDiscount });
         this.rewardPoint = 100;
-        this.selectedMember.unExchanged += 100;
+        this.updateForm.patchValue({businessMemberPoint : this.rewardPoint });
         this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
+        this.selectedMember.unExchanged += 100;
 
-        // Case 2. Business / Individual Member Normal
-      } else if (this.selectedMember && this.selectedMember.type === 'individual') {
+      // Case 2. Business / Individual Member Normal
+      } else if (this.selectedMember && this.selectedMember.type === 'individual' || this.selectedMember.type === 'business') {
 
         this.updateForm.patchValue({ total: this.beforeDiscount });
         this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
@@ -569,7 +575,7 @@ export class PreOrderDetailComponent implements OnInit {
           this.rewardPoint = null;
         }
 
-        // Case Exception . Total is already under 0
+      // Case Exception . Total is already under 0
       } else {
 
         this.updateForm.patchValue({ total: this.beforeDiscount });
