@@ -3,6 +3,17 @@
 
   <div class="six fields">
     <div class="field" style="margin-top:15px;">
+      <label>訂餐方式</label>
+      <select class="ui fluid dropdown" formControlName="type">
+          <option value="">選擇方式</option>
+          <option value="on-site">現場</option>
+          <option value="pre-order">預訂</option>
+        </select>
+    </div>
+  </div>
+  
+  <div class="six fields">
+    <div class="field" style="margin-top:15px;">
       <label>取餐時段</label>
       <div class="ui action input">
         <select class="ui compact selection dropdown" style="height:50px" formControlName="deliverPeriod">

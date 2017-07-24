@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let onsiteOrder of onsiteOrders" [routerLink]="[onsiteOrder._id]">
+    <tr *ngFor="let onsiteOrder of onsiteOrders" [routerLink]="['../preorders/',onsiteOrder._id]">
       <td>{{onsiteOrder.orderCode}}</td>
       <td>{{onsiteOrder.deliverPeriod}}</td>
       <td>{{onsiteOrder.serveWay}}</td>
