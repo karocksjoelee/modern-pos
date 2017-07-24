@@ -151,7 +151,7 @@
 </form>
 
 <!--Members Modal Here-->
-<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMembersModal}">
+<div id="myModal" class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMembersModal}">
   <div class="header">
     <i (click)="closeMembersModal()" class="close icon"></i>已註冊會員
   </div>
@@ -177,7 +177,7 @@
 
 
 <!--Buildings Modal Here-->
-<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngBuildingsModal}">
+<div id="myModal" class="ui modal" style="width:1000px;" [ngClass]="{'active': ngBuildingsModal}">
   <div class="header">
     <i (click)="closeBuildingsModal()" class="close icon"></i>大樓列表
   </div>
@@ -203,7 +203,7 @@
 
 
 <!--Item Modal Here-->
-<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngItemsModal}">
+<div id="myModal" class="ui modal" style="width:1000px;" [ngClass]="{'active': ngItemsModal}">
   <div class="header">
     <i (click)="closeItemsModal()" class="close icon"></i>餐點選單
   </div>
@@ -222,12 +222,13 @@
           <div class="meta">{{item.price}}</div>
         </div>
       </div>
+      <p></p>
     </div>
   </div>
 </div>
 
 <!--MealSet Modal Here-->
-<div class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMealSetsModal}">
+<div id="myModal" class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMealSetsModal}">
   <div class="header">
     <i (click)="closeMealSetsModal()" class="close icon"></i>套餐選單
   </div>

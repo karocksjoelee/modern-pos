@@ -98,6 +98,25 @@ export class PreOrderCreateComponent implements OnInit {
 
   }
 
+  selectingMember() {
+    this.ngMembersModal = true;
+  }
+
+
+  selectingBuilding() {
+    this.ngBuildingsModal = true;
+  }
+
+
+  selectingItems() {
+    this.ngItemsModal = true;
+  }
+
+
+  selectingMealSets() {
+    this.ngMealSetsModal = true;
+  }
+
 
   newOrder() {
 
@@ -105,7 +124,7 @@ export class PreOrderCreateComponent implements OnInit {
 
       if (this.createForm.value.deliverAddress !== this.selectedBuilding.address) {
 
-        this.createForm.patchValue({ deliverBuilding: '' });
+        this.createForm.patchValue({ deliverBuilding: null });
 
       }
 
@@ -127,9 +146,8 @@ export class PreOrderCreateComponent implements OnInit {
       this.createForm.patchValue({deliverDateTime: this.createForm.value.deliverDateTime.formatted});
     }
 
-    const dateId = this.createForm.value.deliverDateTime.replace('/', '').replace('/', '');
-    const randomId = Math.floor(Math.random() * 9999) + 1;
-    const humanIdentifyCode = `${dateId}:${randomId}`;
+    // Processing Human Identiable code 
+    const humanIdentifyCode = `${this.createForm.value.deliverDateTime.replace('/', '').replace('/', '')}:${Math.floor(Math.random() * 9999) + 1}`;
     this.createForm.patchValue({orderCode: humanIdentifyCode });
 
     console.log(this.createForm.value);
@@ -162,27 +180,6 @@ export class PreOrderCreateComponent implements OnInit {
     }
 
   } // end of newOrder()
-
-
-  selectingMember() {
-    this.ngMembersModal = true;
-  }
-
-
-  selectingBuilding() {
-    this.ngBuildingsModal = true;
-  }
-
-
-  selectingItems() {
-    this.ngItemsModal = true;
-  }
-
-
-  selectingMealSets() {
-    this.ngMealSetsModal = true;
-  }
-
 
   onSelectedMember(member) {
 

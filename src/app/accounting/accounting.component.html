@@ -2,16 +2,16 @@
 
 <div class="ui pointing menu">
 
-  <a class="item" [ngClass]="{'active': ngAccountingTab }"  (click)="accountingTabToggle()" [routerLink]="['accountings']">帳戶紀錄</a>
+  <a class="item" [ngClass]="{'active': ngAccountingTab }"  (click)="accountingTabToggle($event)" [routerLink]="['accountings']">帳戶紀錄</a>
 
-  <a class="item" [ngClass]="{'active': ngSubjectTab }" (click)="subjectTabToggle()" [routerLink]="['subjects']">科目設定</a>
+  <a class="item" [ngClass]="{'active': ngSubjectTab }" (click)="subjectTabToggle($event)" [routerLink]="['subjects']">科目設定</a>
 
-  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown()" (click)="showNgDropdown()" >
+  <div class="ui pointing dropdown link item" [ngClass]="{'active visible': ngDropdownTab}" (mouseover)="showNgDropdown($event)" (click)="showNgDropdown($event)" >
     <span class="text">新增</span>
     <i class="dropdown icon"></i>
     <div class="menu" [ngClass]="{'transition visible': ngDropdown}">
-      <div class="header" style="height:30px" (click)="onCreateAccounting()" [routerLink]="['new-accounting']">新增帳務</div>
-      <div class="header" style="height:30px" (click)="onCreateSubject()" [routerLink]="['new-subject']">新增科目</div>
+      <div class="header" style="height:30px" (click)="onCreateAccounting($event)" [routerLink]="['new-accounting']">新增帳務</div>
+      <div class="header" style="height:30px" (click)="onCreateSubject($event)" [routerLink]="['new-subject']">新增科目</div>
     </div>
   </div>
 

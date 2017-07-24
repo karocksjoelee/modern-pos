@@ -73,4 +73,8 @@ export class AccountingCreateComponent implements OnInit {
     this.ngModal = false;
   }
 
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
 }

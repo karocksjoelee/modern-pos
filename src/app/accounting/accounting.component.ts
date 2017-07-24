@@ -8,10 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AccountingComponent implements OnInit {
 
-  ngDropdown;
-  ngAccountingTab = true;
-  ngSubjectTab = false;
-  ngDropdownTab = false;
+  public ngDropdown;
+  public ngAccountingTab = true;
+  public ngSubjectTab = false;
+  public ngDropdownTab = false;
 
   constructor(private _eref: ElementRef, private route: ActivatedRoute) { }
 

@@ -57,7 +57,6 @@ export class PreOrderDetailComponent implements OnInit {
     private _itemMgtService: ItemMgtService,
     private router: Router,
     private route: ActivatedRoute) {
-
   }
 
   ngOnInit() {
@@ -161,16 +160,13 @@ export class PreOrderDetailComponent implements OnInit {
     this.ngMembersModal = true;
   }
 
-
   selectingBuilding() {
     this.ngBuildingsModal = true;
   }
 
-
   selectingItems() {
     this.ngItemsModal = true;
   }
-
 
   selectingMealSets() {
     this.ngMealSetsModal = true;
@@ -510,7 +506,6 @@ export class PreOrderDetailComponent implements OnInit {
         // Processing Total (After Discount)
         this.updateForm.patchValue({ total: afterDiscount });
         // Processing Reward Point (Exchanged & UnExchanged)
-        console.log('o',this.updateForm.value.buyerDiscount);
         this.selectedMember.unExchanged -= 1000 * this.updateForm.value.buyerDiscount;
         this.selectedMember.unExchanged += afterDiscount;
         this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.updateForm.value.buyerDiscount;

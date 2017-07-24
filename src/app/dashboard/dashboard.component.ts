@@ -9,7 +9,7 @@ import { Component, OnInit} from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   private nativeElement: Node;
-  private toggle: Boolean = false;
+  public toggle: Boolean = false;
 
   constructor() { }
 
