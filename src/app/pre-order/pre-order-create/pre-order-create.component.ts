@@ -153,31 +153,31 @@ export class PreOrderCreateComponent implements OnInit {
     console.log(this.createForm.value);
 
     this._preorderService.createSale(this.createForm.value).subscribe(
-      (response) => {
-        console.log(response);
+      (response01) => {
+        console.log(response01);
+        if (this.selectedMember) {
+          this._memberMgtService.updateMember(this.selectedMember._id, this.selectedMember).subscribe(
+            (response02) => {
+              console.log(response02);
+            },
+            (error) => {
+              alert(error);
+            },
+            () => {
+              console.log('[DATA] UPDATED MEMBER');
+              alert('[DATA] UPDATED MEMBER');
+            }
+          );
+        }
       },
       (error) => {
         alert(error);
       },
       () => {
-        alert('Completed');
+        alert('[DATA]NEW ORDER CREATED');
         this.router.navigate(['../preorders'], { relativeTo: this.route });
       }
     );
-    if (this.selectedMember) {
-      console.log('Sending PUT Member ');
-      this._memberMgtService.updateMember(this.selectedMember._id, this.selectedMember).subscribe(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          alert(error);
-        },
-        () => {
-          alert('Completed 2');
-        }
-      );
-    }
 
   } // end of newOrder()
 

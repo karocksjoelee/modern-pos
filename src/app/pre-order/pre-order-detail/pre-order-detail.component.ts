@@ -120,7 +120,7 @@ export class PreOrderDetailComponent implements OnInit {
           });
           this.selectedMember = this.selectedMember[0];
           // this.fixedUnExchanged = this.selectedMember.unExchanged - this.updateForm.value.total;
-          this.fixedUnExchanged = this.selectedMember.unExchanged - 1000 * this.updateForm.value.buyerDiscount;
+          this.fixedUnExchanged = this.selectedMember.unExchanged + 1000 * this.updateForm.value.buyerDiscount;
           this.fixedExchanged = this.selectedMember.exchanged + 1000 * this.updateForm.value.buyerDiscount;
           console.log('Pre-UN:', this.fixedUnExchanged);
           console.log('Pre-EX:', this.fixedExchanged);
@@ -129,6 +129,13 @@ export class PreOrderDetailComponent implements OnInit {
             this.discountArray.push(100);
           }
         };
+        console.log('CheckDisconutClicL' , this.discountClick);
+
+          if (this.discountClick > 0) {
+            this.calculateTotal(true);
+          } else {
+            this.calculateTotal(false);
+          }
       });
 
       this._memberMgtService.getBuildings().subscribe((buildings) => {
@@ -139,13 +146,7 @@ export class PreOrderDetailComponent implements OnInit {
         this.selectedBuilding = this.selectedBuilding[0];
       });
 
-      console.log('CheckDisconutClicL' , this.discountClick);
-
-      if (this.discountClick > 0) {
-        this.calculateTotal(true);
-      } else {
-        this.calculateTotal(false);
-      }
+      
 
     });
 
@@ -218,7 +219,8 @@ export class PreOrderDetailComponent implements OnInit {
 
     if (res === true) {
       console.log(this.fixedUnExchanged);
-      this.selectedMember.unExchanged = this.fixedUnExchanged - this.updateForm.value.businessMemberPoint - this.updateForm.value.total;
+      this.selectedMember.unExchanged = this.fixedUnExchanged - this.updateForm.value.businessMemberPoint - this.updateForm.value.total - 100 * this.discountClick;
+      this.discountClick = 0;
       this.selectedMember.exchanged = this.fixedExchanged - (1000 * this.discountClick);
       console.log('BUG:', this.selectedMember);
       this._preorderService.deletePreorder(this.id).subscribe(
@@ -232,8 +234,8 @@ export class PreOrderDetailComponent implements OnInit {
               alert(err);
             },
             () => {
-              alert('Completed2');
               console.log('[DATA] UPDATED MEMBER');
+              alert('[DATA] UPDATED MEMBER');
               this.router.navigate(['../'], { relativeTo: this.route });
             }
           );
@@ -243,7 +245,7 @@ export class PreOrderDetailComponent implements OnInit {
         },
         () => {
           console.log('[DATA] DELETED ORDER');
-          alert('Completed1');
+          alert('[DATA] DELETED ORDER');
         }
       );
     } else {
@@ -507,12 +509,12 @@ export class PreOrderDetailComponent implements OnInit {
           this.selectedMember.type === 'business' &&
           this.updateForm.value.total >= 0) {
 
-        console.log('Super Customer');
+        console.log('Super Customer01');
 
         // Processing Total (After Discount)
         this.updateForm.patchValue({total: afterDiscount});
         // Processing Reward Point (Exchanged & UnExchanged)
-        this.selectedMember.unExchanged = this.fixedUnExchanged + afterDiscount;
+        this.selectedMember.unExchanged = this.fixedUnExchanged - this.sale.total + afterDiscount;
         this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.discountClick;
         // Business Member Extra Bounus
         this.rewardPoint = 100;
@@ -525,11 +527,11 @@ export class PreOrderDetailComponent implements OnInit {
                  this.selectedMember.type === 'individual' &&
                  this.updateForm.value.total >= 0) {
 
-        // Processing Total (After Discount)
-        this.updateForm.patchValue({total: afterDiscount});
         // Processing Reward Point (Exchanged & UnExchanged)
         this.selectedMember.unExchanged = this.fixedUnExchanged + afterDiscount;
         this.selectedMember.exchanged = this.fixedExchanged + 1000 * this.discountClick;
+        // Processing Total (After Discount)
+        this.updateForm.patchValue({total: afterDiscount});
 
         if (this.rewardPoint) {
           this.rewardPoint = null;
@@ -557,14 +559,13 @@ export class PreOrderDetailComponent implements OnInit {
       // Case 1. Business Member Purchase More Than 1,000
       if (this.selectedMember && this.beforeDiscount >= 1000 && this.selectedMember.type === 'business') {
 
-        console.log('SUPER CUSTOMER');
+        console.log('SUPER CUSTOMER02');
 
-        this.updateForm.patchValue({ total: this.beforeDiscount });
+        this.selectedMember.unExchanged = this.fixedUnExchanged - this.sale.total + this.beforeDiscount;
+        this.selectedMember.unExchanged += 100;
         this.rewardPoint = 100;
         this.updateForm.patchValue({businessMemberPoint : this.rewardPoint });
-        this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
-        this.selectedMember.unExchanged += 100;
-
+        this.updateForm.patchValue({ total: this.beforeDiscount });
       // Case 2. Business / Individual Member Normal
       } else if (this.selectedMember && this.selectedMember.type === 'individual' || this.selectedMember.type === 'business') {
 
