@@ -37,7 +37,7 @@
       </div>
       <div class="field">
         <button class="ui blue button" *ngIf="members" (click)="selectingMember()">
-            <i class="hand pointer icon"></i><span *ngIf="!selectedMember">選擇會員</span><span *ngIf="selectedMember">{{selectedMember.type}}</span>
+            <i class="hand pointer icon"></i><span *ngIf="!createForm.value.buyer">選擇會員</span><span *ngIf="createForm.value.buyer">{{createForm.value.buyer.type}}</span>
           </button>
       </div>
     </div>
@@ -132,7 +132,7 @@
 
   <a class="ui huge red label" *ngIf="rewardPoint" style="margin:30px;">獲得紅利: {{rewardPoint}}</a>
 
-  <div *ngIf="selectedMember" style="margin:10px;">
+  <div *ngIf="createForm.value.buyer" style="margin:10px;">
     <a *ngFor="let discount of discountArray" class="ui huge violet label" style="margin:30px;" (click)="onExchanging()">可用折價券: {{discount}}</a>
   </div>
 
@@ -250,3 +250,4 @@
     </div>
   </div>
 </div>
+

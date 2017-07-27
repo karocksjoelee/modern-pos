@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
+import { ToastyModule } from 'ng2-toasty';
 
 import { PreOrderComponent } from './pre-order.component';
 import { PreOrderCreateComponent } from './pre-order-create/pre-order-create.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxMyDatePickerModule,
     ModalModule.forRoot(),
+    ToastyModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [
