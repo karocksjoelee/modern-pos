@@ -179,10 +179,14 @@ export class PreOrderCreateComponent implements OnInit {
 
   onSelectedItem(item) {
 
+    console.log(item);
+    this.createForm.value.orderedItems.push({itemId: item, quantity: 1});
+    console.log(this.createForm.value.orderedItems);
+
   } // end of onSelectedItem()
 
   onSelectedMealSet(mealSet) {
-
+    this.createForm.value.orderedMealSets.push({mealSetId: mealSet, quantity: 1});
 
   } // end of onSelectMealSet()
 
@@ -191,13 +195,15 @@ export class PreOrderCreateComponent implements OnInit {
   } // end of calculateTotal()
 
   clearMember() {
+
     const toastWarnOption: ToastOptions = {
         title: '操作提示',
         msg: '會員資料變更',
         timeout: 4000,
         theme: 'bootstrap'
-      };
-      this._toastyService.warning(toastWarnOption);
+    };
+
+    this._toastyService.warning(toastWarnOption);
 
     this.createForm.patchValue({ buyer: null });
     this.createForm.patchValue({ buyerName: '' });
