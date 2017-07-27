@@ -50,17 +50,17 @@ export class PreOrderCreateComponent implements OnInit {
 
 
     this.createForm = new FormGroup({
-      // 'type': new FormControl('pre-order'),
-      'type': new FormControl(''),
       'createDate': new FormControl(''),
+      'lastUpdateDate': new FormControl(''),
       'buyer': new FormControl(),
       'buyerName': new FormControl(''),
+      'type': new FormControl(''),
       'phone': new FormControl(''),
       'serveWay': new FormControl(''),
       'deliverDateTime': new FormControl(''),
       'deliverPeriod': new FormControl(''),
-      'deliverBuilding': new FormControl(),
       'deliverAddress': new FormControl(''),
+      'deliverBuilding': new FormControl(),
       'orderedItems': new FormControl([]),
       'orderedMealSets': new FormControl([]),
       'tags': new FormControl(''),
@@ -69,7 +69,6 @@ export class PreOrderCreateComponent implements OnInit {
       'weather': new FormControl(''),
       'tempture': new FormControl(''),
       'beenDelivered': new FormControl(false),
-      'lastUpdateDate': new FormControl(''),
       'marketingProgram': new FormControl(''),
       'buyerDiscount': new FormControl(0),
       'businessMemberPoint': new FormControl(0),
@@ -149,8 +148,6 @@ export class PreOrderCreateComponent implements OnInit {
     // Processing Human Identiable code 
     const humanIdentifyCode = `${this.createForm.value.deliverDateTime.replace('/', '').replace('/', '')}:${Math.floor(Math.random() * 9999) + 1}`;
     this.createForm.patchValue({orderCode: humanIdentifyCode });
-
-    console.log(this.createForm.value);
 
     this._preorderService.createSale(this.createForm.value).subscribe(
       (response01) => {
@@ -375,6 +372,8 @@ export class PreOrderCreateComponent implements OnInit {
       }, 0);
 
       const afterDiscount = this.beforeDiscount - 100 * this.discountClick;
+
+      this.createForm.patchValue({total: afterDiscount});
       console.log(afterDiscount);
 
       // Case 1. Business Member Purchase More Than 1,000
@@ -382,8 +381,6 @@ export class PreOrderCreateComponent implements OnInit {
           afterDiscount >= 1000 &&
           this.selectedMember.type === 'business' &&
           this.createForm.value.total >= 0) {
-
-        console.log('Super Customer');
 
         // Processing Total (After Discount)
         this.createForm.patchValue({total: afterDiscount});
@@ -421,7 +418,7 @@ export class PreOrderCreateComponent implements OnInit {
     } else {
 
       // Calculate Total Before Discount
-
+      this.createForm.patchValue({ total: this.beforeDiscount });
       this.beforeDiscount = this.selectedMeals.reduce((total, selectedMeal) => {
         return total + selectedMeal.meal.price * selectedMeal.quantity;
       }, 0);
@@ -429,9 +426,6 @@ export class PreOrderCreateComponent implements OnInit {
       // Case 1. Business Member Purchase More Than 1,000
       if (this.selectedMember && this.beforeDiscount >= 1000 && this.selectedMember.type === 'business') {
 
-        console.log('SUPER CUSTOMER');
-
-        this.createForm.patchValue({ total: this.beforeDiscount });
         this.rewardPoint = 100;
         this.createForm.patchValue({businessMemberPoint : this.rewardPoint });
         this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
@@ -441,7 +435,6 @@ export class PreOrderCreateComponent implements OnInit {
       } else if (this.selectedMember.type && this.selectedMember.type === 'individual' || this.selectedMember.type === 'business') {
 
         this.createForm.patchValue({ total: this.beforeDiscount });
-        console.log('HEE TEST');
         this.selectedMember.unExchanged = this.fixedUnExchanged + this.beforeDiscount;
 
         if (this.rewardPoint) {
