@@ -6,7 +6,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
 import { PreOrderComponent } from './pre-order.component';
-import { PreOrderDetailComponent } from './pre-order-detail/pre-order-detail.component';
 import { PreOrderCreateComponent } from './pre-order-create/pre-order-create.component';
 
 import { PreorderService } from './preorder.service';
@@ -14,17 +13,15 @@ import { MemberMgtService } from '../member-mgt/member-mgt.service';
 import { ItemMgtService } from '../item-mgt/item-mgt.service';
 import { PreorderListComponent } from './preorder-list/preorder-list.component';
 import { OnsiteListComponent } from './onsite-list/onsite-list.component';
-import { OnsiteDetailComponent } from './onsite-detail/onsite-detail.component';
-
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: '', component: PreOrderComponent, children: [
     { path: '', redirectTo: 'preorders', pathMatch: 'full'},
     { path: 'preorders', component: PreorderListComponent },
     { path: 'preordering', component: PreOrderCreateComponent },
-    { path: 'preorders/:id', component: PreOrderDetailComponent },
     { path: 'onsites', component: OnsiteListComponent },
-    { path: 'onsites/:id', component: OnsiteDetailComponent }
+    { path: ':id', component: OrderDetailComponent }
   ]}
 ];
 
@@ -40,11 +37,10 @@ const routes: Routes = [
   ],
   declarations: [
     PreOrderComponent,
-    PreOrderDetailComponent,
     PreOrderCreateComponent,
     PreorderListComponent,
     OnsiteListComponent,
-    OnsiteDetailComponent
+    OrderDetailComponent
   ],
   providers: [
     PreorderService,

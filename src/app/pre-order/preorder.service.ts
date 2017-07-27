@@ -50,7 +50,7 @@ export class PreorderService {
     return this.http.post(this.saleUrl, JSON.stringify(saleObject), {
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Accept': 'application/json'
       })
     })
       .map((response: Response) => {
@@ -63,6 +63,25 @@ export class PreorderService {
 
       }).catch(this.serverErrorHandler);
 
+  }
+
+  updateSale(id, saleObject: any) {
+
+    return this.http.put(this.saleUrl + id, JSON.stringify(saleObject), {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    })
+      .map((response: Response) => {
+        const jsonRes = response.json();
+
+        return ({
+          status: 'OK',
+          message: '更新訂單'
+        });
+
+      }).catch(this.serverErrorHandler);
   }
 
 

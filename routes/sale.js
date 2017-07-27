@@ -14,11 +14,11 @@ router.post('/', (req, res) => {
   // Accept an Object according to schema 
   // Object will be in req.body
   let sale = new Sale({
-    type: req.body.type,
     createDate: req.body.createDate,
     lastUpdateDate: req.body.lastUpdateDate,
     buyer: req.body.buyer,
     buyerName: req.body.buyerName,
+    type: req.body.type,
     phone: req.body.phone,
     serveWay: req.body.serveWay,
     deliverDateTime: req.body.deliverDateTime,
@@ -151,6 +151,7 @@ router.get('/onsiteByDate/:date', (req, res) => {
 
 
 router.put('/:id', (req, res) => {
+  console.log(req.body);
   // Find specific item of id and update it .
   // Object will be in req.body 
   Sale.findOne({
@@ -161,32 +162,36 @@ router.put('/:id', (req, res) => {
       return res.status(500).send(err);
     }
 
-    sale.createDate = req.body.orderDate || sale.orderDate;
-    sale.lastUpdateDate = req.body.lastUpdateDate || sale.lastUpdateDate;
-    sale.buyer = req.body.buyer || sale.buyer;
-    sale.buyerName = req.body.buyerName || sale.buyerName;
-    sale.phone = req.body.phone || sale.phone;
-    sale.serveWay = req.body.serveWay || sale.serveWay;
-    sale.deliverDateTime = req.body.deliverDateTime || sale.deliverDateTime;
-    sale.deliverBuildingAddress = req.body.deliverBuildingAddress || sale.deliverBuildingAddress;
-    sale.items = req.body.items || sale.items;
-    sale.tags = req.body.tags || sale.tags;
-    sale.total = req.body.total || sale.total;
-    sale.note = req.body.note || sale.note;
-    sale.weather = req.body.weather || sale.weather;
-    sale.tempture = req.body.tempture || sale.tempture;
+    sale.createDate = req.body.orderDate;
+    sale.lastUpdateDate = req.body.lastUpdateDate;
+    sale.buyer = req.body.buyer;
+    sale.buyerName = req.body.buyerName;
+    sale.type = req.body.type;
+    sale.phone = req.body.phone;
+    sale.serveWay = req.body.serveWay;
+    sale.deliverDateTime = req.body.deliverDateTime;
+    sale.deliverPeriod = req.body.deliverPeriod;
+    sale.deliverAddress = req.body.deliverBuildingAddress;
+    sale.deliverBuilding = req.body.deliverBuilding;
+    sale.orderedItems = req.body.orderedItems;
+    sale.orderedMealSets = req.body.orderedMealSets;
+    sale.tags = req.body.tags;
+    sale.total = req.body.total;
+    sale.note = req.body.note;
+    sale.weather = req.body.weather;
+    sale.tempture = req.body.tempture;
     sale.beenDelivered = req.body.beenDelivered;
-    sale.type = req.body.type || req.body.type;
-    sale.maketingProgram = req.body.maketingProgram || sale.maketingProgram;
-    sale.buyerDiscount = req.body.buyerDiscount || sale.buyerDiscount;
-    sale.businessMemberPoint = req.body.businessMemberPoint || sale.businessMemberPoint;
-    sale.orderCode = req.body.orderCode || sale.orderCode;
-
+    sale.maketingProgram = req.body.maketingProgram;
+    sale.buyerDiscount = req.body.buyerDiscount;
+    sale.businessMemberPoint = req.body.businessMemberPoint;
+    sale.orderCode = req.body.orderCode;
+  
     sale.save((err, sale) => {
       if (err) {
         console.log(err);
         res.status(500).send(err);
       } else {
+        cm.logSuc(`[MONGO] UPDATED - ${sale._id}`);
         res.status(201).send(sale);
       }
     });

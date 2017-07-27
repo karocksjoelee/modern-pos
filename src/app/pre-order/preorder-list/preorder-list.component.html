@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let preorder of preorders" [routerLink]="[preorder._id]">
+    <tr *ngFor="let preorder of preorders" [routerLink]="['/dashboard/preorder/',preorder._id]">
       <td>{{preorder.deliverPeriod}}</td>
       <td>{{preorder.serveWay}}</td>
       <td>{{preorder.buyerName}}</td>
