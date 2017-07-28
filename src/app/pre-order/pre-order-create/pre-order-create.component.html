@@ -142,7 +142,7 @@
     </div>
   </div>
 
-  <a class="ui huge red label" *ngIf="rewardPoint" style="margin:30px;">獲得紅利: {{rewardPoint}}</a>
+  <a class="ui huge red label" *ngIf="createForm.value.businessMemberPoint" style="margin:30px;">獲得紅利: {{createForm.value.businessMemberPoint}}</a>
 
   <div *ngIf="createForm.value.buyer" style="margin:10px;">
     <a *ngFor="let discount of discountArray" class="ui huge violet label" style="margin:30px;" (click)="onExchanging()">可用折價券: {{discount}}</a>
