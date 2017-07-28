@@ -7,6 +7,7 @@
 <table class="ui striped table">
   <thead>
     <tr>
+      <th>#</th>
       <th>餐別</th>
       <th>取餐方式</th>
       <th>購買人</th>
@@ -19,6 +20,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let preorder of preorders" [routerLink]="['/dashboard/preorder/',preorder._id]">
+      <td>{{preorder.orderCode}}</td>
       <td>{{preorder.deliverPeriod}}</td>
       <td>{{preorder.serveWay}}</td>
       <td>{{preorder.buyerName}}</td>
