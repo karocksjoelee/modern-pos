@@ -257,6 +257,15 @@ export class PreOrderCreateComponent implements OnInit {
 
   removeItem(inputItem) {
 
+    const toastWarnOption: ToastOptions = {
+        title: '操作提示',
+        msg: `已刪除餐點: ${inputItem.name}`,
+        timeout: 2000,
+        theme: 'bootstrap'
+    };
+
+    this._toastyService.warning(toastWarnOption);
+
     const tempOrderedItems = this.createForm.value.orderedItems;
     const existItemIndex = tempOrderedItems
       .map((existedItem) => {
@@ -308,6 +317,15 @@ export class PreOrderCreateComponent implements OnInit {
 
 
   removeMealSet(inputMealSet) {
+
+    const toastWarnOption: ToastOptions = {
+        title: '操作提示',
+        msg: `已刪除套餐: ${inputMealSet.setName}`,
+        timeout: 2000,
+        theme: 'bootstrap'
+    };
+
+    this._toastyService.warning(toastWarnOption);
 
     const tempOrderedMealSets = this.createForm.value.orderedMealSets;
     const existMealSetIndex = tempOrderedMealSets
