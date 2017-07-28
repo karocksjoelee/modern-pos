@@ -177,16 +177,15 @@ export class PreOrderCreateComponent implements OnInit {
   }
 
 
-  onSelectedItem(item) {
+  onSelectedItem(inputItem) {
 
-    console.log(item);
-    this.createForm.value.orderedItems.push({itemId: item, quantity: 1});
-    console.log(this.createForm.value.orderedItems);
+    this.increaseItemQuantity(inputItem);
 
   } // end of onSelectedItem()
 
-  onSelectedMealSet(mealSet) {
-    this.createForm.value.orderedMealSets.push({mealSetId: mealSet, quantity: 1});
+  onSelectedMealSet(inputMealSet) {
+
+    this.increaseMealSetQuantity(inputMealSet);
 
   } // end of onSelectMealSet()
 
@@ -198,7 +197,7 @@ export class PreOrderCreateComponent implements OnInit {
 
     const toastWarnOption: ToastOptions = {
         title: '操作提示',
-        msg: '會員資料變更',
+        msg: '會員資料清除',
         timeout: 4000,
         theme: 'bootstrap'
     };
@@ -218,17 +217,108 @@ export class PreOrderCreateComponent implements OnInit {
 
   } // end of clearMember()
 
-  increaseQuantity(meal) {
+  increaseItemQuantity(inputItem) {
 
-  } // end of increaseQuantity()
+    const tempOrderedItems = this.createForm.value.orderedItems;
+    const existItemIndex = tempOrderedItems
+      .map((existedItem) => {
+        return existedItem.itemId._id;
+      })
+      .indexOf(inputItem._id);
 
-  decreaseQuantity(meal) {
+    if (existItemIndex < 0) {
+      this.createForm.value.orderedItems.push({itemId: inputItem, quantity: 1});
+    } else {
+      this.createForm.value.orderedItems[existItemIndex].quantity ++;
+    }
 
-  } // end of decreaseQuantity()
+  } // end of increaseItemQuantity()
 
-  removeMeal(meal) {
+  decreaseItemQuantity(inputItem) {
 
-  } // end of removeMeal()
+    const tempOrderedItems = this.createForm.value.orderedItems;
+    const existItemIndex = tempOrderedItems
+      .map((existedItem) => {
+        return existedItem.itemId._id;
+      })
+      .indexOf(inputItem._id);
+
+    if (existItemIndex < 0) {
+      this.createForm.value.orderedItems.push({itemId: inputItem, quantity: 1});
+    } else {
+      if (this.createForm.value.orderedItems[existItemIndex].quantity > 1) {
+        this.createForm.value.orderedItems[existItemIndex].quantity --;
+      } else {
+        this.removeItem(inputItem);
+      }
+    }
+
+  } // end of decreaseItemQuantity()
+
+  removeItem(inputItem) {
+
+    const tempOrderedItems = this.createForm.value.orderedItems;
+    const existItemIndex = tempOrderedItems
+      .map((existedItem) => {
+        return existedItem.itemId._id;
+      })
+      .indexOf(inputItem._id);
+
+    this.createForm.value.orderedItems.splice(existItemIndex, 1);
+
+  } // end of removeItem()
+
+  increaseMealSetQuantity(inputMealSet) {
+
+    const tempOrderedMealSets = this.createForm.value.orderedMealSets;
+    const existMealSetIndex = tempOrderedMealSets
+      .map((existedMealSet) => {
+        return existedMealSet.mealSetId._id;
+      })
+      .indexOf(inputMealSet._id);
+
+    if (existMealSetIndex < 0) {
+      this.createForm.value.orderedMealSets.push({mealSetId: inputMealSet, quantity: 1});
+    } else {
+      this.createForm.value.orderedMealSets[existMealSetIndex].quantity ++;
+    }
+
+  } // end of increaseMealSetQuantity()
+
+  decreaseMealSetQuantity(inputMealSet) {
+
+    const tempOrderedMealSets = this.createForm.value.orderedMealSets;
+    const existMealSetIndex = tempOrderedMealSets
+      .map((existedMealSet) => {
+        return existedMealSet.mealSetId._id;
+      })
+      .indexOf(inputMealSet._id);
+
+    if (existMealSetIndex < 0) {
+      this.createForm.value.orderedMealSets.push({mealSetId: inputMealSet, quantity: 1});
+    } else {
+      if (this.createForm.value.orderedMealSets[existMealSetIndex].quantity > 1) {
+        this.createForm.value.orderedMealSets[existMealSetIndex].quantity --;
+      } else {
+        this.removeMealSet(inputMealSet);
+      }
+    }
+
+  } // end of decreaseMealSetQuantity()
+
+
+  removeMealSet(inputMealSet) {
+
+    const tempOrderedMealSets = this.createForm.value.orderedMealSets;
+    const existMealSetIndex = tempOrderedMealSets
+      .map((existedMealSet) => {
+        return existedMealSet.mealSetId._id;
+      })
+      .indexOf(inputMealSet._id);
+
+    this.createForm.value.orderedMealSets.splice(existMealSetIndex, 1);
+
+  } // end of removeMealSet()
 
   onExchanging() {
 

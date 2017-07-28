@@ -103,12 +103,12 @@
         {{orderedItem.itemId.name}}
       </div>
       <div class="field">
-        <i class="large minus square outline icon" (click)="decreaseQuantity(selectedMeal)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{orderedItem.quantity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="large minus square outline icon" (click)="decreaseItemQuantity(orderedItem.itemId)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{orderedItem.quantity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <i
-          (click)="increaseQuantity(selectedMeal)" class="large plus square outline icon"></i>
+          (click)="increaseItemQuantity(orderedItem.itemId)" class="large plus square outline icon"></i>
       </div>
       <div class="field">
-        <i class="large remove icon" (click)="removeMeal(selectedMeal)"></i>
+        <i class="large remove icon" (click)="removeItem(orderedItem.itemId)"></i>
       </div>
     </div>
     <div class="six fields" *ngFor="let orderedMealSet of createForm.value.orderedMealSets">
@@ -116,12 +116,12 @@
         {{orderedMealSet.mealSetId.setName}}
       </div>
       <div class="field">
-        <i class="large minus square outline icon" (click)="decreaseQuantity(selectedMeal)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{orderedMealSet.quantity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="large minus square outline icon" (click)="decreaseMealSetQuantity(orderedMealSet.mealSetId)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{orderedMealSet.quantity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <i
-          (click)="increaseQuantity(selectedMeal)" class="large plus square outline icon"></i>
+          (click)="increaseMealSetQuantity(orderedMealSet.mealSetId)" class="large plus square outline icon"></i>
       </div>
       <div class="field">
-        <i class="large remove icon" (click)="removeMeal(selectedMeal)"></i>
+        <i class="large remove icon" (click)="removeMealSet(orderedMealSet.mealSetId)"></i>
       </div>
     </div>
     <div class="ui horizontal divider">
