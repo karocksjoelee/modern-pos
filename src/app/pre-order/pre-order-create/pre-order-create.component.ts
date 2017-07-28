@@ -181,17 +181,13 @@ export class PreOrderCreateComponent implements OnInit {
 
     this.increaseItemQuantity(inputItem);
 
-  } // end of onSelectedItem()
+  }
 
   onSelectedMealSet(inputMealSet) {
 
     this.increaseMealSetQuantity(inputMealSet);
 
-  } // end of onSelectMealSet()
-
-  calculateTotal(discount) {
-
-  } // end of calculateTotal()
+  }
 
   clearMember() {
 
@@ -208,7 +204,6 @@ export class PreOrderCreateComponent implements OnInit {
     this.createForm.patchValue({ buyerName: '' });
     this.createForm.patchValue({ phone: ''});
     this.createForm.patchValue({ note: ''});
-    this.calculateTotal(false);
     this.selectedMember = null;
 
     if (this.discountClick > 0) {
@@ -232,6 +227,8 @@ export class PreOrderCreateComponent implements OnInit {
       this.createForm.value.orderedItems[existItemIndex].quantity ++;
     }
 
+    this.caculateTotal();
+
   } // end of increaseItemQuantity()
 
   decreaseItemQuantity(inputItem) {
@@ -252,6 +249,8 @@ export class PreOrderCreateComponent implements OnInit {
         this.removeItem(inputItem);
       }
     }
+
+    this.caculateTotal();
 
   } // end of decreaseItemQuantity()
 
@@ -275,6 +274,8 @@ export class PreOrderCreateComponent implements OnInit {
 
     this.createForm.value.orderedItems.splice(existItemIndex, 1);
 
+    this.caculateTotal();
+
   } // end of removeItem()
 
   increaseMealSetQuantity(inputMealSet) {
@@ -291,6 +292,8 @@ export class PreOrderCreateComponent implements OnInit {
     } else {
       this.createForm.value.orderedMealSets[existMealSetIndex].quantity ++;
     }
+
+    this.caculateTotal();
 
   } // end of increaseMealSetQuantity()
 
@@ -312,6 +315,8 @@ export class PreOrderCreateComponent implements OnInit {
         this.removeMealSet(inputMealSet);
       }
     }
+
+    this.caculateTotal();
 
   } // end of decreaseMealSetQuantity()
 
@@ -336,6 +341,8 @@ export class PreOrderCreateComponent implements OnInit {
 
     this.createForm.value.orderedMealSets.splice(existMealSetIndex, 1);
 
+    this.caculateTotal();
+
   } // end of removeMealSet()
 
   onExchanging() {
@@ -350,12 +357,25 @@ export class PreOrderCreateComponent implements OnInit {
       this._toastyService.error(toastErrOption);
     } else {
       this.discountClick++;
-      this.calculateTotal(true);
       this.discountArray.pop();
       const progrmaticNote = this.createForm.value.note.concat('\n[已使用一張折價券]');
       this.createForm.patchValue({note: progrmaticNote});
     }
 
-  }
+  } // end of onExchanging()
+
+  caculateTotal() {
+
+    const itemsTotal = this.createForm.value.orderedItems.reduce((total, ordered) => {
+      return total + ordered.itemId.price * ordered.quantity;
+    }, 0);
+
+    const mealSetsTotal = this.createForm.value.orderedMealSets.reduce((total, ordered) => {
+      return total + ordered.mealSetId.price * ordered.quantity;
+    }, 0);
+
+    this.beforeDiscount = itemsTotal + mealSetsTotal;
+    this.createForm.patchValue({total: this.beforeDiscount});
+  } // end of caculateTotal()
 
 }
