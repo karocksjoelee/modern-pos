@@ -145,13 +145,13 @@ export class PreOrderCreateComponent implements OnInit {
       this._toastyService.error(toastErrOption);
       return;
     }
+
     // Programatic Writing
     if (this.createForm.value.deliverDateTime.formatted) {
       this.createForm.patchValue({deliverDateTime: this.createForm.value.deliverDateTime.formatted});
     }
     this.createForm.patchValue({ createDate: moment().format()});
     const humanReadCode = `${this.createForm.value.deliverDateTime.replace('/', '').replace('/', '')}:${Math.floor(Math.random() * 9999) + 1}`;
-    console.log(humanReadCode);
     this.createForm.patchValue({ orderCode: humanReadCode});
     // Store Object to id;
     this.createForm.value.orderedItems.map((ordered) => {
@@ -200,9 +200,6 @@ export class PreOrderCreateComponent implements OnInit {
         // Sale Process Completed
       }
     );
-
-    console.log(this.createForm.value);
-    console.log(this.selectedMember);
 
   } // end of newOrder()
 
@@ -468,23 +465,27 @@ export class PreOrderCreateComponent implements OnInit {
           this.createForm.patchValue({businessMemberPoint: 100 * bonusWeight});
           // (2) Increase Member UnExchanged (After Discount)
           this.selectedMember.unExchanged = this.preUnExchanged + 100 * bonusWeight + this.createForm.value.total;
-          // (3) Increase Member ExChanged (After Discount)
+          // (3) Increase After Discount total & Decrease Member UnExchanged (After Discount)
+          this.selectedMember.unExchanged = this.preUnExchanged + 100 * bonusWeight + this.createForm.value.total - 1000 * this.createForm.value.buyerDiscount;
+          // (4) Increase Member ExChanged (After Discount)
           this.selectedMember.exchanged = this.preExchanged + 1000 * this.createForm.value.buyerDiscount;
         } else {
-          this.selectedMember.unExchanged = this.preUnExchanged + this.createForm.value.total;
+          this.selectedMember.unExchanged = this.preUnExchanged + this.createForm.value.total - 1000 * this.createForm.value.buyerDiscount;
           this.selectedMember.exchanged = this.preExchanged + 1000 * this.createForm.value.buyerDiscount;
         }
       } else {
+
         if (this.createForm.value.buyer.type === 'business' && this.createForm.value.total >= 1000) {
-          // Give Business Bonus Point :
+          // (1) Give Business Bonus Point :
           const bonusWeight = Math.floor(this.createForm.value.total / 1000);
           this.selectedMember.unExchanged = this.preUnExchanged + 100 * bonusWeight;
           this.createForm.patchValue({businessMemberPoint: 100 * bonusWeight});
-          // Increase Member UnExChanged (Non Discount)
+          // (2) Increase Member UnExChanged (Non Discount)
           this.selectedMember.unExchanged = this.preUnExchanged + 100 * bonusWeight + this.createForm.value.total;
         } else {
           this.selectedMember.unExchanged = this.preUnExchanged + this.createForm.value.total;
         }
+
       } // end of check if else discounted
 
     } // end of check if isMember;

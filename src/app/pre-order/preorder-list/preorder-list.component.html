@@ -4,18 +4,18 @@
   <i class="large calendar icon"></i>
 </div>
 
-<table class="ui striped table">
+<table class="ui striped table" style="width:100%">
   <thead>
     <tr>
-      <th>#</th>
-      <th>餐別</th>
-      <th>取餐方式</th>
-      <th>購買人</th>
-      <th>聯絡電話</th>
-      <th>外送地址</th>
-      <th>點餐內容</th>
-      <th>總金額</th>
-      <th>訂單備註</th>
+      <th style="font-weight:bolder; font-size:110%;">#</th>
+      <th style="font-weight:bolder; font-size:110%;">餐別</th>
+      <th style="font-weight:bolder; font-size:110%;">取餐方式</th>
+      <th style="font-weight:bolder; font-size:110%;">購買人</th>
+      <th style="font-weight:bolder; font-size:110%;">聯絡電話</th>
+      <th style="font-weight:bolder; font-size:110%;">外送地址</th>
+      <th style="font-weight:bolder; font-size:110%;">點餐內容</th>
+      <th style="font-weight:bolder; font-size:110%;">總金額</th>
+      <th style="font-weight:bolder; font-size:110%; width:15%;">訂單備註</th>
     </tr>
   </thead>
   <tbody>
@@ -29,7 +29,7 @@
       <td *ngIf="preorder.orderedItems || preorder.orderedMealSets">
         <p *ngFor="let orderedItem of preorder.orderedItems">{{orderedItem.itemId.name}} X {{orderedItem.quantity}}</p>
         <p *ngFor="let orderedMealSet of preorder.orderedMealSets">{{orderedMealSet.mealSetId.setName}} X {{orderedMealSet.quantity}}</p>
-        <p>{{preorder.orderedItems.length + preorder.orderedMealSets.length}} 樣 , 共{{preorder.quantityCount}}個</p>
+        <p style="font-weight:bold; font-size:110%;">{{preorder.orderedItems.length + preorder.orderedMealSets.length}} 樣 , 共{{preorder.quantityCount}}個</p>
       </td>
       <td>{{preorder.total}}</td>
       <td>{{preorder.note}}</td>
