@@ -14,6 +14,7 @@ import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { BuildingCreateComponent } from './building-create/building-create.component';
 import { BuildingDetailComponent } from './building-detail/building-detail.component';
 import { MemberMgtService } from './member-mgt.service';
+import { MemberFilterPipe } from './member-filter.pipe';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
     MemberDetailComponent,
     BuildingCreateComponent,
     BuildingDetailComponent,
+    MemberFilterPipe
     ],
   providers: [MemberMgtService]
 })

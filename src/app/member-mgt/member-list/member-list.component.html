@@ -1,6 +1,12 @@
+<div class="ui search search-area">
+  <div class="ui icon input">
+    <input class="prompt" type="text" placeholder="輸入會員手機號碼或姓名" #searchInput (keyup)="0">
+    <i class="search icon"></i>
+  </div>
+</div>
 
 <div class="ui cards">
-  <div class="card" *ngFor="let member of members">
+  <div class="card" *ngFor="let member of members | memberFilter: searchInput.value">
     <div class="content" [routerLink]="[member._id]">
       <img class="right floated mini ui image"  *ngIf="member.gender == 'male'" src="assets/img/male_avatar.jpg">
       <img class="right floated mini ui image"  *ngIf="member.gender =='female'" src="assets/img/female_avatar.jpg">
