@@ -169,12 +169,12 @@
     <div class="small-breathe"></div>
     <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
       <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="輸入會員手機號碼...">
+        <input class="prompt" type="text" placeholder="輸入會員手機號碼..." #searchInput (keyup)="0">
         <i class="search icon"></i>
       </div>
     </div>
     <div class="ui cards">
-      <div class="card" *ngFor="let member of members" (click)="onSelectedMember(member)">
+      <div class="card" *ngFor="let member of members | memberFilter: searchInput.value" (click)="onSelectedMember(member)">
         <div class="content">
           <div class="header">{{member.name}}</div>
           <div class="meta">{{member.phone}}</div>

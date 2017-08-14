@@ -6,7 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class MemberFilterPipe implements PipeTransform {
     transform(members: any, args: any[]): any {
-        console.log('args :',args);
+
+        if (!members) {
+            return members;
+        }
+
         return members.filter((member) => {
             return member.phone.includes(args) || member.name.includes(args);
         });

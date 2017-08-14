@@ -15,6 +15,7 @@ import { ItemMgtService } from '../item-mgt/item-mgt.service';
 import { PreorderListComponent } from './preorder-list/preorder-list.component';
 import { OnsiteListComponent } from './onsite-list/onsite-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: PreOrderComponent, children: [
@@ -31,6 +32,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     NgxMyDatePickerModule,
     ModalModule.forRoot(),

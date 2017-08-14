@@ -14,7 +14,7 @@ import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { BuildingCreateComponent } from './building-create/building-create.component';
 import { BuildingDetailComponent } from './building-detail/building-detail.component';
 import { MemberMgtService } from './member-mgt.service';
-import { MemberFilterPipe } from './member-filter.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -38,7 +38,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   declarations: [
     MemberMgtComponent,
@@ -47,8 +48,7 @@ const routes: Routes = [
     MemberCreateComponent,
     MemberDetailComponent,
     BuildingCreateComponent,
-    BuildingDetailComponent,
-    MemberFilterPipe
+    BuildingDetailComponent
     ],
   providers: [MemberMgtService]
 })
