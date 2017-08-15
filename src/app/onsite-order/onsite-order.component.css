@@ -1,43 +1,98 @@
-.flexContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    align-content: flex-start;
-    flex-wrap: wrap;
+.wrapper{
+    /* autoprefixer: off */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 1em;
+
 }
 
-.meal-display {
-    border: 2px solid blue;
-    width: 65%;
-    height: 500px;
+.menu{
+    /* autoprefixer: off */
+    border: 1px solid cornflowerblue;
+    grid-row: 1/35;
 }
 
-.checkout-area {
-    border: 2px solid orange; 
-    width: 32%;
-    height: 500px;
-} 
-
-.onsite-note {
-    margin-top:20px;
-    border: 2px solid red;
-    width: 25%;
-    height: 200px;
+.checkout-info {
+    /* border: 1px solid darkcyan; */
+    /* autoprefixer: off */
+    grid-row: 1/35;
+    display: grid;
+    grid-row-gap: 0.3em;
+    grid-template-rows: 2fr 1fr 2fr;
 }
 
-.customer-tag {
-    margin-top:20px;
-    border: 2px solid purple;
-    width: 35%;
-    height: 200px;
-    margin-right: -29px;
+.member-info {
+    border: 1px solid orange;
 }
 
-.checkout-button {
-    margin-top:20px;
-    border: 2px solid greenyellow;
-    width: 30%;
-    height: 200px;
-    margin-right: 29px;
+.total {
+    /* border: 1px solid lightcoral; */
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    font-size: 250%;
 }
+
+.total-text {
+   /* padding-left: 35px; */
+    align-self: center;
+    justify-self: center;
+    font-weight: bold;
+}
+
+.total-number {
+    align-self: center;
+    justify-self: start;
+}
+
+.options {
+    /* autoprefixer: off */
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-row-gap: 1em;
+}
+
+.notes {
+    /* autoprefixer: off */
+    /* border: 1px solid indianred; */
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-row: 35/53;
+    grid-column-gap: 1em;
+}
+
+textarea {
+    padding: 20px;
+    font-size: 130%;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    border: 0 ;
+}
+
+.tags {
+    /* border: 1px solid hotpink; */
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(4,1fr);
+}
+
+.label {
+  align-self: center;
+  justify-self: center;
+}
+
+.checkout {
+    /* autoprefixer: off */
+    /* border: 1px solid goldenrod; */
+    grid-row: 35/53;
+}
+
+.checkout > button {
+    font-size: 250%;
+    align-self: center;
+    margin-left: 2em;
+}
+
+.clear-button {
+    margin-top: 1em;
+}
+
