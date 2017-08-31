@@ -18,7 +18,7 @@ import { ItemMgtService } from '../../item-mgt/item-mgt.service';
 })
 export class PreOrderCreateComponent implements OnInit {
 
-  private datePickerOptions: INgxMyDpOptions = {
+  public datePickerOptions: INgxMyDpOptions = {
     dateFormat: 'yyyy/mm/dd',
     selectorHeight: '290px',
     selectorWidth: '260px'

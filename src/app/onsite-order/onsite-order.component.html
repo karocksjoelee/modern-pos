@@ -1,5 +1,27 @@
 <div class="wrapper">
-  <div class="menu">菜單列表</div>
+  <div class="menu">
+    <tabset [justified]="true">
+      <tab heading="餐　　　點">
+        <p></p>
+        <div class="item-cards">
+          <div class="item-card" *ngFor="let item of items">
+            <p>{{item.name}}</p>
+            <p>{{item.price}}</p>
+          </div>
+        </div>
+      </tab>
+      <tab heading="套　　　餐">
+        <p></p>
+        <div class="item-cards">
+          <div class="item-card" *ngFor="let mealSet of mealSets">
+            <p>{{mealSet.setName}}</p>
+            <p>{{mealSet.price}}</p>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+    <p></p>
+  </div>
 
   <div class="checkout-info">
     <div class="member-info">已選會員資訊</div>
@@ -19,7 +41,7 @@
       <button class="huge ui button"><i class="coffee icon"></i>內&nbsp;&nbsp;用</button>
       <button class="huge ui button"><i class="spoon icon"></i>外&nbsp;&nbsp;帶</button>
       <button class="huge ui button"><i class="star half empty icon"></i>九&nbsp;&nbsp;折</button>
-      <button class="huge grey ui basic button"></button>
+      <button class="huge ui button"><i class="star half empty icon"></i>- &nbsp;&nbsp;5元</button>
       <button class="huge grey ui basic button"></button>
     </div>
   </div>
