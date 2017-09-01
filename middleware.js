@@ -19,6 +19,7 @@ const marketingProgramRoute = require('./routes/marketingProgram');
 const mealSetRoute = require('./routes/mealSet');
 const memberRoute = require('./routes/member');
 const saleRoute = require('./routes/sale');
+const fallback = require('express-history-api-fallback');
 
 
 
@@ -50,6 +51,8 @@ app.use('/api/marketingProgram(s)?', marketingProgramRoute);
 app.use('/api/mealSet(s)?', mealSetRoute);
 app.use('/api/member(s)?', memberRoute);
 app.use('/api/sale(s)?', saleRoute);
+
+app.use(fallback(__dirname + '/dist/index.html'));
 
 // Catch 404 and forward to Error Handler
 app.use(function (req, res, next) {

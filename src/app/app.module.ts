@@ -36,7 +36,7 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes)
   ],
   providers: [RealTimeService],
   bootstrap: [AppComponent]
