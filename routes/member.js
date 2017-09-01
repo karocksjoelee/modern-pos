@@ -1,17 +1,18 @@
-// Module Dependencies 
+// Module Dependencies
 // ==========================================================================================
 const express = require('express');
 const router = express.Router();
+const cm = require('../utility/common-module');
 
-// Mongo Schema 
+// Mongo Schema
 const Member = require('../models/member');
 
 
-// RESTful API 
+// RESTful API
 // ==========================================================================================
 router.post('/', (req, res) => {
 
-  // Accept an Object according to schema 
+  // Accept an Object according to schema
   // Object will be in req.body
   let member = new Member({
     name: req.body.name,
@@ -51,7 +52,7 @@ router.post('/', (req, res) => {
 router.get('/(:id)?', (req, res) => {
 
   if (!req.params.id) {
-    // if doesn't provide id in url params , return all 
+    // if doesn't provide id in url params , return all
     Member.find({})
       .populate('Buildings')
       .populate("Sale")
@@ -60,12 +61,13 @@ router.get('/(:id)?', (req, res) => {
           console.log(err);
           res.status(500).send(err);
         } else {
+          cm.logSuc(`[MONGO] GOT ${member.length} Members`);
           res.status(200).send(member);
         }
       });
 
   } else {
-    // Or get item by id 
+    // Or get item by id
     Member.findOne({
         _id: req.params.id
       })
@@ -86,7 +88,7 @@ router.get('/(:id)?', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // Find specific item of id and update it .
-  // Object will be in req.body 
+  // Object will be in req.body
   Member.findOne({
     _id: req.params.id
   }, (err, member) => {
