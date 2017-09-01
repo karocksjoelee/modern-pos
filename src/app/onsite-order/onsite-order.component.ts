@@ -23,6 +23,7 @@ export class OnsiteOrderComponent implements OnInit {
   members;
   items;
   mealSets;
+  ngMembersModal;
 
   constructor(private _preorderService: PreorderService,
               private _memberMgtService: MemberMgtService,
@@ -77,6 +78,14 @@ export class OnsiteOrderComponent implements OnInit {
       console.log(this.mealSets);
     });
 
+  }
+
+  selectingMember() {
+    this.ngMembersModal = true;
+  }
+
+  closeMembersModal() {
+    this.ngMembersModal = false;
   }
 
 }

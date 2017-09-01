@@ -5,8 +5,9 @@
         <p></p>
         <div class="item-cards">
           <div class="item-card" *ngFor="let item of items">
-            <p>{{item.name}}</p>
-            <p>{{item.price}}</p>
+            <p></p>
+            <h3>&nbsp;&nbsp;{{item.name}}</h3>
+            <a class="ui large blue tag label" style="margin-left:150px;">NT${{item.price}}</a>
           </div>
         </div>
       </tab>
@@ -14,8 +15,9 @@
         <p></p>
         <div class="item-cards">
           <div class="item-card" *ngFor="let mealSet of mealSets">
-            <p>{{mealSet.setName}}</p>
-            <p>{{mealSet.price}}</p>
+            <p></p>
+            <h3>&nbsp;&nbsp;{{mealSet.setName}}</h3>
+            <a class="ui large blue tag label" style="margin-left:150px;">NT${{mealSet.price}}</a>
           </div>
         </div>
       </tab>
@@ -37,7 +39,7 @@
     </div>
 
     <div class="options">
-      <button class="huge ui button"><i class="hand pointer icon"></i>會&nbsp;&nbsp;員</button>
+      <button class="huge ui button" (click)="selectingMember()"><i class="hand pointer icon"></i>會&nbsp;&nbsp;員</button>
       <button class="huge ui button"><i class="coffee icon"></i>內&nbsp;&nbsp;用</button>
       <button class="huge ui button"><i class="spoon icon"></i>外&nbsp;&nbsp;帶</button>
       <button class="huge ui button"><i class="star half empty icon"></i>九&nbsp;&nbsp;折</button>
@@ -69,3 +71,29 @@
     </button>
   </div>
 </div>
+
+
+<!--Members Modal Here-->
+<div id="myModal" class="ui modal" style="width:1000px;" [ngClass]="{'active': ngMembersModal}">
+    <div class="header">
+      <i (click)="closeMembersModal()" class="close icon"></i>已註冊會員
+    </div>
+    <div class="description" style="padding-left:30px; margin-bottom:10px; overflow:auto; height:350px;">
+      <div class="small-breathe"></div>
+      <div class="ui category search" style="margin-top:10px; margin-bottom:10px; margin-left:15px;">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="輸入會員手機號碼..." #searchInput (keyup)="0">
+          <i class="search icon"></i>
+        </div>
+      </div>
+      <div class="ui cards">
+        <div class="card" *ngFor="let member of members">
+          <div class="content">
+            <div class="header">{{member.name}}</div>
+            <div class="meta">{{member.phone}}</div>
+            <div class="meta">累積金額 : {{member.unExchanged}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
