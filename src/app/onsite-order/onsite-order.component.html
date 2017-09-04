@@ -40,8 +40,8 @@
 
     <div class="options">
       <button class="huge ui button" (click)="selectingMember()"><i class="hand pointer icon"></i>會&nbsp;&nbsp;員</button>
-      <button class="huge ui button"><i class="coffee icon"></i>內&nbsp;&nbsp;用</button>
-      <button class="huge ui button"><i class="spoon icon"></i>外&nbsp;&nbsp;帶</button>
+      <button class="huge ui button" (click)="setEatHere()" [ngClass]="{ 'primary' : createForm.value.serveWay === 'eat-here'}"><i class="coffee icon"></i>內&nbsp;&nbsp;用</button>
+      <button class="huge ui button" (click)="setTakeOut()" [ngClass]="{ 'primary' : createForm.value.serveWay === 'take-out'}"><i class="spoon icon"></i>外&nbsp;&nbsp;帶</button>
       <button class="huge ui button"><i class="star half empty icon"></i>九&nbsp;&nbsp;折</button>
       <button class="huge ui button"><i class="star half empty icon"></i>- &nbsp;&nbsp;5元</button>
       <button class="huge grey ui basic button"></button>
@@ -63,7 +63,7 @@
   </div>
 
   <div class="checkout">
-    <button class="massive ui primary button"><i class="shop icon"></i>
+    <button class="massive ui primary button" (click)="newOrder()"><i class="shop icon"></i>
       結&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帳
     </button>
     <button class="massive ui red button clear-button"><i class="remove icon"></i>

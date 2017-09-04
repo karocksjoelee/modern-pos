@@ -40,7 +40,7 @@ export class OnsiteOrderComponent implements OnInit {
       'buyerName': new FormControl(''),
       'type': new FormControl(''),
       'phone': new FormControl(''),
-      'serveWay': new FormControl(''),
+      'serveWay': new FormControl('take-out'),
       'deliverDateTime': new FormControl(''),
       'deliverPeriod': new FormControl(''),
       'deliverAddress': new FormControl(''),
@@ -80,12 +80,24 @@ export class OnsiteOrderComponent implements OnInit {
 
   }
 
+  setTakeOut() {
+    this.createForm.patchValue({ serveWay : 'take-out'});
+  }
+
+  setEatHere() {
+    this.createForm.patchValue({ serveWay : 'eat-here'});
+  }
+
   selectingMember() {
     this.ngMembersModal = true;
   }
 
   closeMembersModal() {
     this.ngMembersModal = false;
+  }
+
+  newOrder() {
+    console.log(this.createForm.value);
   }
 
 }
