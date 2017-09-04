@@ -24,6 +24,16 @@ export class OnsiteOrderComponent implements OnInit {
   items;
   mealSets;
   ngMembersModal;
+  tags: Array<Object> = [
+    { tagName: '男性', tagStatus: false },{ tagName: '女性', tagStatus: false },
+    { tagName: '老年人', tagStatus: false },{ tagName: '青壯年', tagStatus: false },
+    { tagName: '情侶', tagStatus: false },{ tagName: '家庭', tagStatus: false },
+    { tagName: '常客', tagStatus: false },{ tagName: '久待', tagStatus: false },
+    { tagName: 'LN預訂', tagStatus: false },{ tagName: 'LN點餐', tagStatus: false },
+    { tagName: 'FB點餐', tagStatus: false },{ tagName: '健身族', tagStatus: false },
+    { tagName: '同事', tagStatus: false },{ tagName: '上班族', tagStatus: false },
+  ];
+
 
   constructor(private _preorderService: PreorderService,
               private _memberMgtService: MemberMgtService,
@@ -47,7 +57,7 @@ export class OnsiteOrderComponent implements OnInit {
       'deliverBuilding': new FormControl(),
       'orderedItems': new FormControl([]),
       'orderedMealSets': new FormControl([]),
-      'tags': new FormControl(''),
+      'tags': new FormControl(this.tags),
       'total': new FormControl(''),
       'note': new FormControl(''),
       'weather': new FormControl(''),
@@ -86,6 +96,18 @@ export class OnsiteOrderComponent implements OnInit {
 
   setEatHere() {
     this.createForm.patchValue({ serveWay : 'eat-here'});
+  }
+
+  updateTag(targetTag) {
+    this.createForm.value.tags.forEach((tag) => {
+      if (tag.tagName === targetTag.tagName) {
+        if (tag.tagStatus) {
+          tag.tagStatus = false;
+        } else {
+          tag.tagStatus = true;
+        }
+      }
+    });
   }
 
   selectingMember() {

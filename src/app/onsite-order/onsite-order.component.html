@@ -51,14 +51,7 @@
   <div class="notes">
     <textarea rows="4" cols="30" class="note" placeholder="訂單備註 ..."></textarea>
     <div class="tags">
-      <a class="big ui grey label">男性</a>
-      <a class="big ui grey label">女性</a>
-      <a class="big ui grey label">老年人</a>
-      <a class="big ui grey label">青壯年</a>
-      <a class="big ui grey label">情侶</a>
-      <a class="big ui grey label">常客</a>
-      <a class="big ui grey label">家庭</a>
-      <a class="big ui grey label">久待</a>
+      <a class="big ui label" [ngClass]="{'grey': tag.tagStatus === false , 'blue' : tag.tagStatus }" *ngFor="let tag of createForm.value.tags" (click)="updateTag(tag)">{{tag.tagName}}</a>
     </div>
   </div>
 
