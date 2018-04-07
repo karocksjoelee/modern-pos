@@ -45,7 +45,7 @@ router.get('/(:id)?', (req, res) => {
   if (!req.params.id) {
     // if doesn't provide id in url params , return all 
     Item.find({})
-      .populate("ingredient")
+      .populate("ingredient") 
       .exec((err, items) => {
         if (err) {
           console.log(err);
